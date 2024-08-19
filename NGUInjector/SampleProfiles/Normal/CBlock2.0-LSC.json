@@ -1,0 +1,53 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit % to 0; Adventure Tab - Turn on Combat (Target: A Very Strange Place, Idle Mode, Allow Fallthrough -> Optionally enable ITOPOD after unlocking TM to get some PP); Gold Tab - Turn on CBlock Mode",
+	"Comment" : "Put low targets on AT-0/1/2 and put high or infinite targets on AT-3/4. If we run long enough to unlock AT that means we need to focus on Wandoos for power (ie: NORB, NOTM, NOAUG, etc)",
+	"CommentForNORB" : "Make sure to EAT the Yggdrasil Power fruit",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "CAPTM:10", "CAPWAN:10", "CAPAUG-12:80", "BESTAUG" ]
+      },
+      {
+        "Time": { "m": 15 },
+        "Priorities": [ "CAPALLBT", "CAPWAN:10", "CAPAUG-12:80", "AUG-13" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWAN:10", "BR-300:90", "TM" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 173, 185, 186, 187, 168, 189, 160, 443, 442, 161, 138, 441 ],
+        "Comment": "Balance TM, Wandoos, BR and Augs"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 2, 3, 10, 11 ],
+        "Comment": "Wandoos + Stats + Adventure + Exp"
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 100000,
+	  "Challenges": [ 
+		"LSC-3", "LSC-4", "LSC-5", 
+		"LSC-6", "LSC-7", "LSC-8", "LSC-9", "LSC-10", 
+		"LSC-11", "LSC-12", "LSC-13", "LSC-14", "LSC-15", 
+		"LSC-16", "LSC-17", "LSC-18", "LSC-19", "LSC-20"
+	  ]
+	}
+  }
+}

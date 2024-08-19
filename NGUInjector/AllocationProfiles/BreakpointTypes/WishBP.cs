@@ -26,6 +26,7 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
 
             SetInput(MaxAllocation);
             var c = Character.wishesController;
+
             switch (Type)
             {
                 case ResourceType.Energy:

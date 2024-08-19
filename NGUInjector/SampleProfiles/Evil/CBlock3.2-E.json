@@ -1,0 +1,71 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit/Iron Pill to 0, Number to 1E+20; Adventure Tab - Do combat in ITOPOD (combat in a lower zone for gold prior to boss 30); Gold Tab - Turn on CBlock Mode",
+	"AdvTraining" : "Put low targets on AT-0/1/2 and put high or infinite targets on AT-3/4. If we run long enough to unlock AT that means we need to focus on Wandoos for power (ie: NORB, NOTM, NOAUG, etc)",
+	"Beards" : "Swap BEARd to LadyBeard",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLNGU:5", "CAPALLBT", "CAPALLAT", "CAPWAN:50", "CAPTM:25", "CAPBESTAUG", "WAN" ],
+        "PrioritiesDefault": [ "CAPALLNGU:5", "CAPALLBT", "CAPALLAT", "CAPWAN:50", "CAPTM:25", "CAPBESTAUG", "WAN" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLNGU:5", "CAPWAN:50", "CAPTM:25", "BR", "WAN" ],
+        "PrioritiesDefault": [ "CAPALLNGU:5", "CAPWAN:50", "CAPTM:25", "BR", "WAN" ],
+        "PrioritiesForNOTM": [ "CAPALLNGU:5", "CAPWAN:50", "RIT-7:20", "WAN" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "HACK-0" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 241, 237, 238, 239, 240,   190, 445, 242,   243, 195, 218, 446, 194,   189, 161, 138 ],
+        "Default-NGU2TM5Wan": [ 241, 237, 238, 239, 240,   190, 445, 242,   243, 195, 218, 446, 194,   189, 161, 138 ],
+        "NOTM-Gold3Wan4AT": [ 241, 164, 238, 239, 240,   192, 142, 136,   189, 161, 218, 138,   101, 194, 446 ],
+		"NORB-NGU3TM3Aug2Wan": [ 241, 237, 238, 239, 240,   445, 243, 242,   195, 218, 446,   194, 226,   189, 161, 138 ],
+        "Comment": "Maximize TM & Wandoos, maximize gold drop accessories for NOTM"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 4, 5, 8, 10, 11 ],
+        "Comment": "Wandoos + Stats + E/MNGU + PP + Blood + Exp"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 0
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 1000,
+	  "Challenges": [ 
+	    "NOTM-1", 
+		"NOAUG-1", "NOAUG-2", "NOAUG-3", "NOAUG-4", "NOAUG-5", 
+		"TC-1", "TC-2",
+		"NONGU-1", 
+		"BASIC-1", "BASIC-2", "BASIC-3", "BASIC-4", "BASIC-5",
+		"BLIND-1",
+		"NORB-1", "NORB-2", "NORB-3", "NORB-4", "NORB-5", "NORB-6",
+		"24HR-1"
+	  ]
+	}
+  }
+}

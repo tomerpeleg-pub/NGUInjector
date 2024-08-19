@@ -1,9 +1,17 @@
-﻿using System;
+﻿using NGUInjector.AllocationProfiles;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Security.Policy;
+using System.Text;
+using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 using static NGUInjector.Main;
 using static NGUInjector.Managers.CombatHelpers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskBand;
 
 namespace NGUInjector.Managers
 {
@@ -14,7 +22,6 @@ namespace NGUInjector.Managers
         private bool _isFighting = false;
         private float _fightTimer = 0;
         private string _enemyName;
-        private DateTime move69Cooldown = DateTime.MinValue;
 
         public CombatManager()
         {
@@ -27,265 +34,24 @@ namespace NGUInjector.Managers
             _fightTimer += diff;
         }
 
-        bool HasFullHP()
+        private void DoCombat(bool fastCombat, bool smartBeastMode)
         {
-            return Math.Abs(_character.totalAdvHP() - _character.adventure.curHP) < 5;
-        }
-
-        float GetHPPercentage()
-        {
-            return _character.adventure.curHP / _character.totalAdvHP();
-        }
-
-        private void DoCombat(bool fastCombat)
-        {
-            if (!_pc.moveCheck())
+            if (!_pc.canUseMove || !_pc.moveCheck())
                 return;
 
-            if (Main.PlayerController.moveTimer > 0)
-                return;
+            CombatAI combatAI = new CombatAI(_character, fastCombat, smartBeastMode);
 
-            if (!fastCombat)
+            if (combatAI.DoPreCombat())
             {
-                if (CombatBuffs())
-                    return;
-            }
-
-            CombatAttacks(fastCombat);
-        }
-
-        private bool CombatBuffs()
-        {
-            var ac = _character.adventureController;
-            var ai = ac.currentEnemy.AI;
-            var eai = ac.enemyAI;
-
-            if (ai == AI.charger && eai.GetPV<int>("chargeCooldown") >= 3)
-            {
-                if (ac.blockMove.button.IsInteractable() && !_pc.isParrying)
-                {
-                    ac.blockMove.doMove();
-                    return true;
-                }
-
-                if (ac.parryMove.button.IsInteractable() && !_pc.isBlocking && !_pc.isParrying)
-                {
-                    ac.parryMove.doMove();
-                    return true;
-                }
-            }
-
-            if (ai == AI.rapid && eai.GetPV<int>("rapidEffect") >= 6)
-            {
-                if (ac.blockMove.button.IsInteractable())
-                {
-                    ac.blockMove.doMove();
-                    return true;
-                }
-            }
-
-            if (ai == AI.exploder && ac.currentEnemy.attackRate - eai.GetPV<float>("enemyAttackTimer") < 1)
-            {
-                if (ac.blockMove.button.IsInteractable())
-                {
-                    ac.blockMove.doMove();
-                    return true;
-                }
-            }
-
-            if (ac.currentEnemy.curHP / ac.currentEnemy.maxHP < .2)
-            {
-                return false;
-            }
-
-            if (OhShitUnlocked() && GetHPPercentage() < .5 && OhShitReady())
-            {
-                if (CastOhShit())
-                {
-                    return true;
-                }
-            }
-
-            if (GetHPPercentage() < .5)
-            {
-                if (CastHeal())
-                {
-                    return true;
-                }
-            }
-
-            if (GetHPPercentage() < .5 && !HealReady())
-            {
-                if (CastHyperRegen())
-                {
-                    return true;
-                }
-            }
-
-            if (CastMegaBuff())
-            {
-                return true;
-            }
-
-            if (!MegaBuffUnlocked())
-            {
-                if (!DefenseBuffActive())
-                {
-                    if (CastUltimateBuff())
-                    {
-                        return true;
-                    }
-                }
-
-                if (UltimateBuffActive())
-                {
-                    if (CastOffensiveBuff())
-                        return true;
-                }
-
-                if (GetHPPercentage() < .75 && !UltimateBuffActive() && !BlockActive())
-                {
-                    if (CastDefensiveBuff())
-                        return true;
-                }
-            }
-
-            if (ai != AI.charger && ai != AI.rapid && ai != AI.exploder && (Settings.MoreBlockParry || !UltimateBuffActive() && !DefenseBuffActive()))
-            {
-                if (!ParryActive() && !BlockActive())
-                {
-                    if (CastBlock())
-                        return true;
-                }
-
-                if (!BlockActive() && !ParryActive())
-                {
-                    if (CastParry())
-                        return true;
-                }
-            }
-
-            if (_pc.isBlocking || _pc.isParrying)
-            {
-                return false;
-            }
-
-            if (CastParalyze(ai, eai))
-                return true;
-
-
-            if (ChargeReady())
-            {
-                if (UltimateAttackReady())
-                {
-                    if (CastCharge())
-                        return true;
-                }
-
-                if (GetUltimateAttackCooldown() > .45 && PierceReady())
-                {
-                    if (CastCharge())
-                        return true;
-                }
-            }
-
-            return false;
-        }
-
-        //private bool ParalyzeBoss()
-        //{
-        //    var ac = _character.adventureController;
-        //    var ai = ac.currentEnemy.AI;
-        //    var eai = ac.enemyAI;
-
-        //    if (!ac.paralyzeMove.button.IsInteractable())
-        //        return false;
-
-        //    if (GetHPPercentage() < .2)
-        //        return false;
-
-        //    if (UltimateBuffActive())
-        //        return false;
-
-        //    if (ai == AI.charger && eai.GetPV<int>("chargeCooldown") == 0)
-        //    {
-        //        ac.paralyzeMove.doMove();
-        //        return true;
-        //    }
-
-        //    if (ai == AI.rapid && eai.GetPV<int>("rapidEffect") < 5)
-        //    {
-        //        ac.paralyzeMove.doMove();
-        //        return true;
-        //    }
-
-        //    if (ai != AI.rapid && ai != AI.charger)
-        //    {
-        //        ac.paralyzeMove.doMove();
-        //        return true;
-        //    }
-
-        //    return false;
-        //}
-
-        private void CombatAttacks(bool fastCombat)
-        {
-            var ac = _character.adventureController;
-
-            if (ac.ultimateAttackMove.button.IsInteractable())
-            {
-                if (fastCombat)
-                {
-                    ac.ultimateAttackMove.doMove();
-                    return;
-                }
-
-                if (ChargeActive())
-                {
-                    ac.ultimateAttackMove.doMove();
-                    return;
-                }
-
-                if (GetChargeCooldown() > .45)
-                {
-                    ac.ultimateAttackMove.doMove();
-                    return;
-                }
-            }
-
-            if (ac.pierceMove.button.IsInteractable())
-            {
-                ac.pierceMove.doMove();
                 return;
             }
 
-            if (Settings.DoMove69 && Move69Ready() && Move69CooldownReady())
+            if (combatAI.DoCombatBuffs())
             {
-                Main.PlayerController.move69();
-                move69Cooldown = DateTime.Now;
-            }
-
-            if (ac.strongAttackMove.button.IsInteractable())
-            {
-                ac.strongAttackMove.doMove();
                 return;
             }
 
-            if (ac.regularAttackMove.button.IsInteractable())
-            {
-                ac.regularAttackMove.doMove();
-                return;
-            }
-        }
-
-        internal bool Move69CooldownReady()
-        {
-            TimeSpan ts = (DateTime.Now - move69Cooldown);
-            if (ts.TotalMilliseconds > (1000 * 60 * 60)) // cooldown: 3600s or 1 hour
-            {
-                return true;
-            }
-            return false;
+            combatAI.DoCombat();
         }
 
         internal static bool IsZoneUnlocked(int zone)
@@ -295,190 +61,57 @@ namespace NGUInjector.Managers
 
         internal void MoveToZone(int zone)
         {
-            _character.adventureController.zoneSelector.changeZone(zone);
-        }
-
-        internal void IdleZone(int zone, bool bossOnly, bool recoverHealth)
-        {
-            if (zone == -1)
-            {
-                if (_character.adventure.zone != -1)
-                {
-                    MoveToZone(-1);
-                    return;
-                }
-            }
-            //Enable idle attack if its not on
-            if (!_character.adventure.autoattacking)
-            {
-                _character.adventureController.idleAttackMove.setToggle();
-                return;
-            }
-
-            //Turn on beast mode depending
-            if (_character.adventure.beastModeOn && !Settings.BeastMode && _character.adventureController.beastModeMove.button.interactable)
-            {
-                _character.adventureController.beastModeMove.doMove();
-                return;
-            }
-
-            //Turn off beast mode depending
-            if (!_character.adventure.beastModeOn && Settings.BeastMode &&
-                _character.adventureController.beastModeMove.button.interactable)
-            {
-                _character.adventureController.beastModeMove.doMove();
-                return;
-            }
-
-            if (_character.adventure.zone == -1 && !HasFullHP() && recoverHealth)
-                return;
-
-            //Check if we're in not in the right zone and not in safe zone, if not move to safe zone first
-            if (_character.adventure.zone != zone && _character.adventure.zone != -1)
-            {
-                MoveToZone(-1);
-            }
-
-            //Move to the zone
-            if (_character.adventure.zone != zone)
-            {
-                MoveToZone(zone);
-                return;
-            }
-
-            //Wait for an enemy to spawn
-            if (_character.adventureController.currentEnemy == null)
-                return;
-
-            if (zone < 1000 && Settings.BlacklistedBosses.Contains(_character.adventureController.currentEnemy.spriteID))
-            {
-                MoveToZone(-1);
-                MoveToZone(zone);
-                return;
-            }
-
-            //If we only want boss enemies
-            if (bossOnly)
-            {
-                //Check the type of the enemy
-                var ec = _character.adventureController.currentEnemy.enemyType;
-                //If its not a boss, move back to safe zone. Next loop will put us back in the right zone.
-                if (ec != enemyType.boss && !ec.ToString().Contains("bigBoss"))
-                {
-                    MoveToZone(-1);
-                }
-            }
-        }
-
-        internal void ManualZone(int zone, bool bossOnly, bool recoverHealth, bool precastBuffs, bool fastCombat, bool beastMode)
-        {
-            if (zone == -1)
-            {
-                if (_character.adventure.zone != -1)
-                {
-                    MoveToZone(-1);
-                    return;
-                }
-            }
-
-            //Start by turning off auto attack if its on unless we can only idle attack
-            if (!_character.adventure.autoattacking)
-            {
-                if (_character.training.attackTraining[1] == 0)
-                {
-                    _character.adventureController.idleAttackMove.setToggle();
-                    return;
-                }
-            }
-            else
-            {
-                if (_character.training.attackTraining[1] > 0)
-                {
-                    _character.adventureController.idleAttackMove.setToggle();
-                }
-            }
-
-            if (_character.adventure.beastModeOn && !beastMode && _character.adventureController.beastModeMove.button.interactable)
-            {
-                _character.adventureController.beastModeMove.doMove();
-                return;
-            }
-
-            if (!_character.adventure.beastModeOn && beastMode &&
-                _character.adventureController.beastModeMove.button.interactable)
-            {
-                _character.adventureController.beastModeMove.doMove();
-                return;
-            }
-
-            //Move back to safe zone if we're in the wrong zone
-            if (_character.adventure.zone != zone && _character.adventure.zone != -1)
-            {
-                MoveToZone(-1);
-            }
-
-            //If precast buffs is true and we have no enemy and charge isn't active, go back to safe zone
-            if (precastBuffs && !ChargeActive() && _character.adventureController.currentEnemy == null)
-            {
-                MoveToZone(-1);
-            }
-
-            //If we're in safe zone, recover health if needed. Also precast buffs
-            if (_character.adventure.zone == -1)
-            {
-                if (precastBuffs)
-                {
-                    if (ChargeUnlocked() && !ChargeActive())
-                    {
-                        if (CastCharge()) return;
-                    }
-
-                    if (ParryUnlocked() && !ParryActive())
-                    {
-                        if (CastParry()) return;
-                    }
-
-                    //Wait for Charge to be ready again, as well as other buffs
-                    if (ChargeUnlocked() && !ChargeReady()) return;
-                    if (ParryUnlocked() && !ParryReady()) return;
-                    if (MegaBuffUnlocked() && !MegaBuffReady()) return;
-                    if (UltimateBuffUnlocked() && !UltimateBuffReady()) return;
-                    if (DefensiveBuffUnlocked() && !DefensiveBuffReady()) return;
-                }
-
-                if (recoverHealth && !HasFullHP())
-                {
-                    if (ChargeUnlocked() && !ChargeActive())
-                    {
-                        if (CastCharge()) return;
-                    }
-
-                    if (ParryUnlocked() && !ParryActive())
-                    {
-                        if (CastParry()) return;
-                    }
-                    return;
-                }
-            }
-            
-            //Move to the zone
             if (_character.adventure.zone != zone)
             {
                 _isFighting = false;
-                MoveToZone(zone);
+                _fightTimer = 0;
+            }
+            CurrentCombatZone = zone;
+            _character.adventureController.zoneSelector.changeZone(zone);
+        }
+
+        private bool CheckBeastModeToggle(bool beastMode, out bool beastModeWasToggled)
+        {
+            beastModeWasToggled = false;
+            //Beast mode checks
+            if (BeastModeUnlocked())
+            {
+                bool needToToggle = BeastModeActive() != beastMode;
+
+                //If the button is inaccessible, we need to stay in manual mode until we can press it
+                if (needToToggle)
+                {
+                    beastModeWasToggled = CastBeastMode();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        internal void IdleZone(int zone, bool bossOnly, bool recoverHealth, bool beastMode)
+        {
+            if (zone == -1 && _character.adventure.zone != -1)
+            {
+                MoveToZone(-1);
                 return;
             }
 
-            //Wait for an enemy to spawn
+            bool needsToHeal = recoverHealth && !HasFullHP();
+
+            //If we have no enemy and we were fighting, the fight has ended, update combat flags and release any gear locks. Move to safe zone if we need to heal.
             if (_character.adventureController.currentEnemy == null)
             {
                 if (_isFighting)
                 {
-                    _isFighting = false;
                     if (_fightTimer > 1)
+                    {
                         LogCombat($"{_enemyName} killed in {_fightTimer:00.0}s");
+                    }
 
+                    _isFighting = false;
                     _fightTimer = 0;
+
                     if (LoadoutManager.CurrentLock == LockType.Gold)
                     {
                         Log("Gold Loadout kill done. Turning off setting and swapping gear");
@@ -488,24 +121,222 @@ namespace NGUInjector.Managers
                         MoveToZone(-1);
                         return;
                     }
+                }
+                else
+                {
+                    _fightTimer = 0;
+                }
 
-                    if (precastBuffs || recoverHealth && !HasFullHP())
+                if (_character.adventure.zone != -1 && needsToHeal)
+                {
+                    MoveToZone(-1);
+                    return;
+                }
+            }
+
+            //If we need to toggle beast mode, wait in the safe zone in manual mode until beast mode is enabled
+            if (CheckBeastModeToggle(beastMode, out bool beastModeWasToggled))
+            {
+                if (!beastModeWasToggled)
+                {
+                    if (_character.adventure.zone != -1)
                     {
+                        MoveToZone(-1);
+                    }
+                    if (_character.adventure.autoattacking)
+                    {
+                        _character.adventureController.idleAttackMove.setToggle();
+                    }
+                }
+                return;
+            }
+
+            //Enable idle attack if its not on
+            if (!_character.adventure.autoattacking)
+            {
+                _character.adventureController.idleAttackMove.setToggle();
+                return;
+            }
+
+            //Check if we're in not in the right zone and not in safe zone, if not move to safe zone first
+            if (_character.adventure.zone != zone && _character.adventure.zone != -1)
+            {
+                MoveToZone(-1);
+            }
+
+            //If we're in safe zone, recover health if needed.
+            if (_character.adventure.zone == -1 && needsToHeal)
+            {
+                return;
+            }
+
+            //Move to the zone
+            if (_character.adventure.zone != zone)
+            {
+                MoveToZone(zone);
+                return;
+            }
+
+            //Wait for an enemy to spawn
+            if (_character.adventureController.currentEnemy == null)
+            {
+                return;
+            }
+
+            //Skip blacklisted enemies
+            if (zone < 1000 && Settings.BlacklistedBosses.Contains(_character.adventureController.currentEnemy.spriteID))
+            {
+                MoveToZone(-1);
+                MoveToZone(zone);
+                return;
+            }
+
+            //Skip regular enemies if we're in bossOnly mode
+            if (bossOnly && zone < 1000 && !ZoneHelpers.ZoneIsTitan(zone))
+            {
+                var ec = _character.adventureController.currentEnemy.enemyType;
+                if (ec != enemyType.boss && !ec.ToString().Contains("bigBoss"))
+                {
+                    MoveToZone(-1);
+                    MoveToZone(zone);
+                    return;
+                }
+            }
+
+            //We have a valid enemy and we're ready to fight, allow idle combat to continue
+            _isFighting = true;
+            _enemyName = _character.adventureController.currentEnemy.name;
+        }
+
+        internal void ManualZone(int zone, bool bossOnly, bool recoverHealth, bool precastBuffs, bool fastCombat, bool beastMode, bool smartBeastMode)
+        {
+            if (fastCombat)
+            {
+                smartBeastMode = false;
+            }
+
+            if (zone == -1 && _character.adventure.zone != -1)
+            {
+                MoveToZone(-1);
+                return;
+            }
+
+            //If we havent unlocked any attacks yet, use the Idle loop, otherwise turn off idle mode
+            if (_character.training.attackTraining[1] == 0)
+            {
+                IdleZone(zone, bossOnly, recoverHealth, beastMode);
+                return;
+            }
+            else if (_character.adventure.autoattacking)
+            {
+                _character.adventureController.idleAttackMove.setToggle();
+                return;
+            }
+
+            bool needsToPrecast = precastBuffs &&
+                (
+                    (ChargeUnlocked() && !ChargeReady()) ||
+                    (ParryUnlocked() && (!ParryReady() || !ParryActive())) ||
+                    (smartBeastMode && BeastModeUnlocked() && (!BeastModeReady() || !BeastModeActive())) ||
+                    (MegaBuffUnlocked() && !MegaBuffReady()) ||
+                    (UltimateBuffUnlocked() && !UltimateBuffReady()) ||
+                    (DefensiveBuffUnlocked() && !DefensiveBuffReady())
+                );
+
+            bool needsToHeal = recoverHealth && !HasFullHP();
+
+            //If we have no enemy and we were fighting, the fight has ended, update combat flags and release any gear locks. Move to safe zone if we need to heal or precast.
+            if (_character.adventureController.currentEnemy == null)
+            {
+                if (_isFighting)
+                {
+                    if (_fightTimer > 1)
+                    {
+                        LogCombat($"{_enemyName} killed in {_fightTimer:00.0}s");
+                    }
+
+                    _isFighting = false;
+                    _fightTimer = 0;
+
+                    if (LoadoutManager.CurrentLock == LockType.Gold)
+                    {
+                        Log("Gold Loadout kill done. Turning off setting and swapping gear");
+                        Settings.DoGoldSwap = false;
+                        LoadoutManager.RestoreGear();
+                        LoadoutManager.ReleaseLock();
                         MoveToZone(-1);
                         return;
                     }
                 }
-                _fightTimer = 0;
-                if (!precastBuffs && bossOnly)
+                else
                 {
-                    if (!ChargeActive())
+                    _fightTimer = 0;
+                }
+
+                if (_character.adventure.zone != -1 && (needsToPrecast || needsToHeal))
+                {
+                    MoveToZone(-1);
+                    return;
+                }
+            }
+
+            //If we need to toggle beast mode, just do the normal combat loop until the cooldown is ready
+            if (!smartBeastMode)
+            {
+                CheckBeastModeToggle(beastMode, out bool beastModeWasToggled);
+                if (beastModeWasToggled)
+                {
+                    return;
+                }
+            }
+
+            //Check if we're in not in the right zone and not in safe zone, if not move to safe zone first
+            if (_character.adventure.zone != zone && _character.adventure.zone != -1)
+            {
+                MoveToZone(-1);
+            }
+
+            //If we're in safe zone, precast buffs and recover health if needed.
+            if (_character.adventure.zone == -1)
+            {
+                if (needsToPrecast)
+                {
+                    if (ParryUnlocked() && !ParryActive())
                     {
-                        if (CastCharge())
-                        {
-                            return;
-                        }
+                        if (CastParry()) return;
                     }
 
+                    if (smartBeastMode && BeastModeUnlocked() && !BeastModeActive())
+                    {
+                        if (CastBeastMode()) return;
+                    }
+
+                    return;
+                }
+
+                if (needsToHeal)
+                {
+                    if (ParryUnlocked() && !ParryActive())
+                    {
+                        if (CastParry()) return;
+                    }
+
+                    return;
+                }
+            }
+
+            //Move to the zone
+            if (_character.adventure.zone != zone)
+            {
+                MoveToZone(zone);
+                return;
+            }
+
+            //Wait for an enemy to spawn
+            if (_character.adventureController.currentEnemy == null)
+            {
+                if (!precastBuffs && bossOnly)
+                {
                     if (!ParryActive())
                     {
                         if (CastParry())
@@ -536,10 +367,10 @@ namespace NGUInjector.Managers
                     }
                 }
 
-                
                 return;
             }
 
+            //Skip blacklisted enemies
             if (zone < 1000 && Settings.BlacklistedBosses.Contains(_character.adventureController.currentEnemy.spriteID))
             {
                 MoveToZone(-1);
@@ -547,8 +378,8 @@ namespace NGUInjector.Managers
                 return;
             }
 
-            //We have an enemy. Lets check if we're in bossOnly mode
-            if (bossOnly && zone < 1000)
+            //Skip regular enemies if we're in bossOnly mode
+            if (bossOnly && zone < 1000 && !ZoneHelpers.ZoneIsTitan(zone))
             {
                 var ec = _character.adventureController.currentEnemy.enemyType;
                 if (ec != enemyType.boss && !ec.ToString().Contains("bigBoss"))
@@ -559,11 +390,11 @@ namespace NGUInjector.Managers
                 }
             }
 
+            //We have a valid enemy and we're ready to fight. Run through our manual combat routine.
             _isFighting = true;
             _enemyName = _character.adventureController.currentEnemy.name;
-            //We have an enemy and we're ready to fight. Run through our combat routine
-            if (_character.training.attackTraining[1] > 0)
-                DoCombat(fastCombat);
+
+            DoCombat(fastCombat, smartBeastMode);
         }
     }
 }

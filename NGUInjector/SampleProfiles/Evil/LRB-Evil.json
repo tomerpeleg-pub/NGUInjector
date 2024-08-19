@@ -1,0 +1,137 @@
+{
+  "Breakpoints": {
+	"Comment": "LRB to T8",
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "TM" }
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPALLAT", "CAPWAN", "AUG-8", "AUG-9" ]
+	  },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPNGU-7", "NGU-8" ]
+      },
+      {
+        "Time": { "h": 4 },
+        "Priorities": [ "CAPNGU-4", "ALLAT", "AUG-8", "AUG-9" ]
+      },
+      {
+        "Time": { "h": 21 },
+        "Priorities": [ "CAPNGU-8", "ALLNGU", "CAPALLAT" ]
+      },
+      {
+        "Time": { "h": 24 },
+        "Priorities": [ "WISH-0:10", "CAPALLAT", "ALLNGU" ]
+      },
+      {
+        "Time": { "h": 48 },
+        "Priorities": [ "CAPALLAT", "CAPALLNGU", "CAPWAN", "WISH-0", "AUG-8", "AUG-9" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "TM" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN", "BR", "ALLNGU" ]
+	  },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPNGU-5", "NGU-0", "NGU-1" ]
+      },
+      {
+        "Time": { "h": 4 },
+        "Priorities": [ "CAPNGU-6", "BR" ]
+      },
+      {
+        "Time": { "h": 21 },
+        "Priorities": [ "CAPNGU-0", "CAPNGU-1", "ALLNGU", "BR" ]
+      },
+      {
+        "Time": { "h": 24 },
+        "Priorities": [ "WISH-0:10", "ALLNGU", "BR" ]
+      },
+      {
+        "Time": { "h": 48 },
+        "Priorities": [ "CAPALLNGU", "CAPWAN", "WISH-0:25", "BR" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "WISH-0" ]
+      },
+      {
+        "Time": { "h": 48 },
+        "Priorities": [ "WISH-0", "HACK-7", "HACK-8", "HACK-1" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 241, 237, 238, 239, 240,   136, 118,   447, 244, 243, 245, 195, 218, 446, 194, 445 ],
+        "Comment": "Respawn2TM"
+      },
+      {
+        "Time": { "m": 30 },
+        "ID": [ 168, 237, 238, 239, 240,   136, 118,   447, 244, 243, 245, 195, 218, 446, 194,   247 ],
+        "Comment": "Respawn2TM + BDW Weapon/Meeple"
+      },
+      {
+        "Time": { "h": 1 },
+        "ID": [ 241, 251, 178, 239, 254,   190,   136, 118,   447, 445, 242, 243, 229, 256, 195, 444 ],
+        "Comment": "VoodooRespawn2NGU"
+      },
+      {
+        "Time": { "h": 24 },
+        "ID": [ 262, 251, 259, 233, 261,   190,   136, 118,   447, 445, 242, 264, 448, 229,   244, 263 ],
+        "VoodooRespawn2NGU6EBeard + Tutu": [ 262, 251, 259, 233, 261,   190,   136, 118,   447, 445, 242, 264, 448, 229,   244, 263 ],
+        "OldVoodooRespawn2NGU6EBeard + Tutu": [ 241, 251, 252, 233, 254,   190,   136, 118,   447, 445, 242, 229, 243, 444,   244, 218 ],
+        "CD3Drop3Power": [ 262, 258, 266, 260, 261,   137, 91, 256,   170, 447, 230,   448, 271, 264, 263, 297 ]
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 8, 9, 10, 11 ],
+        "Comment": "Wan + Stats + Adv + PP + Daycare + Blood + Exp"
+      },
+      {
+        "Time": { "h": 1 },
+        "List": [ 2, 3, 4, 5, 8, 11 ],
+        "Comment": "Stats + Adv + NGU-E/M + PP + Exp"
+      },
+      {
+        "Time": { "h": 4 },
+        "List": [ 3, 4, 5, 6, 7, 8, 9, 10, 11 ],
+        "Comment": "No drop/wan/stats"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 0
+      },
+      {
+        "Time": { "h": 1 },
+        "Diff": 1
+      },
+      {
+        "Time": { "h": 48 },
+        "Diff": 0
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

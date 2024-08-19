@@ -1,0 +1,47 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit % to 0; Adventure Tab - Turn on Combat (Target: Ancient Battlefield, Idle Mode, Allow Fallthrough -> Select ITOPOD after unlocking boss 30); Gold Tab - Turn on CBlock Mode",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "TM", "WAN", "AUG-8" ],
+        "PrioritiesX": [ "CAPALLBT", "TM", "WAN", "BESTAUG" ],
+        "PrioritiesX": [ "CAPALLBT", "TM", "WAN" ],
+        "Comment": "AUG commands do not seem to work well at low levels, as it will reserve idle energy it cannot use. Best way to improve AUG is to manually trigger it or use AUG-X and set target levels (if the target is capped the energy will be freed)."
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "TM", "WAN" ]
+        "PrioritiesX": [ "BR" ]
+        "Comment": "BR commands do not seem to work well at low levels. Best way to improve BR is to manually trigger it or make a BR breakpoint with no other priorities."
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 130, 131, 132, 133, 134, 101, 138, 440, 136 ],
+        "Comment": "Max P/T Gear - Aug/Wandoos Accessories"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2 ],
+        "Comment": "Wandoos and Stats"
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 100,
+	  "Challenges": [ "BLIND-1", "24HR-2" ]
+	}
+  }
+}

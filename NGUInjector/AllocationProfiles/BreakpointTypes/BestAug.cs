@@ -23,12 +23,12 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
         internal override bool Allocate()
         {
             _useUpgrades = Character.bossID >= 37;
-            AllocatePairs();
-            return true;
+            return AllocatePairs() > 0;
         }
 
-        private void AllocatePairs()
+        private float AllocatePairs()
         {
+            float totalAllocated = 0;
             float[] augRatio = { 5 / 15f, 7 / 17f, 9 / 19f, 11 / 21f, 13 / 23f, 15 / 25f, 17 / 27f };
             float[] upgRatio = { 10 / 15f, 10 / 17f, 10 / 19f, 10 / 21f, 10 / 23f, 10 / 25f, 10 / 27f };
             var gold = Character.realGold;
@@ -102,13 +102,16 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
                 var alloc2 = CalculateAugCap(index + 1, maxAllocationUpgrade);
                 SetInput(alloc);
                 Character.augmentsController.augments[bestAugment].addEnergyAug();
+                totalAllocated += alloc;
                 if (_useUpgrades)
                 {
                     Main.LogAllocation($"BestAug: ({bestAugment}) @ {maxAllocation} using {augRatio[bestAugment]} : {alloc} and {upgRatio[bestAugment]} : {alloc2}");
                     SetInput(alloc2);
                     Character.augmentsController.augments[bestAugment].addEnergyUpgrade();
+                    totalAllocated += alloc2;
                 }
             }
+            return totalAllocated;
         }
 
         private double AugmentValue(int id)

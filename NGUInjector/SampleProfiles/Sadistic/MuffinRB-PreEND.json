@@ -1,0 +1,156 @@
+{
+  "Breakpoints": {
+	"PriorityComment1" : "CAP Allocations will use as much energy as it takes to cap, regular allocations evenly divide up the available idle energy. But allocations are individually applied left to right so there are some quirks",
+	"PriorityComment2" : "In practice CAP allocations make dividers between groups of non-CAP allocations.",
+	
+	"PriorityExample1" : "For example, with priorities A, CAPB, C, D, E and total energy of 100",
+	"PriorityExample2" : "A would get 25 energy (1/4 of 100 idle energy) as there are 4 non-cap priorities to allocate (A,C,D,E)",
+	"PriorityExample3" : "CAPB would then take as much as it needs to cap (lets say it takes 60)",
+	"PriorityExample4" : "C, D, E would then get each get 5 energy (1/3 each of 15 remaining idle energy) - technically C gets 1/3 of 15, D then gets 1/2 of 10 and then E gets all of 5, but has the same outcome",
+	"PriorityExample5" : "If CAPB were first instead, A,C,D and E would each get 10 energy. If CAPB were last, A,C,D and E would each get 25 energy and CAPB would get nothing",
+	"PriorityExample6" : "If C were instead CAPC, A would now get 33, CAPC would get the last 7 and D and E would get nothing. If D were instead CAPD, A would now get 33, C would get 3, CAPD would get 4 and E would get nothing",
+	
+	"PriorityPercentComment1" : "The percentages (like ALLAT:25) are a ceiling, and wont have an effect if the amount of energy to be allocated is less than the percent would allocate",
+	"PriorityPercentComment2" : "So if we had priority A with idle energy of 100 and the amount of energy to be applied was 20, A:25 would do nothing, while A:10 would lower the allocation to 10",
+	"PriorityPercentComment3" : "Also a reminder that CAP allocations work against the total, while non-CAP allocations work against the idle amount",
+	
+	"PriorityPercentExample1" : "For example A, B, C, D would result in all priorities getting 25 energy and is equivalent to A:25, B:33, C:50, D:100 (A gets 25 of 100 idle, B gets 25 of 75 remainder, etc)",
+	"PriorityPercentExample2" : "If we have the same A, CAPB, C, D, E definition as above, this is equivalent to A:25, CAPB:60, B:33, C:50, D:100",
+	"PriorityPercentExample2" : "For CAPB, anything 60 and above would have the same result. But if we had CAPB:45 instead for example, C, D, and E would each get 10 energy instead of 5",
+	
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "CAPTM", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPAUG-10:40", "CAPAUG-11:30", "CAPWAN", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM", "BR", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "BR", "CAPWAN", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN", "BR:15", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+	"Gear Note 1": "Make sure to set hardcap input in Gear Optimizer!",
+	"Gear Note 2": "Make sure each gear set has at least one significant EM and R3 Bars multiplier",
+	"Gear Note 3": "Disable Triple Flubber, need 5-6 accessories to reach the respawn softcap (54%) and the 8% from Flubber isn't needed",
+	"Gear Note 4": "Lock Duck-t Tape and the Max Ascended Looty as the first two items in every gear set so we don't have to worry about EMPC",
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 465, 476,   461, 470, 463, 472,   501, 505,   136, 118, 171, 379, 446,   458,   474,   504, 475, 428, 467, 430, 459, 425 ],
+        "GO Notes": "Amalgam Book + Respawn5Wishes0R3Bars1EBars1Wishes"
+      },
+      {
+        "Time": { "m": 30 }, 
+        "ID": [ 465, 366,   461, 470, 463, 472,   501, 505,   136, 118, 171, 379, 446,   382, 386, 351, 247,   458,   474,   504, 475, 428 ],
+        "GO Notes": "9mm Beretta + Respawn5Wishes0AugmentationR3Bars1EBars1Wishes"
+      },
+      {
+        "Time": { "h": 1 },
+        "ID": [ 468, 465,   461, 497, 463, 464,   501, 505,   136, 118, 171, 379, 446,   458,   474,   428, 502, 427,   504, 475, 467, 430 ],
+        "(BBNGU+Wish) Tulip + Nether Pants + Respawn5NGUs0R3Bars1EBars1NGUs3Wishes": [ 468, 465,   461, 497, 463, 464,   501, 505,   136, 118, 171, 379, 446,   458,   474,   428, 502, 427,   504, 475, 467, 430 ],
+        "(ZoneCombat) CDDrop2Respawn3Power": [ 476, 473,   469, 470, 471, 472,   501, 505,   137, 91, 256,   431, 389,   136, 118, 171,   477, 428, 429, 475, 467, 474 ],
+        "(UnlockTitanAK) CDPower": [ 476, 473,   469, 470, 471, 472,   501, 505,   137, 91, 256,   477, 428, 429, 475, 467, 474, 504, 466, 427, 426, 458 ],
+        "(AKTitan) Use BBNGU set + Choffice Hat + Replace 2 Wish Acc with Drop Chance": [ 468, 465,   469, 497, 463, 464,   501, 505,   136, 118, 171, 379, 446,   458,   474,   428, 502, 427,   504, 475,   431, 389 ],
+        "(Gold) CDGold7Power": [ 476, 473,   469, 470, 463, 472,   501, 505,   137, 91, 256,   431, 329, 389, 358, 350, 313, 274,   477, 428, 429, 475 ],
+		"(Questing) QuestDropRespawn5NGUAndwishes": [ 415, 468,   469, 497, 463, 464,   501, 505,   466, 385, 257, 314, 170, 293, 329, 236,   136, 118, 171, 379, 446,   428 ],
+		"(Ygg) YggYield": [ 501, 505,   475, 429, 193, 275, 306, 264, 383, 321 ]
+      },
+      {
+        "Time": { "h": 23, "m": 43 },
+        "ID": [ 476, 473,   469, 470, 471, 472,   501, 505,   477, 428, 429, 475, 467, 474, 504, 466, 427, 426, 458, 424, 425, 430 ],
+        "Comment": "Max Pow"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1,
+		"Note": "For the final LRB Wandoos XL will need more help from gear and cards, maybe when all wishes are complete those items/resources can be moved to wandoos"
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 0, 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "No beards",
+		"DiggerOptions": "0-Drops, 1-Wandoos, 2-Stats, 3-Adv, 4/5-E/M NGU, 6/7-E/M Beards, 8-PP, 9-DayCare, 10-Blood, 11-XP",
+		"Priorities1": "3+8 should be always on to maximize PP gains, swap 8 to 0 if farming from a zone other than ITOPOD",
+		"Priorities2": "4+5 should be on all of the time after the initial setup (when boosting NGUs)",
+		"Priorities3": "11 > 9 should always be on if possible",
+		"Priorities4": "10 should always be on when blood can be easily capped",
+		"Priorities6": "1+2 are only needed if held back by floor restrictions or during challenges",
+		"Priorities7": "6+7 are useful mid-game (early to mid evil), early on there aren't the diggers to spare and beards provide small bonuses, and later beards can be BB capped without digger support"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 2
+      }
+    ],
+    "Consumables_bak": [
+	  {
+        "Time": 0,
+        "Items": [ "EPOT-B", "MPOT-B" ]
+	  },
+      {
+        "Time": { "h": 22, "m": 45 },
+        "Items": [ "MAYO" ]
+      }
+    ],
+    "Consumables_bak1": [
+	  {
+        "Time": 0,
+        "Items": [ "EPOT-B", "MPOT-B" ]
+	  },
+      {
+        "Time": { "h": 22, "m": 45 },
+        "Items": [ "MAYO" ]
+      }
+    ],
+    "Consumables": [
+	  {
+        "Time": 0,
+        "Items": [ "EPOT-B", "MPOT-B" ]
+	  }
+    ],
+    "Rebirth": {
+	  "Type": "TimeBalancedMuffin",
+	  "Target": 15,
+	  "Challenges": [ ]
+	},
+    "Rebirth_bak1": {
+	  "Type": "Time",
+	  "Target": { "h": 24 },
+	  "Challenges": [ ]
+	},
+    "Rebirth_bak2": {
+	  "Type": "Time",
+	  "Target": -1,
+	  "Challenges": [ ]
+	}
+  }
+}

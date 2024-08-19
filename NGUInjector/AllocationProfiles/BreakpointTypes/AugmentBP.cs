@@ -45,16 +45,38 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
 
         internal override bool Allocate()
         {
+            var gold = Character.realGold;
+            var aug = Character.augmentsController.augments[AugIndex];
+
             var alloc = CalculateAugCap(this.Index, MaxAllocation);
             SetInput(alloc);
+
+            float progress = Index % 2 == 0 ? aug.AugProgress() : aug.UpgradeProgress();
+
+            //If aug has no progress check the cost before allocating energy
+            if (progress == 0f)
+            {
+                double time = Index % 2 == 0 ? aug.AugTimeLeftEnergyMax((long)(alloc)) : aug.UpgradeTimeLeftEnergyMax((long)(alloc));
+                if (time < 0.01) { time = 0.01d; }
+                //the cost is a rough estimate of running for 1 second, min of basecost, max of basecost*100;
+                //does not consider the rising price of augments nor the gold that will be gained until the next energy allocation
+                double cost = (double)Math.Max(1, 1d / time) * (Index % 2 == 0 ? (double)aug.getAugCost() : (double)aug.getUpgradeCost());
+
+                if (cost > gold)
+                {
+                    return false;
+                }
+            }
+
             if (Index % 2 == 0)
             {
-                Character.augmentsController.augments[AugIndex].addEnergyAug();
+                aug.addEnergyAug();
             }
             else
             {
-                Character.augmentsController.augments[AugIndex].addEnergyUpgrade();
+                aug.addEnergyUpgrade();
             }
+
             return true;
         }
 

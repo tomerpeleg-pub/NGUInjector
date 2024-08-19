@@ -1,0 +1,110 @@
+{
+  "Breakpoints": {	
+	"Final Note": "This is just about capping any remaining items if desired: SAD NGUs (1E+9), remaining Wishes, remaining Perks and Quirks",
+	"Final Note 2": "Aug/Wandoos if desired, but there isn't much reason to make Number Go Up anymore as we don't need to unlock any zones or titans",
+	"Final Note 3": "Avoid rebirths, it is difficult to BB SAD NGUs and the slow increase of the NGU Beard is one of the only ways to improve your NGU speed factor now",
+	"Final Note 4": "Doing muffin RB will improve your NGU macguffins, but at this point it scales slower than just letting the beard accumulate",
+	"Final Note 5": "Wishes are likely the first to complete, remove all wish gear and focus on NGU/Power, move all Energy/Magic to NGUs (R3 is now useless)",
+	"Final Note 6": "Once Perks/Quirks are done, we don't care about respawn or power anymore and NGUs are more easily capped, anything goes as long as NGU stays capped",
+	"Final Note 7": "Maxing NGUs takes >200 days even when BB'd, this will be the final 'cap-able' stat (unless you go nuts and want to hardcap cap Energy/Magic/R3 through exp or something)",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "CAPTM:10", "CAPAUG-10", "CAPAUG-11", "ALLNGU" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:20", "CAPALLNGU:30", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPALLNGU:50", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ],
+        "PrioritiesNoWish": [ "CAPALLNGU" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM:10", "BR", "ALLNGU" ]
+      },
+      {
+        "Time": { "m": 30 },
+		"Priorities": [ "CAPWAN:20", "BR:25", "CAPALLNGU:25", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPALLNGU:50", "BR:10", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ],
+        "PrioritiesNoWish": [ "CAPALLNGU", "BR" ],
+        "PrioritiesNoWishOrPP": [ "CAPALLNGU" ],
+		"Note": "Blood can be spent entirely on Adventure stats until Perks are maxed"
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": { 0 }, 
+        "ID": [ 366, 514,   507, 470, 509, 510,   501, 505,   382, 386, 351, 247,   474,   479, 478, 477, 512, 513, 428, 429, 475, 467 ],
+        "GO Notes": "9mm Beretta + Power0AugmentationEBars1Power"
+      },
+      {
+        "Time": { "m": 30 },
+        "ID": [ 468, 511,   507, 497, 471, 464,   501, 505,   136, 118, 171, 379,   512, 428, 474, 504, 502, 478, 513, 475, 427, 467 ],
+        "(BBNGU+Wish) Respawn4NGUAndWishes": [ 468, 511,   507, 497, 471, 464,   501, 505,   136, 118, 171, 379,   512, 428, 474, 504, 502, 478, 513, 475, 427, 467 ],
+        "(BBNGU+Wish) Cutlass/NetherPants + Respawn4NGUs0R3Bars1EBars1NGUs3Wishes": [ 511, 468,   507, 497, 463, 464,   501, 505,   136, 118, 171, 379,   479,   474,   512, 428, 502,   504, 478, 513, 475, 467 ],
+        "(BBNGU) Flintlock+Respawn4NGUs4Power": [ 514, 468,   507, 497, 471, 464,   501, 505,   136, 118, 171, 379,   512, 474, 428, 502,   479, 478, 477, 513, 429, 475 ],
+		"(Questing) QuestDropRespawn5NGUAndWishes": [ 415, 468,   469, 497, 463, 464,   501, 505,   466, 385, 257, 314, 170, 293, 329, 236,   136, 118, 171, 379, 446,   428 ]
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 0, 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "No Beards"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 2
+      }
+    ],
+    "Consumables": [
+	  {
+        "Time": 0,
+        "Items": [ "EPOT-B", "MPOT-B", "R3POT-B" ]
+        "ItemsNoWish": [ "EPOT-B", "MPOT-B" ]
+	  }
+    ],
+    "Rebirth": {
+	  "Type": "Time",
+	  "Target": -1,
+	  "Challenges": [ ]
+	},
+    "Rebirth_bak1": {
+	  "Type": "Time",
+	  "Target": { "h": 24 },
+	  "Challenges": [ ]
+	},
+    "Rebirth_bak2": {
+	  "Type": "TimeBalancedMuffin",
+	  "Target": 15,
+	  "Challenges": [ ]
+	},
+    "Rebirth_bak3": {
+	  "Type": "Bosses",
+	  "Target": 2,
+	  "Challenges": [ ]
+	}
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "Breakpoints": {
+	"Comment": "End SAD Hackday",
+	"Injector" : "Make sure to disable the titan's gear swapping, we don't want the R3 cap to tank and need to recover every 60 minutes",
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "CAPTM" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:10", "AUG-10", "AUG-11" ]
+	  },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN:10", "CAPALLNGU" ]
+		"Comment": "All R3 is dedicated to Hacks, no reason to put any into wishes"
+      },
+      {
+        "Time": { "h": 25, "m": 15 },
+        "Priorities": [ "CAPWAN:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ],
+        "Note": "Return to normal RB allocation after R3 pots wear off, swap profiles when able"
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:10", "BR" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN:10", "BR:10", "CAPALLNGU" ],
+		"Comment": "All R3 is dedicated to Hacks, no reason to put any into wishes"
+      },
+      {
+        "Time": { "h": 25, "m": 15 },
+        "Priorities": [ "CAPWAN:10", "BR:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ],
+        "Note": "Return to normal allocation after R3 pots wear off, swap profiles when able"
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "HACK-13", "HACK-12", "HACK-10", "HACK-8", "HACK-5", "HACK-6", "HACK-7", "HACK-0", "HACK-9", "HACK-2", "HACK-4", "HACK-11", "HACK-3", "HACK-14", "HACK-1" ]
+      },
+      {
+        "Time": { "h": 25, "m": 15 },
+        "Priorities": [ "WISH-0", "WISH-1", "WISH-2", "WISH-3" ],
+		"Comment": "Return to normal allocation after R3 pots wear off, swap profiles when able" 
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 473, 465,   496, 470, 471, 499,   501,   136, 118, 171, 379, 446,   248,   505, 431, 413,   458,   474,   504, 428, 430, 429 ],
+        "Comment": "Respawn5Daycare1Hacks0EMPCR3Bars1EBars1Hacks"
+      },
+      {
+        "Time": { "m": 30 }, 
+        "ID": [ 366, 473,   496, 470, 471, 499,   501,   136, 118, 171, 379, 446,   382, 386, 505, 431, 351, 247,   458,   474,   504, 430 ],
+        "Comment": "9mm Beretta + Respawn5Hacks0AugmentationR3Bars1EBars1Hacks"
+      },
+      {
+        "Time": { "h": 1 },
+        "ID": [ 473, 465,   496, 470, 471, 499,   501,   429, 504, 428, 430, 474, 426, 475, 427, 424, 502, 467, 459, 388, 334, 405 ],
+        "Comment": "Duck-t Tape/Toolbox + Pure Hacks",
+		"Timing": "After swapping to hack gear, give 15 minutes for R3 cap before using the R3POT-C"
+      },
+      {
+        "Time": { "h": 25, "m": 15 },
+        "ID": [ 468, 460,   461, 497, 463, 464,   501,   136, 118, 171, 379, 446,   236,   474, 428, 505, 502, 427,   458,   504, 475, 467 ],
+        "Comment": "Go back to a holding pattern until we can resume muffin RBs"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 0, 1, 2, 3, 4, 5, 8, 9, 10, 11 ]
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 2
+      }
+    ],
+    "Consumables": [
+	  {
+        "Time": 0,
+        "Items": [ "EPOT-B", "MPOT-B", "R3POT-B" ]
+	  },
+      {
+        "Time": { "h": 1, "m": 15 },
+        "Items": [ "R3POT-C" ]
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

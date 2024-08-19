@@ -1,0 +1,114 @@
+{
+  "Breakpoints": {
+	"Comment": "LRB to T10",
+	"Injector" : "Make sure to set the titan's gear to the HACK loadout (or disable gear swapping), we don't want the R3 cap to tank and recover every 60 minutes",
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "CAPTM:80", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:10", "CAPAUG-8:20", "CAPAUG-9:20", "CAPTM:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN:10", "CAPTM:10", "CAPALLNGU", "AUG-8", "AUG-9" ]
+      },
+      {
+        "Time": { "h": 25 },
+        "Priorities": [ "CAPWAN:10", "CAPAUG-8:20", "CAPAUG-9:20", "CAPTM:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ],
+        "PrioritiesBak": [ "CAPWAN:10", "CAPAUG-8:20", "CAPAUG-9:20", "CAPTM:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM:80", "BR", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:10", "CAPTM:10", "BR:50", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN:10", "CAPTM:10", "CAPALLNGU", "BR" ]
+      },
+      {
+        "Time": { "h": 25 },
+        "Priorities": [ "CAPWAN:10", "CAPTM:10", "BR:50", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ],
+        "PrioritiesBak": [ "CAPWAN:10", "CAPTM:10", "BR:50", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPHACK-1:10", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "HACK-13", "HACK-12", "HACK-10", "HACK-5", "HACK-6", "HACK-8", "HACK-9", "HACK-7", "HACK-0", "HACK-2", "HACK-4", "HACK-11", "HACK-3", "HACK-14", "HACK-1" ]
+      },
+      {
+        "Time": { "h": 25 },
+        "Priorities": [ "HACK-1:10", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 363, 349,   359, 342, 354, 355,   136, 118, 171, 121,   446, 344, 270, 248,   431, 333, 332, 365, 334, 328 ],
+        "Comment": "Respawn4Daycare4EMPC + BEUC/ShoesWWheels"
+      },
+      {
+        "Time": { "m": 30 },
+        "ID": [ 349, 319,   345, 342, 354, 348,   136, 118, 171,   446, 344, 248,   430, 333, 431, 388,   452,   330, 390, 320 ],
+        "Comment": "Respawn3Daycare3Wishes4NguAndWishes1R3Bars + JRPGWeapon",
+		"Note": "BEUC has so much R3 cap we need extra time to boost R3"
+      },
+      {
+        "Time": { "h": 1 },
+        "ID": [ 356, 326,   322, 342, 317, 348,   430, 334, 388, 332, 331, 333, 327, 358, 295, 357, 350, 351, 276, 328 ],
+        "Comment": "Full Hacks"
+      },
+      {
+        "Time": { "h": 25 },
+        "ID": [ 380, 363,   373, 342, 361, 376,   136, 118,   446, 344, 270, 248,   430, 333, 431, 388, 357, 379,   378,   364 ],
+        "(Default-NGU+Wishes) Respawn4Daycare4Wishes4NguAndWishes": [ 363, 356,   359, 342, 361, 348,   136, 118, 171, 121,   446, 344, 270, 248,   430, 431, 333, 388,   364, 452 ],
+        "(Combat) CDDrop6Power": [ 363, 366,   359, 360, 361, 362,   137, 91, 256,   431, 389, 364, 451, 274, 313,   430, 388, 334, 357, 365 ],
+        "(AKCombat) Drop8Power": [ 363, 366,   359, 360, 361, 362,   431, 389, 364, 451, 274, 313, 296, 270,   430, 388, 334, 357, 365, 333 ],
+		"NGUs": [ 349, 366,   359, 353, 354, 325,   431, 333, 452, 364, 449, 331, 332, 365, 249, 334, 242, 328, 229, 350 ]
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "No drop or beards",
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 1
+      }
+    ],
+    "Consumables": [
+      {
+        "Time": 0,
+        "Items": [ "EPOT-B", "MPOT-B", "R3POT-B" ]
+      },
+      {
+        "Time": { "m": 60 },
+        "Items": [ "R3POT-C" ]
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

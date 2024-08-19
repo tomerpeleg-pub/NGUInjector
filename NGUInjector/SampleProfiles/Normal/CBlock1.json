@@ -1,0 +1,60 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit % to 0; Adventure Tab - Turn on Combat (Target: A Very Strange Place, Idle Mode, Allow Fallthrough -> Optionally enable ITOPOD after unlocking TM to get some PP); Gold Tab - Turn on CBlock Mode",
+	"Comment" : "Put low targets on AT-0/1/2 and put high or infinite targets on AT-3/4. If we run long enough to unlock AT that means we need to focus on Wandoos for power (ie: NORB, NOTM, NOAUG, etc)",
+	"CommentForNORB" : "Make sure to EAT the Yggdrasil Power fruit",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "CAPWAN:50", "CAPTM:40", "BESTAUG:50", "CAPALLAT", "WAN" ],
+        "PrioritiesDefault": [ "CAPALLBT", "CAPWAN:50", "CAPTM:40", "BESTAUG:50", "CAPALLAT", "WAN" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWAN:50", "BR-300:20", "CAPTM", "WAN"  ],
+        "PrioritiesDefault": [ "CAPWAN:50", "BR-300:20", "CAPTM", "WAN" ],
+        "PrioritiesForNORB": [ "CAPWAN:50", "CAPTM", "WAN" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 155, 144, 132, 146, 159, 148, 139, 140, 441, 440 ],
+        "IDDefault": [ 155, 144, 132, 146, 159, 148, 139, 140, 441, 440 ],
+        "IDForNOTM": [ 155, 144, 132, 146, 159, 136, 94, 116, 110, 148 ],
+        "Comment": "Maximize TM & Wandoos, maximize gold drop accessories for NOTM"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0,
+		"OSDefault": 0,
+		"OSForNORB": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3 ],
+        "Comment": "Wandoos + Stats + Adventure"
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 1000,
+	  "Challenges": [ 
+		"NOAUG-1", "NOAUG-2", "NOAUG-3", "NOAUG-4", "NOAUG-5",
+		"NOEC-1", "NOEC-2", "NOEC-3", "NOEC-4", "NOEC-5",
+		"NORB-2", "NORB-3", "NORB-4",
+		"BLIND-2", "BLIND-3", "BLIND-4",
+		"NONGU-1", "NONGU-2", "NONGU-3", "NONGU-4",
+		"TC-1", "TC-2", "TC-3", "TC-4",
+		"NOTM-2", "NOTM-3",
+		"24HR-3"
+	  ]
+	}
+  }
+}

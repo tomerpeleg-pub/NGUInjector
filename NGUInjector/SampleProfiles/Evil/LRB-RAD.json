@@ -1,0 +1,74 @@
+{
+  "Breakpoints": {
+	"Comment": "LRB to RAD Max",
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "CAPTM:80", "WISH-0", "WISH-1", "WISH-2" ]
+	  },
+      {
+        "Time": { "m": 15 },
+        "Priorities": [ "CAPWAN:10", "AUG-10:10", "AUG-11:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM:80", "WISH-0", "WISH-1", "WISH-2" ]
+      },
+      {
+        "Time": { "m": 15 },
+        "Priorities": [ "CAPWAN:15", "BR", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPHACK-1:10", "WISH-0", "WISH-1", "WISH-2" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 319, 312,   301, 323, 324, 311,   136, 118, 171, 121,   446, 344, 270, 248,   328, 389, 450, 330, 277 ],
+        "Comment": "Respawn4Daycare4TM + JRPGWeapon/Hamlet/SlinkyBoots/RWings"
+      },
+      {
+        "Time": { "m": 15 },
+        "ID": [ 312, 326,   315, 342, 324, 325,   136, 118, 171, 121,   446, 344, 270, 248,   388, 328,   449, 249,   330 ],
+        "Comment": "Respawn4Daycare4Wishes2NguAndWishes1R3Bars"
+      },
+      {
+        "Time": { "m": 60 },
+        "ID": [ 326, 319,   322, 342, 324, 325,   137, 91, 256,   389, 451, 274, 296, 313, 270,   388, 330, 328, 327 ],
+        "(Default-NGU+Wishes) Respawn4Daycare4Wishes3NguAndWishes": [ 312, 326,   315, 342, 324, 325,   136, 118, 171, 121,   446, 344, 270, 248,   388, 328, 389,   449, 249 ],
+        "(Combat) CDDrop6Power": [ 326, 319,   322, 342, 324, 325,   137, 91, 256,   389, 451, 274, 296, 313, 270,   388, 330, 328, 327 ],
+        "(AKCombat) Drop9Power": [ 326, 319,   322, 342, 324, 325,   389, 451, 274, 296, 313, 270, 170, 447, 230,   388, 330, 328, 327 ],
+        "(Gold) Gold7CDPower": [ 326, 319,   322, 342, 324, 325,   329, 389, 313, 274, 271, 263, 192,    137, 91, 256,   388, 330, 328 ],
+        "(AKGold) Gold9Power": [ 326, 319,   322, 342, 324, 325,   329, 389, 313, 274, 271, 263, 192, 142, 136,    388, 330, 328, 327 ],
+        "(Ygg) YggYieldSeedGain": [ 158,   193, 275, 306, 264, 321,   273, 444, 256, 390, 149 ],
+		"(Questing) QuestDropRespawn3Daycare2NguAndWishes": [ 312, 269,   315, 323, 324, 325,   257, 314, 170, 293, 329, 236,   136, 118, 171,   446, 344,   328, 449 ]
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 2
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 4, 5, 0, 9, 10, 11 ],
+        "Comment": "No drop or beards",
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 1
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

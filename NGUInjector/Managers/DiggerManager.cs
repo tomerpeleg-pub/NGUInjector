@@ -12,7 +12,7 @@ namespace NGUInjector.Managers
 
         internal static LockType CurrentLock { get; set; }
         private static readonly int[] TitanDiggers = { 0, 3, 8, 11 };
-        private static readonly int[] YggDiggers = {8, 11};
+        private static readonly int[] YggDiggers = { 8, 11 };
 
         internal static bool CanSwap()
         {
@@ -24,10 +24,9 @@ namespace NGUInjector.Managers
             if (!CanAcquireOrHasLock(LockType.Titan))
                 return;
 
-            var ts = ZoneHelpers.TitansSpawningSoon();
             if (CurrentLock == LockType.Titan)
             {
-                if (ts.SpawningSoon)
+                if (ZoneHelpers.AnyTitansSpawningSoon())
                     return;
 
                 RestoreDiggers();
@@ -35,7 +34,7 @@ namespace NGUInjector.Managers
                 return;
             }
 
-            if (ts.SpawningSoon)
+            if (ZoneHelpers.AnyTitansSpawningSoon())
             {
                 CurrentLock = LockType.Titan;
                 SaveDiggers();
@@ -45,7 +44,7 @@ namespace NGUInjector.Managers
 
         internal static bool TryYggSwap()
         {
-            if (!CanAcquireOrHasLock(LockType.Yggdrasil)) 
+            if (!CanAcquireOrHasLock(LockType.Yggdrasil))
                 return false;
 
             if (CurrentLock == LockType.Yggdrasil)
@@ -97,16 +96,33 @@ namespace NGUInjector.Managers
 
         internal static void EquipDiggers(int[] diggers)
         {
-            Main.Log($"Equipping Diggers: {string.Join(",", diggers.Select(x => x.ToString()).ToArray())}");
+            Main.Log($"Equipping Diggers: {string.Join(",", diggers.Select(x => x.ToString()))}");
+            TryEquipDiggers(diggers);
+        }
+
+        internal static bool TryEquipDiggers(int[] diggers)
+        {
             Main.Character.allDiggers.clearAllActiveDiggers();
             var sorted = diggers.OrderByDescending(x => x).Where(x => x <= 11 && x >= 0).ToArray();
+
+            bool allEquipped = true;
+
             for (var i = 0; i < sorted.Length; i++)
             {
-                if (Main.Character.diggers.diggers[i].maxLevel <= 0)
+                if (Main.Character.diggers.diggers[sorted[i]].maxLevel <= 0)
+                {
                     continue;
+                }
+
                 Main.Character.allDiggers.setLevelMaxAffordable(sorted[i]);
+
+                //Main.LogDebug($"Digger {sorted[i]} level: {Main.Character.diggers.diggers[sorted[i]].curLevel} active:{Main.Character.diggers.diggers[sorted[i]].active}");
+
+                allEquipped &= Main.Character.diggers.diggers[sorted[i]].active;
             }
+
             UpdateCheapestDigger();
+            return allEquipped;
         }
 
         private static bool CanAcquireOrHasLock(LockType requestor)
@@ -128,7 +144,7 @@ namespace NGUInjector.Managers
         {
             var gross = Main.Character.grossGoldPerSecond();
             var sub = 0.0;
-            for (var i = Main.Character.diggers.diggers.Count-1; i >= 0 ; i--)
+            for (var i = Main.Character.diggers.diggers.Count - 1; i >= 0; i--)
             {
                 if (Main.Character.diggers.diggers[i].active)
                 {

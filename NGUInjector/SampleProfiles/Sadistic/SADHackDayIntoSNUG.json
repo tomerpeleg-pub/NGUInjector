@@ -1,0 +1,128 @@
+{
+  "Breakpoints": {
+	"Comment": "Early SAD - Hackday followed by SNUGDay",
+	"Injector" : "Make sure to disable the titan's gear swapping, we don't want the R3 cap to tank and need to recover every 60 minutes",
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "CAPTM:80", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPTM:10", "CAPALLNGU", "CAPWAN", "AUG-8", "AUG-9" ],
+		"Comment": "All R3 is dedicated to Hacks, no reason to put any into wishes"
+      },
+      {
+        "Time": { "h": 24, "m": 30 },
+        "Priorities": [ "ALLNGU" ]
+      },
+      {
+        "Time": { "h": 48, "m": 30 },
+        "Priorities": [ "CAPWAN:15", "CAPAUG-8:20", "CAPAUG-9:20", "CAPTM:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM:80", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPTM:10", "CAPALLNGU", "CAPWAN", "BR" ],
+		"Comment": "All R3 is dedicated to Hacks, no reason to put any into wishes"
+      },
+      {
+        "Time": { "h": 24, "m": 30 },
+        "Priorities": [ "ALLNGU" ]
+      },
+      {
+        "Time": { "h": 48, "m": 30 },
+        "Priorities": [ "CAPWAN:20", "CAPTM:10", "BR:50", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPHACK-1:10", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "HACK-13", "HACK-12", "HACK-10", "HACK-5", "HACK-6", "HACK-8", "HACK-9", "HACK-7", "HACK-0", "HACK-2", "HACK-4", "HACK-11", "HACK-3", "HACK-14", "HACK-1" ]
+      },
+      {
+        "Time": { "h": 24, "m": 30 },
+        "Priorities": [ "HACK-1" ],
+		"Comment": "All E/M is dedicated to NGU, no reason to put any into wishes"
+      },
+      {
+        "Time": { "h": 48, "m": 30 },
+        "Priorities": [ "HACK-1:10", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 380, 399,   359, 353, 354, 355,   136, 118,   446, 344, 270, 248,   431, 333, 365, 332, 334, 381,   378,   330 ],
+        "Comment": "Respawn2Daycare4EMPC6EBars1R3Bars + ShoesWWheels"
+      },
+      {
+        "Time": { "m": 30 },
+        "ID": [ 396, 377,   392, 342, 394, 395,   430, 334, 382, 332, 397, 388, 378, 333, 331, 358, 327, 295, 398, 330 ],
+        "Comment": "Full Hacks",
+        "Comment": "Maybe sacrifice 1 pure Hack accessory for R3 bars to recover from any unforeseen gear swapping, will reduce hack speed by ~2-3%"
+      },
+      {
+        "Time": { "h": 24, "m": 30 },
+        "ID": [ 399, 380,   392, 393, 354, 376,   431, 333, 398, 452, 364, 381, 449, 331, 365, 332, 249, 334, 397, 378 ],
+        "Comment": "Full NGU",
+        "Comment": "Maybe sacrifice 1 pure NGU accessory for EM bars to recover from any unforeseen gear swapping, will reduce NGU speed by ~2-3%"
+      },
+      {
+        "Time": { "h": 48, "m": 30 },
+        "ID": [ 399, 380,   392, 342, 394, 395,   136, 118,   446, 344, 270, 248,   430, 431, 333, 398, 388, 357, 379,   330 ],
+        "Comment": "Go back to a holding pattern until we can resume muffin RBs"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 0, 1, 2, 3, 4, 5, 8, 9, 10, 11 ]
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 1
+      },
+      {
+        "Time": { "h": 24, "m": 30 },
+        "Diff": 2
+      },
+      {
+        "Time": { "h": 48, "m": 30 },
+        "Diff": 1
+      }
+    ],
+    "Consumables": [
+      {
+        "Time": 0,
+        "Items": [ "EPOT-B", "MPOT-B", "R3POT-B" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Items": [ "R3POT-C" ]
+      },
+      {
+        "Time": { "h": 24, "m": 30 },
+        "Items": [ "EPOT-C", "MPOT-C" ]
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

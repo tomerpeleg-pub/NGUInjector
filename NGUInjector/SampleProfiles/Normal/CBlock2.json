@@ -1,0 +1,61 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit % to 0; Adventure Tab - Turn on Combat (Target: A Very Strange Place, Idle Mode, Allow Fallthrough -> Optionally enable ITOPOD after unlocking TM to get some PP); Gold Tab - Turn on CBlock Mode",
+	"Comment" : "Put low targets on AT-0/1/2 and put high or infinite targets on AT-3/4. If we run long enough to unlock AT that means we need to focus on Wandoos for power (ie: NORB, NOTM, NOAUG, etc)",
+	"CommentForNORB" : "Make sure to EAT the Yggdrasil Power fruit",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "CAPWAN:50", "CAPTM:40", "BESTAUG:50", "CAPALLAT", "WAN", "BESTAUG" ],
+        "PrioritiesDefault": [ "CAPALLBT", "CAPWAN:50", "CAPTM:40", "BESTAUG:50", "CAPALLAT", "WAN", "BESTAUG" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWAN:50", "BR-300:20", "CAPTM", "WAN", "BR" ],
+        "PrioritiesDefault": [ "CAPWAN:50", "BR-300:20", "CAPTM", "WAN", "BR" ],
+        "PrioritiesForNOTM": [ "CAPWAN:50", "RIT-0:20", "WAN" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 184, 185, 186, 187, 177, 189, 443, 160, 442, 170, 161, 138 ],
+        "IDDefault": [ 184, 185, 186, 187, 177, 189, 443, 160, 442, 170, 161, 138 ],
+        "IDForNOTM": [ 164, 185, 186, 153, 177, 136, 142, 94, 129, 189, 161, 170 ],
+		"IDForNORBPush": [ 184, 185, 186, 187, 188, 189, 443, 160, 442, 170, 161, 138 ],
+        "Comment": "Maximize TM & Wandoos, maximize gold drop accessories for NOTM"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 10, 11 ],
+        "Comment": "Wandoos + Stats + Adventure + Blood + Exp"
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 1000,
+	  "Note1" : "Unlock FoN and purchase the XP upgrade as soon as TC-5 is done",
+	  "Note2" : "Swap Beard Cage to Golden Beard as soon as TC-7 is done for the remainder of the challenge block, after challenge block swap fumanchu beard to Beard Cage",
+	  "Challenges": [ 
+		"TC-5", "TC-6", "TC-7",	
+		"NOTM-4", "NOTM-5",	
+		
+		"BLIND-5", "BLIND-6", "BLIND-7", "BLIND-8", "BLIND-9", "BLIND-10",
+		"NORB-5", "NORB-6", "NORB-7", "NORB-8", "NORB-9", "NORB-10",
+		"NONGU-5", "NONGU-6", "NONGU-7", "NONGU-8", "NONGU-9", "NONGU-10",
+		
+		"24HR-4", "24HR-5", "24HR-6"
+	  ]
+	}
+  }
+}

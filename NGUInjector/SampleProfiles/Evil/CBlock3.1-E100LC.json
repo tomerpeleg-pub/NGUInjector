@@ -1,0 +1,52 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit/Iron Pill to 0, Number to 1E+20; Adventure Tab - Do combat in ITOPOD (combat in a lower zone for gold prior to boss 30); Gold Tab - Turn on CBlock Mode",
+	"Comment" : "Make sure to disable all beards and stat advancement, set targets on TM and Augments (6-10 Milk Infusion before TM, 10-20 Energy Cannon after TM)",
+	"WandoosNotes" : "Wandoos does not help a ton, and just eats levels once TM is unlocked. WAN can be left off entirely for slightly slower, but more AFK progress. Always disable Wandoos allocation after 30 and save levels for TM/Energy Cannon/Big-Ass Hickey.",
+	"TMNotes" : "At this point in the game energy speed FAR outpaces magic speed. 59/10 TM levels are optimal, but something like 50/2-4 is a much more likely balance. 50 speed will be obtained before 3m, 3 multiplier will take around 7m.",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "AUG-8", "CAPTM", "CAPALLNGU" ],
+		"Before30": [ "CAPALLBT", "AUG-4", "WAN" ],
+		"After30": [ "CAPALLBT", "CAPTM", "AUG-8" ],
+        "Comment": "If WAN levels get to 90 prior to TM, remove WAN"
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "RIT-7", "CAPTM", "CAPALLNGU" ],
+		"Before30": [ "WAN" ],
+		"After30": [ "CAPTM", "RIT-7" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 241, 237, 238, 239, 240,   446, 445, 236, 242, 243, 194, 218, 195, 170 ],
+        "Comment": "Max P/T"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 7, 8, 10, 11 ],
+        "Comment": "Wandoos + Stats + Adventure + MBeard + PP + Blood + Exp"
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 1000,
+	  "Challenges": [ 
+		"100LC-1", "100LC-2", "100LC-3", "100LC-4", "100LC-5"
+	  ]
+	}
+  }
+}

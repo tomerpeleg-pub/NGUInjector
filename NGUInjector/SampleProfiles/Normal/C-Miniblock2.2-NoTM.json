@@ -1,0 +1,53 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit % to 0; Adventure Tab - Turn on Combat (Target: High Security Base, Idle Mode, Allow Fallthrough); Gold Tab - Disable",
+	"Comment" : "Only buy 1-2 of the most expensive augments you can afford then focus the rest of the gold on the first Blood Ritual (for Number gain) once unlocked",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "AUG-4", "WAN" ],
+        "Comment": "Swap to AUG-4 later in the run"
+      },
+      {
+        "Time": { "m": 25 },
+        "Priorities": [ "CAPALLBT", "AT-3", "AT-4", "WAN" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN", "AT-3", "AT-4" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "BR", "WAN" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 130, 131, 132, 133, 134, 101, 138, 136 ],
+        "Comment": "Max P/T Gear - Gold + Wandoos Accessories, maybe use 440 instead of 136 for maximum Wandoos speed?"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [],
+        "Comment": "No TM means no diggers"
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 100,
+	  "Challenges": [ "NOTM-1" ],
+      "Comment": "Option: Disable rebirth when close and eat a Fruit of Power to get past the final stretch, maybe also bump up the Target once rebirths last >20 minutes?"
+	}
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "Breakpoints": {
+	"PriorityComment1" : "CAP Allocations will use as much energy as it takes to cap, regular allocations evenly divide up the available idle energy. But allocations are individually applied left to right so there are some quirks",
+	"PriorityComment2" : "In practice CAP allocations make dividers between groups of non-CAP allocations.",
+	
+	"PriorityExample1" : "For example, with priorities A, CAPB, C, D, E and total energy of 100",
+	"PriorityExample2" : "A would get 25 energy (1/4 of 100 idle energy) as there are 4 non-cap priorities to allocate (A,C,D,E)",
+	"PriorityExample3" : "CAPB would then take as much as it needs to cap (lets say it takes 60)",
+	"PriorityExample4" : "C, D, E would then get each get 5 energy (1/3 each of 15 remaining idle energy) - technically C gets 1/3 of 15, D then gets 1/2 of 10 and then E gets all of 5, but has the same outcome",
+	"PriorityExample5" : "If CAPB were first instead, A,C,D and E would each get 10 energy. If CAPB were last, A,C,D and E would each get 25 energy and CAPB would get nothing",
+	"PriorityExample6" : "If C were instead CAPC, A would now get 33, CAPC would get the last 7 and D and E would get nothing. If D were instead CAPD, A would now get 33, C would get 3, CAPD would get 4 and E would get nothing",
+	
+	"PriorityPercentComment1" : "The percentages (like ALLAT:25) are a ceiling, and wont have an effect if the amount of energy to be allocated is less than the percent would allocate",
+	"PriorityPercentComment2" : "So if we had priority A with idle energy of 100 and the amount of energy to be applied was 20, A:25 would do nothing, while A:10 would lower the allocation to 10",
+	"PriorityPercentComment3" : "Also a reminder that CAP allocations work against the total, while non-CAP allocations work against the idle amount",
+	
+	"PriorityPercentExample1" : "For example A, B, C, D would result in all priorities getting 25 energy and is equivalent to A:25, B:33, C:50, D:100 (A gets 25 of 100 idle, B gets 25 of 75 remainder, etc)",
+	"PriorityPercentExample2" : "If we have the same A, CAPB, C, D, E definition as above, this is equivalent to A:25, CAPB:60, B:33, C:50, D:100",
+	"PriorityPercentExample2" : "For CAPB, anything 60 and above would have the same result. But if we had CAPB:45 instead for example, C, D, and E would each get 10 energy instead of 5",
+	
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "CAPTM" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:10", "AUG-8", "AUG-9" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN:10", "CAPNGU-4:50", "WISH-0:5", "WISH-1:5", "WISH-2:6", "WISH-3:6", "ALLNGU" ],
+        "Note": "Figure out SAD NGU gear/allocation needs to BB NGU up to Adv a"
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:10", "BR" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN:10", "BR:10", "CAPNGU-1:50", "WISH-0:5", "WISH-1:5", "WISH-2:6", "WISH-3:6", "ALLNGU" ],
+        "Note": "Figure out SAD NGU gear/allocation needs to BB NGU up to Exp"
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPHACK-1" ]
+      }
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+	"Gear Note 1": "Make sure to set hardcap input in Gear Optimizer!",
+	"Gear Note 2": "Make sure each gear set has at least one significant EM and R3 Bars multiplier",
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 407, 399,   416, 353, 354, 403,   136, 118, 171, 121, 379, 446,   344, 270, 248, 236,   505, 431, 413, 421, 422, 384 ],
+        "Comment": "Respawn6Daycare4TM + Bandana",
+        "Comment2": "Give first 30 minutes an extra boost to bars if necessary"
+      },
+      {
+        "Time": { "m": 30 },
+        "ID": [ 366, 407,   392, 353, 354, 403,   136, 118, 171, 121, 379, 446,   344, 270, 248, 236,   505, 386, 413, 431, 382, 351 ],
+        "Comment": "Respawn6Daycare4Augmentation"
+      },
+      {
+        "Time": { "h": 1 },
+        "ID": [ 407, 460,   392, 401, 455, 403,   136, 118, 171, 121, 379, 446,   236,   505, 422, 431, 386, 414, 406,   458,   424,   504 ],
+        "(NguEquip+WishAcc) Respawn6Daycare1Ngu6R3Bars1EBars1Wishes": [ 407, 460,   392, 401, 455, 403,   136, 118, 171, 121, 379, 446,   236,   505, 422, 431, 386, 414, 406,   458,   424,   504 ],
+        "(Combat) CDDrop5Respawn3Power": [ 460, 457,   453, 454, 455, 456,   137, 91, 256,   505, 431, 389, 364, 451,   136, 118, 171,   504, 458, 424, 425, 430 ],
+        "(RockLobster) CDDrop6Power + 'Paper' Gear": [ 460, 457,   453, 393, 455, 456,   137, 91, 256,   505, 431, 389, 364, 451, 274,   504, 458, 424, 425, 430,   406, 413 ],
+        "(Gold) Gold7Power": [ 460, 457,   322, 454, 455, 456,   505, 431, 329, 389, 358, 350, 313,   504, 458, 424, 425, 430, 459, 422, 421, 414 ],
+		"(Questing) QuestDropRespawn6NGU + HardHat/SkippingStone": [ 415, 460,   453, 401, 455, 376,   385, 257, 314, 170, 293, 329, 236,   136, 118, 171, 121, 379, 446,   505, 413,   424 ]
+      },
+      {
+        "Time": { "h": 9923, "m": 43 },
+        "ID": [ 423, 420,   416, 417, 418, 419,   505, 504, 430, 422, 421, 431, 414, 413, 406, 405, 385, 386, 397, 383, 398, 384 ],
+        "Comment": "Max Pow"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 0, 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "No beards",
+		"DiggerOptions": "0-Drops, 1-Wandoos, 2-Stats, 3-Adv, 4/5-E/M NGU, 6/7-E/M Beards, 8-PP, 9-DayCare, 10-Blood, 11-XP",
+		"Priorities1": "3+8 should be always on to maximize PP gains, swap 8 to 0 if farming from a zone other than ITOPOD",
+		"Priorities2": "4+5 should be on all of the time after the initial setup (when boosting NGUs)",
+		"Priorities3": "11 > 9 should always be on if possible",
+		"Priorities4": "10 should always be on when blood can be easily capped",
+		"Priorities6": "1+2 are only needed if held back by floor restrictions or during challenges",
+		"Priorities7": "6+7 are useful mid-game (early to mid evil), early on there aren't the diggers to spare and beards provide small bonuses, and later beards can be BB capped without digger support"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 2
+      }
+    ],
+    "Consumables_bak": [
+      {
+        "Time": { "h": 21, "m": 50 },
+        "Items": [ "MAYO" ]
+      }
+    ],
+    "Rebirth": {
+	  "Type": "TimeBalancedMuffin",
+	  "Target": 15,
+	  "Challenges": [ ]
+	}
+  }
+}

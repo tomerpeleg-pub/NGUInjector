@@ -1,0 +1,62 @@
+{
+  "Breakpoints": {
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "AUG-2", "AUG-3" }
+      },
+      {
+        "Time": { "m": 12 },
+	    "Priorities": [ "CAPALLBT", "CAPALLAT", "WAN", "TM" }
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "RIT-5" ],
+		"Note": "Check which Ritual will run in 15m or less, set gold blood spell to match amount of blood output, rest in number"
+      },
+      {
+        "Time": { "m": 12 },
+	    "Priorities": [ "WAN", "RIT-5" }
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": []
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 184, 222, 223, 224, 225,   118, 136,   195, 194, 226, 227, 189, 161 ],
+        "Comment": "Maximize TM & Wandoos"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 8, 9, 10, 11 ],
+        "Comment": "Wan + Stats + Adv + PP + Daycare + Blood + Exp"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 0
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 1000,
+	  "Challenges": [ "BASIC-1" ]
+	}
+  }
+}

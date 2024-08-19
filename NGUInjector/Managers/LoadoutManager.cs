@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using static NGUInjector.Main;
 
 namespace NGUInjector.Managers
@@ -58,28 +59,15 @@ namespace NGUInjector.Managers
 
         internal static void TryTitanSwap()
         {
-            if (Settings.TitanLoadout.Length == 0 && Settings.GoldDropLoadout.Length == 0)
-                return;
-
-            //Skip if we're currently locked for yggdrasil (although this generally shouldn't happen)
-            if (CurrentLock != LockType.Quest && !CanAcquireOrHasLock(LockType.Titan))
-                return;
-
-            var ts = ZoneHelpers.TitansSpawningSoon();
-
-            if (CurrentLock == LockType.Quest && ts.SpawningSoon)
-            {
-                SaveTempLoadout();
-                ReleaseLock();
-                _swappedQuestToTitan = true;
-            }
-
             //If we're currently holding the lock
             if (CurrentLock == LockType.Titan)
             {
                 //If we haven't AKed yet, just return
-                if (ZoneHelpers.TitansSpawningSoon().SpawningSoon)
+                if (ZoneHelpers.AnyTitansSpawningSoon())
+                {
+                    //LogDebug("Waiting for kill...");
                     return;
+                }
 
                 //Titans have been AKed, restore back to original gear
                 if (_swappedQuestToTitan)
@@ -91,30 +79,54 @@ namespace NGUInjector.Managers
                 {
                     RestoreGear();
                     ReleaseLock();
+                    //LogDebug("Releasing Titan Lock");
                 }
 
                 return;
             }
 
-            //No lock currently, check if titans are spawning
-            if (ts.SpawningSoon)
+            //Skip if we have no defined titan gear sets
+            if (Settings.TitanLoadout.Length == 0 && Settings.GoldDropLoadout.Length == 0)
             {
+                return;
+            }
+
+            //Skip if we're currently locked for yggdrasil (although this generally shouldn't happen)
+            if (CurrentLock != LockType.Quest && !CanAcquireOrHasLock(LockType.Titan))
+            {
+                return;
+            }
+
+            //No lock currently, check if titans are spawning
+            if (ZoneHelpers.AnyTitansSpawningSoon())
+            {
+                //If we're questing save Quest gear and go back to that gearset after the titan kill
+                if (CurrentLock == LockType.Quest)
+                {
+                    SaveTempLoadout();
+                    ReleaseLock();
+                    _swappedQuestToTitan = true;
+                }
+
                 Log("Equipping Loadout for Titans");
 
                 //Titans are spawning soon, grab a lock and swap
                 AcquireLock(LockType.Titan);
                 SaveCurrentLoadout();
+                //LogDebug("Locking Titan");
 
-                if (Settings.ManageGoldLoadouts && ts.RunMoneyLoadout)
+                if (Settings.ManageGoldLoadouts && ZoneHelpers.ShouldRunGoldLoadout())
                 {
                     Log("Equipping Gold Drop Loadout");
                     ChangeGear(Settings.GoldDropLoadout);
                     Settings.DoGoldSwap = false;
+                    //LogDebug("Gold Gear swap");
                 }
-                else
+                else if(ZoneHelpers.ShouldRunTitanLoadout())
                 {
                     Log("Equipping Titan Loadout");
                     ChangeGear(Settings.TitanLoadout);
+                    //LogDebug("Titan Gear swap");
                 }
             }
         }
@@ -142,12 +154,12 @@ namespace NGUInjector.Managers
                 ReleaseLock();
                 _swappedQuestToMoneyPit = true;
             }
-            
+
             else if (!CanAcquireOrHasLock(LockType.MoneyPit))
             {
                 return false;
             }
-                
+
             Log("Equipping Money Pit");
             AcquireLock(LockType.MoneyPit);
             SaveCurrentLoadout();
@@ -234,7 +246,8 @@ namespace NGUInjector.Managers
                 return true;
             }
 
-            if (CurrentLock == LockType.Quest) {
+            if (CurrentLock == LockType.Quest)
+            {
                 LoadoutManager.RestoreOriginalQuestGear();
                 LoadoutManager.ReleaseLock();
             }
@@ -254,7 +267,7 @@ namespace NGUInjector.Managers
             Log($"Received New Gear for {getLockTypeName(CurrentLock)}: {string.Join(",", gearIds.Select(x => x.ToString()).ToArray())}");
             var weaponSlot = -5;
             var accSlot = 10000;
-            var controller = Controller;
+            var controller = Main.InventoryController;
 
             Main.Character.removeMostEnergy();
             Main.Character.removeMostMagic();
@@ -272,7 +285,7 @@ namespace NGUInjector.Managers
                     {
                         try
                         {
-                            Log($"Missing item {Controller.itemInfo.itemName[itemId]} with ID {itemId}");
+                            Log($"Missing item {Main.InventoryController.itemInfo.itemName[itemId]} with ID {itemId}");
                         }
                         catch (Exception)
                         {
@@ -336,10 +349,44 @@ namespace NGUInjector.Managers
                 Log(e.StackTrace);
             }
 
-
             controller.updateBonuses();
             controller.updateInventory();
+
+            updateEnergy();
+            updateMagic();
+            updateRes3();
+            
             Log("Finished equipping gear");
+        }
+
+        private static void updateEnergy()
+        {
+            if (Main.Character.curEnergy >= Main.Character.hardCap() || Main.Character.curEnergy >= Main.Character.totalCapEnergy())
+            {
+                long num1 = Main.Character.totalCapEnergy() - Main.Character.curEnergy;
+                Main.Character.curEnergy += num1;
+                Main.Character.idleEnergy += num1;
+            }
+        }
+
+        private static void updateMagic()
+        {
+            if (Main.Character.magic.curMagic >= Main.Character.hardCap() || Main.Character.magic.curMagic >= Main.Character.totalCapMagic())
+            {
+                long num2 = Main.Character.totalCapMagic() - Main.Character.magic.curMagic;
+                Main.Character.magic.curMagic += num2;
+                Main.Character.magic.idleMagic += num2;
+            }
+        }
+
+        private static void updateRes3()
+        {
+            if (Main.Character.res3.curRes3 >= Main.Character.hardCap() || Main.Character.res3.curRes3 >= Main.Character.totalCapRes3())
+            {
+                long num3 = Main.Character.totalCapRes3() - Main.Character.res3.curRes3;
+                Main.Character.res3.curRes3 += num3;
+                Main.Character.res3.idleRes3 += num3;
+            }
         }
 
         private static ih FindItemSlot(int id, bool moneyPit = false)
@@ -370,7 +417,7 @@ namespace NGUInjector.Managers
                 return inv.weapon.GetInventoryHelper(-5);
             }
 
-            if (Controller.weapon2Unlocked())
+            if (Main.InventoryController.weapon2Unlocked())
             {
                 if (inv.weapon2.id == id)
                 {
@@ -414,9 +461,9 @@ namespace NGUInjector.Managers
                 loadout.Add(inv.weapon2.id);
             }
 
-            for (var id = 10000; Controller.accessoryID(id) < Main.Character.inventory.accs.Count; ++id)
+            for (var id = 10000; Main.InventoryController.accessoryID(id) < Main.Character.inventory.accs.Count; ++id)
             {
-                var index = Controller.accessoryID(id);
+                var index = Main.InventoryController.accessoryID(id);
                 loadout.Add(Main.Character.inventory.accs[index].id);
             }
 

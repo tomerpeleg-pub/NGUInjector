@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            this.moneyPitError = new System.Windows.Forms.ErrorProvider(this.components);
+            this.moneyPitThresholdError = new System.Windows.Forms.ErrorProvider(this.components);
             this.yggErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.invPrioErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.invBlacklistErrProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -38,8 +38,13 @@
             this.goldErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.numberErrProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.wishErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.moneyPitErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ConsumeIfRunning = new System.Windows.Forms.CheckBox();
+            this.AutoBuyConsumables = new System.Windows.Forms.CheckBox();
+            this.AutoBuyAdv = new System.Windows.Forms.CheckBox();
+            this.OpenSettingsFolder = new System.Windows.Forms.Button();
             this.DisableOverlay = new System.Windows.Forms.CheckBox();
             this.UnloadSafety = new System.Windows.Forms.CheckBox();
             this.UnloadButton = new System.Windows.Forms.Button();
@@ -49,6 +54,11 @@
             this.AutoFightBosses = new System.Windows.Forms.CheckBox();
             this.AutoITOPOD = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ManageConsumables = new System.Windows.Forms.CheckBox();
+            this.OpenProfileFolder = new System.Windows.Forms.Button();
+            this.GuffBOnRebirth = new System.Windows.Forms.CheckBox();
+            this.GuffAOnRebirth = new System.Windows.Forms.CheckBox();
+            this.IronPillOnRebirth = new System.Windows.Forms.CheckBox();
             this.ProfileEditButton = new System.Windows.Forms.Button();
             this.CastBloodSpells = new System.Windows.Forms.CheckBox();
             this.IronPillThreshold = new System.Windows.Forms.NumericUpDown();
@@ -80,6 +90,7 @@
             this.ManageMagic = new System.Windows.Forms.CheckBox();
             this.ManageEnergy = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label35 = new System.Windows.Forms.Label();
             this.YggSwapThreshold = new System.Windows.Forms.NumericUpDown();
             this.HarvestSafety = new System.Windows.Forms.CheckBox();
             this.HarvestAllButton = new System.Windows.Forms.Button();
@@ -93,6 +104,10 @@
             this.YggdrasilSwap = new System.Windows.Forms.CheckBox();
             this.ManageYggdrasil = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.boostPrioDownButton = new System.Windows.Forms.Button();
+            this.boostPrioUpButton = new System.Windows.Forms.Button();
+            this.label38 = new System.Windows.Forms.Label();
+            this.boostPriorityList = new System.Windows.Forms.ListBox();
             this.BoostAvgReset = new System.Windows.Forms.Button();
             this.CubePriority = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -113,6 +128,19 @@
             this.ManageInventory = new System.Windows.Forms.CheckBox();
             this.ManageBoostConvert = new System.Windows.Forms.CheckBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label43 = new System.Windows.Forms.Label();
+            this.TitanVersions = new System.Windows.Forms.ComboBox();
+            this.TitansWithVersion = new System.Windows.Forms.ComboBox();
+            this.LocateWalderp = new System.Windows.Forms.Button();
+            this.UseTitanCombat = new System.Windows.Forms.CheckBox();
+            this.TitanSmartBeastMode = new System.Windows.Forms.CheckBox();
+            this.TitanMoreBlockParry = new System.Windows.Forms.CheckBox();
+            this.TitanBeastMode = new System.Windows.Forms.CheckBox();
+            this.TitanRecoverHealth = new System.Windows.Forms.CheckBox();
+            this.TitanFastCombat = new System.Windows.Forms.CheckBox();
+            this.TitanPrecastBuffs = new System.Windows.Forms.CheckBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.TitanCombatMode = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.TitanSwapTargets = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -124,6 +152,9 @@
             this.titanLoadout = new System.Windows.Forms.ListBox();
             this.SwapTitanLoadout = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.ITOPODSmartBeastMode = new System.Windows.Forms.CheckBox();
+            this.SmartBeastMode = new System.Windows.Forms.CheckBox();
+            this.TargetTitans = new System.Windows.Forms.CheckBox();
             this.label32 = new System.Windows.Forms.Label();
             this.BlacklistAddEnemyButton = new System.Windows.Forms.Button();
             this.label31 = new System.Windows.Forms.Label();
@@ -171,6 +202,15 @@
             this.GoldLoadoutAdd = new System.Windows.Forms.Button();
             this.GoldLoadout = new System.Windows.Forms.ListBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.QuestSmartBeastMode = new System.Windows.Forms.CheckBox();
+            this.QuestBeastMode = new System.Windows.Forms.CheckBox();
+            this.ManageQuestLoadout = new System.Windows.Forms.CheckBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.questRemoveButton = new System.Windows.Forms.Button();
+            this.QuestLoadoutItem = new System.Windows.Forms.NumericUpDown();
+            this.questItemLabel = new System.Windows.Forms.Label();
+            this.questAddButton = new System.Windows.Forms.Button();
+            this.questLoadoutBox = new System.Windows.Forms.ListBox();
             this.ButterMinors = new System.Windows.Forms.CheckBox();
             this.ButterMajors = new System.Windows.Forms.CheckBox();
             this.ManualMinor = new System.Windows.Forms.CheckBox();
@@ -183,6 +223,12 @@
             this.AllowMajor = new System.Windows.Forms.CheckBox();
             this.ManageQuests = new System.Windows.Forms.CheckBox();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.RemoveWishBlacklistButton = new System.Windows.Forms.Button();
+            this.label39 = new System.Windows.Forms.Label();
+            this.WishBlacklistAddInput = new System.Windows.Forms.NumericUpDown();
+            this.AddWishBlacklistLabel = new System.Windows.Forms.Label();
+            this.AddWishBlacklistButton = new System.Windows.Forms.Button();
+            this.WishBlacklist = new System.Windows.Forms.ListBox();
             this.WishSortOrder = new System.Windows.Forms.CheckBox();
             this.WishSortPriorities = new System.Windows.Forms.CheckBox();
             this.WishDownButton = new System.Windows.Forms.Button();
@@ -206,6 +252,17 @@
             this.AutoMoneyPit = new System.Windows.Forms.CheckBox();
             this.AutoDailySpin = new System.Windows.Forms.CheckBox();
             this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.TrashProtectedCards = new System.Windows.Forms.CheckBox();
+            this.CardSortOptions = new System.Windows.Forms.ComboBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.CardSortRemove = new System.Windows.Forms.Button();
+            this.CardSortAdd = new System.Windows.Forms.Button();
+            this.label41 = new System.Windows.Forms.Label();
+            this.CardSortList = new System.Windows.Forms.ListBox();
+            this.CardSortDown = new System.Windows.Forms.Button();
+            this.CardSortUp = new System.Windows.Forms.Button();
+            this.label40 = new System.Windows.Forms.Label();
+            this.SortCards = new System.Windows.Forms.CheckBox();
             this.TrashChunkers = new System.Windows.Forms.CheckBox();
             this.DontCastRemove = new System.Windows.Forms.Button();
             this.DontCastAdd = new System.Windows.Forms.Button();
@@ -222,9 +279,21 @@
             this.TrashQuality = new System.Windows.Forms.ComboBox();
             this.TrashCards = new System.Windows.Forms.CheckBox();
             this.balanceMayo = new System.Windows.Forms.CheckBox();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.label42 = new System.Windows.Forms.Label();
+            this.cookingRemoveButton = new System.Windows.Forms.Button();
+            this.CookingLoadoutItem = new System.Windows.Forms.NumericUpDown();
+            this.cookingItemLabel = new System.Windows.Forms.Label();
+            this.cookingAddButton = new System.Windows.Forms.Button();
+            this.cookingLoadoutBox = new System.Windows.Forms.ListBox();
+            this.ManageCookingLoadout = new System.Windows.Forms.CheckBox();
+            this.ManageCooking = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.moneyPitError)).BeginInit();
+            this.questErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.wishBlacklistErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cookingErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.moneyPitThresholdError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yggErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invPrioErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invBlacklistErrProvider)).BeginInit();
@@ -232,6 +301,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.goldErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberErrProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wishErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.moneyPitErrorProvider)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -253,18 +323,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.ResnipeInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GoldItemBox)).BeginInit();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.QuestLoadoutItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AbandonMinorThreshold)).BeginInit();
             this.tabPage9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WishBlacklistAddInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WishAddInput)).BeginInit();
             this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyPitInput)).BeginInit();
             this.tabPage11.SuspendLayout();
+            this.tabPage12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CookingLoadoutItem)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.questErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wishBlacklistErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cookingErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // moneyPitError
+            // moneyPitThresholdError
             // 
-            this.moneyPitError.ContainerControl = this;
+            this.moneyPitThresholdError.ContainerControl = this;
             // 
             // yggErrorProvider
             // 
@@ -294,6 +371,10 @@
             // 
             this.wishErrorProvider.ContainerControl = this;
             // 
+            // moneyPitErrorProvider
+            // 
+            this.moneyPitErrorProvider.ContainerControl = this;
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -307,12 +388,17 @@
             this.tabControl1.Controls.Add(this.tabPage9);
             this.tabControl1.Controls.Add(this.tabPage10);
             this.tabControl1.Controls.Add(this.tabPage11);
+            this.tabControl1.Controls.Add(this.tabPage12);
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.ConsumeIfRunning);
+            this.tabPage1.Controls.Add(this.AutoBuyConsumables);
+            this.tabPage1.Controls.Add(this.AutoBuyAdv);
+            this.tabPage1.Controls.Add(this.OpenSettingsFolder);
             this.tabPage1.Controls.Add(this.DisableOverlay);
             this.tabPage1.Controls.Add(this.UnloadSafety);
             this.tabPage1.Controls.Add(this.UnloadButton);
@@ -324,6 +410,34 @@
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // ConsumeIfRunning
+            // 
+            resources.ApplyResources(this.ConsumeIfRunning, "ConsumeIfRunning");
+            this.ConsumeIfRunning.Name = "ConsumeIfRunning";
+            this.ConsumeIfRunning.UseVisualStyleBackColor = true;
+            this.ConsumeIfRunning.CheckedChanged += new System.EventHandler(this.ConsumeIfRunning_CheckedChanged);
+            // 
+            // AutoBuyConsumables
+            // 
+            resources.ApplyResources(this.AutoBuyConsumables, "AutoBuyConsumables");
+            this.AutoBuyConsumables.Name = "AutoBuyConsumables";
+            this.AutoBuyConsumables.UseVisualStyleBackColor = true;
+            this.AutoBuyConsumables.CheckedChanged += new System.EventHandler(this.AutoBuyConsumables_CheckedChanged);
+            // 
+            // AutoBuyAdv
+            // 
+            resources.ApplyResources(this.AutoBuyAdv, "AutoBuyAdv");
+            this.AutoBuyAdv.Name = "AutoBuyAdv";
+            this.AutoBuyAdv.UseVisualStyleBackColor = true;
+            this.AutoBuyAdv.CheckedChanged += new System.EventHandler(this.AutoBuyAdv_CheckedChanged);
+            // 
+            // OpenSettingsFolder
+            // 
+            resources.ApplyResources(this.OpenSettingsFolder, "OpenSettingsFolder");
+            this.OpenSettingsFolder.Name = "OpenSettingsFolder";
+            this.OpenSettingsFolder.UseVisualStyleBackColor = true;
+            this.OpenSettingsFolder.Click += new System.EventHandler(this.OpenSettingsFolder_Click);
             // 
             // DisableOverlay
             // 
@@ -381,6 +495,11 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.ManageConsumables);
+            this.tabPage2.Controls.Add(this.OpenProfileFolder);
+            this.tabPage2.Controls.Add(this.GuffBOnRebirth);
+            this.tabPage2.Controls.Add(this.GuffAOnRebirth);
+            this.tabPage2.Controls.Add(this.IronPillOnRebirth);
             this.tabPage2.Controls.Add(this.ProfileEditButton);
             this.tabPage2.Controls.Add(this.CastBloodSpells);
             this.tabPage2.Controls.Add(this.IronPillThreshold);
@@ -414,6 +533,41 @@
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ManageConsumables
+            // 
+            resources.ApplyResources(this.ManageConsumables, "ManageConsumables");
+            this.ManageConsumables.Name = "ManageConsumables";
+            this.ManageConsumables.UseVisualStyleBackColor = true;
+            this.ManageConsumables.CheckedChanged += new System.EventHandler(this.ManageConsumables_CheckedChanged);
+            // 
+            // OpenProfileFolder
+            // 
+            resources.ApplyResources(this.OpenProfileFolder, "OpenProfileFolder");
+            this.OpenProfileFolder.Name = "OpenProfileFolder";
+            this.OpenProfileFolder.UseVisualStyleBackColor = true;
+            this.OpenProfileFolder.Click += new System.EventHandler(this.OpenProfileFolder_Click);
+            // 
+            // GuffBOnRebirth
+            // 
+            resources.ApplyResources(this.GuffBOnRebirth, "GuffBOnRebirth");
+            this.GuffBOnRebirth.Name = "GuffBOnRebirth";
+            this.GuffBOnRebirth.UseVisualStyleBackColor = true;
+            this.GuffBOnRebirth.CheckedChanged += new System.EventHandler(this.GuffBOnRebirth_CheckedChanged);
+            // 
+            // GuffAOnRebirth
+            // 
+            resources.ApplyResources(this.GuffAOnRebirth, "GuffAOnRebirth");
+            this.GuffAOnRebirth.Name = "GuffAOnRebirth";
+            this.GuffAOnRebirth.UseVisualStyleBackColor = true;
+            this.GuffAOnRebirth.CheckedChanged += new System.EventHandler(this.GuffAOnRebirth_CheckedChanged);
+            // 
+            // IronPillOnRebirth
+            // 
+            resources.ApplyResources(this.IronPillOnRebirth, "IronPillOnRebirth");
+            this.IronPillOnRebirth.Name = "IronPillOnRebirth";
+            this.IronPillOnRebirth.UseVisualStyleBackColor = true;
+            this.IronPillOnRebirth.CheckedChanged += new System.EventHandler(this.IronPillOnRebirth_CheckedChanged);
             // 
             // ProfileEditButton
             // 
@@ -517,6 +671,7 @@
             // 
             resources.ApplyResources(this.BloodNumberThreshold, "BloodNumberThreshold");
             this.BloodNumberThreshold.Name = "BloodNumberThreshold";
+            this.BloodNumberThreshold.TextChanged += new System.EventHandler(this.BloodNumberThreshold_TextChanged);
             // 
             // label18
             // 
@@ -622,6 +777,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label35);
             this.tabPage3.Controls.Add(this.YggSwapThreshold);
             this.tabPage3.Controls.Add(this.HarvestSafety);
             this.tabPage3.Controls.Add(this.HarvestAllButton);
@@ -637,6 +793,11 @@
             resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label35
+            // 
+            resources.ApplyResources(this.label35, "label35");
+            this.label35.Name = "label35";
             // 
             // YggSwapThreshold
             // 
@@ -746,6 +907,10 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.boostPrioDownButton);
+            this.tabPage4.Controls.Add(this.boostPrioUpButton);
+            this.tabPage4.Controls.Add(this.label38);
+            this.tabPage4.Controls.Add(this.boostPriorityList);
             this.tabPage4.Controls.Add(this.BoostAvgReset);
             this.tabPage4.Controls.Add(this.CubePriority);
             this.tabPage4.Controls.Add(this.label20);
@@ -768,6 +933,31 @@
             resources.ApplyResources(this.tabPage4, "tabPage4");
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // boostPrioDownButton
+            // 
+            resources.ApplyResources(this.boostPrioDownButton, "boostPrioDownButton");
+            this.boostPrioDownButton.Name = "boostPrioDownButton";
+            this.boostPrioDownButton.UseVisualStyleBackColor = true;
+            this.boostPrioDownButton.Click += new System.EventHandler(this.boostPrioDownButton_Click);
+            // 
+            // boostPrioUpButton
+            // 
+            resources.ApplyResources(this.boostPrioUpButton, "boostPrioUpButton");
+            this.boostPrioUpButton.Name = "boostPrioUpButton";
+            this.boostPrioUpButton.UseVisualStyleBackColor = true;
+            this.boostPrioUpButton.Click += new System.EventHandler(this.boostPrioUpButton_Click);
+            // 
+            // label38
+            // 
+            resources.ApplyResources(this.label38, "label38");
+            this.label38.Name = "label38";
+            // 
+            // boostPriorityList
+            // 
+            this.boostPriorityList.FormattingEnabled = true;
+            resources.ApplyResources(this.boostPriorityList, "boostPriorityList");
+            this.boostPriorityList.Name = "boostPriorityList";
             // 
             // BoostAvgReset
             // 
@@ -916,6 +1106,19 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.label43);
+            this.tabPage5.Controls.Add(this.TitanVersions);
+            this.tabPage5.Controls.Add(this.TitansWithVersion);
+            this.tabPage5.Controls.Add(this.LocateWalderp);
+            this.tabPage5.Controls.Add(this.UseTitanCombat);
+            this.tabPage5.Controls.Add(this.TitanSmartBeastMode);
+            this.tabPage5.Controls.Add(this.TitanMoreBlockParry);
+            this.tabPage5.Controls.Add(this.TitanBeastMode);
+            this.tabPage5.Controls.Add(this.TitanRecoverHealth);
+            this.tabPage5.Controls.Add(this.TitanFastCombat);
+            this.tabPage5.Controls.Add(this.TitanPrecastBuffs);
+            this.tabPage5.Controls.Add(this.label36);
+            this.tabPage5.Controls.Add(this.TitanCombatMode);
             this.tabPage5.Controls.Add(this.label9);
             this.tabPage5.Controls.Add(this.TitanSwapTargets);
             this.tabPage5.Controls.Add(this.label8);
@@ -929,6 +1132,102 @@
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // label43
+            // 
+            resources.ApplyResources(this.label43, "label43");
+            this.label43.Name = "label43";
+            // 
+            // TitanVersions
+            // 
+            this.TitanVersions.FormattingEnabled = true;
+            this.TitanVersions.Items.AddRange(new object[] {
+            resources.GetString("TitanVersions.Items"),
+            resources.GetString("TitanVersions.Items1")});
+            resources.ApplyResources(this.TitanVersions, "TitanVersions");
+            this.TitanVersions.Name = "TitanVersions";
+            this.TitanVersions.SelectedIndexChanged += new System.EventHandler(this.TitanVersions_SelectedIndexChanged);
+            // 
+            // TitansWithVersion
+            // 
+            this.TitansWithVersion.FormattingEnabled = true;
+            this.TitansWithVersion.Items.AddRange(new object[] {
+            resources.GetString("TitansWithVersion.Items"),
+            resources.GetString("TitansWithVersion.Items1")});
+            resources.ApplyResources(this.TitansWithVersion, "TitansWithVersion");
+            this.TitansWithVersion.Name = "TitansWithVersion";
+            this.TitansWithVersion.SelectedIndexChanged += new System.EventHandler(this.TitansWithVersion_SelectedIndexChanged);
+            // 
+            // LocateWalderp
+            // 
+            resources.ApplyResources(this.LocateWalderp, "LocateWalderp");
+            this.LocateWalderp.Name = "LocateWalderp";
+            this.LocateWalderp.UseVisualStyleBackColor = true;
+            this.LocateWalderp.Click += new System.EventHandler(this.LocateWalderp_Click);
+            // 
+            // UseTitanCombat
+            // 
+            resources.ApplyResources(this.UseTitanCombat, "UseTitanCombat");
+            this.UseTitanCombat.Name = "UseTitanCombat";
+            this.UseTitanCombat.UseVisualStyleBackColor = true;
+            this.UseTitanCombat.CheckedChanged += new System.EventHandler(this.UseTitanCombat_CheckedChanged);
+            // 
+            // TitanSmartBeastMode
+            // 
+            resources.ApplyResources(this.TitanSmartBeastMode, "TitanSmartBeastMode");
+            this.TitanSmartBeastMode.Name = "TitanSmartBeastMode";
+            this.TitanSmartBeastMode.UseVisualStyleBackColor = true;
+            this.TitanSmartBeastMode.CheckedChanged += new System.EventHandler(this.TitanSmartBeastMode_CheckedChanged);
+            // 
+            // TitanMoreBlockParry
+            // 
+            resources.ApplyResources(this.TitanMoreBlockParry, "TitanMoreBlockParry");
+            this.TitanMoreBlockParry.Name = "TitanMoreBlockParry";
+            this.TitanMoreBlockParry.UseVisualStyleBackColor = true;
+            this.TitanMoreBlockParry.CheckedChanged += new System.EventHandler(this.TitanMoreBlockParry_CheckedChanged);
+            // 
+            // TitanBeastMode
+            // 
+            resources.ApplyResources(this.TitanBeastMode, "TitanBeastMode");
+            this.TitanBeastMode.Name = "TitanBeastMode";
+            this.TitanBeastMode.UseVisualStyleBackColor = true;
+            this.TitanBeastMode.CheckedChanged += new System.EventHandler(this.TitanBeastMode_CheckedChanged);
+            // 
+            // TitanRecoverHealth
+            // 
+            resources.ApplyResources(this.TitanRecoverHealth, "TitanRecoverHealth");
+            this.TitanRecoverHealth.Name = "TitanRecoverHealth";
+            this.TitanRecoverHealth.UseVisualStyleBackColor = true;
+            this.TitanRecoverHealth.CheckedChanged += new System.EventHandler(this.TitanRecoverHealth_CheckedChanged);
+            // 
+            // TitanFastCombat
+            // 
+            resources.ApplyResources(this.TitanFastCombat, "TitanFastCombat");
+            this.TitanFastCombat.Name = "TitanFastCombat";
+            this.TitanFastCombat.UseVisualStyleBackColor = true;
+            this.TitanFastCombat.CheckedChanged += new System.EventHandler(this.TitanFastCombat_CheckedChanged);
+            // 
+            // TitanPrecastBuffs
+            // 
+            resources.ApplyResources(this.TitanPrecastBuffs, "TitanPrecastBuffs");
+            this.TitanPrecastBuffs.Name = "TitanPrecastBuffs";
+            this.TitanPrecastBuffs.UseVisualStyleBackColor = true;
+            this.TitanPrecastBuffs.CheckedChanged += new System.EventHandler(this.TitanPrecastBuffs_CheckedChanged);
+            // 
+            // label36
+            // 
+            resources.ApplyResources(this.label36, "label36");
+            this.label36.Name = "label36";
+            // 
+            // TitanCombatMode
+            // 
+            this.TitanCombatMode.FormattingEnabled = true;
+            this.TitanCombatMode.Items.AddRange(new object[] {
+            resources.GetString("TitanCombatMode.Items"),
+            resources.GetString("TitanCombatMode.Items1")});
+            resources.ApplyResources(this.TitanCombatMode, "TitanCombatMode");
+            this.TitanCombatMode.Name = "TitanCombatMode";
+            this.TitanCombatMode.SelectedIndexChanged += new System.EventHandler(this.TitanCombatMode_SelectedIndexChanged);
+            // 
             // label9
             // 
             resources.ApplyResources(this.label9, "label9");
@@ -939,6 +1238,7 @@
             this.TitanSwapTargets.CheckBoxes = true;
             this.TitanSwapTargets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2});
+            this.TitanSwapTargets.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.TitanSwapTargets.HideSelection = false;
             resources.ApplyResources(this.TitanSwapTargets, "TitanSwapTargets");
             this.TitanSwapTargets.Name = "TitanSwapTargets";
@@ -1008,6 +1308,9 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.ITOPODSmartBeastMode);
+            this.tabPage6.Controls.Add(this.SmartBeastMode);
+            this.tabPage6.Controls.Add(this.TargetTitans);
             this.tabPage6.Controls.Add(this.label32);
             this.tabPage6.Controls.Add(this.BlacklistAddEnemyButton);
             this.tabPage6.Controls.Add(this.label31);
@@ -1040,6 +1343,27 @@
             resources.ApplyResources(this.tabPage6, "tabPage6");
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // ITOPODSmartBeastMode
+            // 
+            resources.ApplyResources(this.ITOPODSmartBeastMode, "ITOPODSmartBeastMode");
+            this.ITOPODSmartBeastMode.Name = "ITOPODSmartBeastMode";
+            this.ITOPODSmartBeastMode.UseVisualStyleBackColor = true;
+            this.ITOPODSmartBeastMode.CheckedChanged += new System.EventHandler(this.ITOPODSmartBeastMode_CheckedChanged);
+            // 
+            // SmartBeastMode
+            // 
+            resources.ApplyResources(this.SmartBeastMode, "SmartBeastMode");
+            this.SmartBeastMode.Name = "SmartBeastMode";
+            this.SmartBeastMode.UseVisualStyleBackColor = true;
+            this.SmartBeastMode.CheckedChanged += new System.EventHandler(this.SmartBeastMode_CheckedChanged);
+            // 
+            // TargetTitans
+            // 
+            resources.ApplyResources(this.TargetTitans, "TargetTitans");
+            this.TargetTitans.Name = "TargetTitans";
+            this.TargetTitans.UseVisualStyleBackColor = true;
+            this.TargetTitans.CheckedChanged += new System.EventHandler(this.TargetTitans_CheckedChanged);
             // 
             // label32
             // 
@@ -1284,6 +1608,7 @@
             this.TitanGoldTargets.CheckBoxes = true;
             this.TitanGoldTargets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
+            this.TitanGoldTargets.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.TitanGoldTargets.HideSelection = false;
             resources.ApplyResources(this.TitanGoldTargets, "TitanGoldTargets");
             this.TitanGoldTargets.Name = "TitanGoldTargets";
@@ -1382,6 +1707,15 @@
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.QuestSmartBeastMode);
+            this.tabPage8.Controls.Add(this.QuestBeastMode);
+            this.tabPage8.Controls.Add(this.ManageQuestLoadout);
+            this.tabPage8.Controls.Add(this.label30);
+            this.tabPage8.Controls.Add(this.questRemoveButton);
+            this.tabPage8.Controls.Add(this.QuestLoadoutItem);
+            this.tabPage8.Controls.Add(this.questItemLabel);
+            this.tabPage8.Controls.Add(this.questAddButton);
+            this.tabPage8.Controls.Add(this.questLoadoutBox);
             this.tabPage8.Controls.Add(this.ButterMinors);
             this.tabPage8.Controls.Add(this.ButterMajors);
             this.tabPage8.Controls.Add(this.ManualMinor);
@@ -1396,6 +1730,76 @@
             resources.ApplyResources(this.tabPage8, "tabPage8");
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // QuestSmartBeastMode
+            // 
+            resources.ApplyResources(this.QuestSmartBeastMode, "QuestSmartBeastMode");
+            this.QuestSmartBeastMode.Name = "QuestSmartBeastMode";
+            this.QuestSmartBeastMode.UseVisualStyleBackColor = true;
+            this.QuestSmartBeastMode.CheckedChanged += new System.EventHandler(this.QuestSmartBeastMode_CheckedChanged);
+            // 
+            // QuestBeastMode
+            // 
+            resources.ApplyResources(this.QuestBeastMode, "QuestBeastMode");
+            this.QuestBeastMode.Name = "QuestBeastMode";
+            this.QuestBeastMode.UseVisualStyleBackColor = true;
+            this.QuestBeastMode.CheckedChanged += new System.EventHandler(this.QuestBeastMode_CheckedChanged);
+            // 
+            // ManageQuestLoadout
+            // 
+            resources.ApplyResources(this.ManageQuestLoadout, "ManageQuestLoadout");
+            this.ManageQuestLoadout.Name = "ManageQuestLoadout";
+            this.ManageQuestLoadout.UseVisualStyleBackColor = true;
+            this.ManageQuestLoadout.CheckedChanged += new System.EventHandler(this.ManageQuestLoadout_CheckedChanged);
+            // 
+            // label30
+            // 
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.Name = "label30";
+            // 
+            // questRemoveButton
+            // 
+            resources.ApplyResources(this.questRemoveButton, "questRemoveButton");
+            this.questRemoveButton.Name = "questRemoveButton";
+            this.questRemoveButton.UseVisualStyleBackColor = true;
+            this.questRemoveButton.Click += new System.EventHandler(this.questRemoveButton_Click);
+            // 
+            // QuestLoadoutItem
+            // 
+            resources.ApplyResources(this.QuestLoadoutItem, "QuestLoadoutItem");
+            this.QuestLoadoutItem.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.QuestLoadoutItem.Name = "QuestLoadoutItem";
+            this.QuestLoadoutItem.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.QuestLoadoutItem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QuestLoadoutItem_KeyDown);
+            // 
+            // questItemLabel
+            // 
+            resources.ApplyResources(this.questItemLabel, "questItemLabel");
+            this.questItemLabel.Name = "questItemLabel";
+            // 
+            // questAddButton
+            // 
+            resources.ApplyResources(this.questAddButton, "questAddButton");
+            this.questAddButton.Name = "questAddButton";
+            this.questAddButton.UseVisualStyleBackColor = true;
+            this.questAddButton.Click += new System.EventHandler(this.questAddButton_Click);
+            // 
+            // questLoadoutBox
+            // 
+            this.questLoadoutBox.FormattingEnabled = true;
+            this.questLoadoutBox.Items.AddRange(new object[] {
+            resources.GetString("questLoadoutBox.Items"),
+            resources.GetString("questLoadoutBox.Items1")});
+            resources.ApplyResources(this.questLoadoutBox, "questLoadoutBox");
+            this.questLoadoutBox.Name = "questLoadoutBox";
             // 
             // ButterMinors
             // 
@@ -1430,14 +1834,14 @@
             resources.ApplyResources(this.AbandonMinors, "AbandonMinors");
             this.AbandonMinors.Name = "AbandonMinors";
             this.AbandonMinors.UseVisualStyleBackColor = true;
-            this.AbandonMinors.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.AbandonMinors.CheckedChanged += new System.EventHandler(this.AbandonMinors_CheckedChanged);
             // 
             // AbandonMinorThreshold
             // 
             resources.ApplyResources(this.AbandonMinorThreshold, "AbandonMinorThreshold");
             this.AbandonMinorThreshold.Name = "AbandonMinorThreshold";
             this.AbandonMinorThreshold.Value = new decimal(new int[] {
-            10,
+            30,
             0,
             0,
             0});
@@ -1479,6 +1883,12 @@
             // 
             // tabPage9
             // 
+            this.tabPage9.Controls.Add(this.RemoveWishBlacklistButton);
+            this.tabPage9.Controls.Add(this.label39);
+            this.tabPage9.Controls.Add(this.WishBlacklistAddInput);
+            this.tabPage9.Controls.Add(this.AddWishBlacklistLabel);
+            this.tabPage9.Controls.Add(this.AddWishBlacklistButton);
+            this.tabPage9.Controls.Add(this.WishBlacklist);
             this.tabPage9.Controls.Add(this.WishSortOrder);
             this.tabPage9.Controls.Add(this.WishSortPriorities);
             this.tabPage9.Controls.Add(this.WishDownButton);
@@ -1492,6 +1902,55 @@
             resources.ApplyResources(this.tabPage9, "tabPage9");
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // RemoveWishBlacklistButton
+            // 
+            resources.ApplyResources(this.RemoveWishBlacklistButton, "RemoveWishBlacklistButton");
+            this.RemoveWishBlacklistButton.Name = "RemoveWishBlacklistButton";
+            this.RemoveWishBlacklistButton.UseVisualStyleBackColor = true;
+            this.RemoveWishBlacklistButton.Click += new System.EventHandler(this.RemoveWishBlacklistButton_Click);
+            // 
+            // label39
+            // 
+            resources.ApplyResources(this.label39, "label39");
+            this.label39.Name = "label39";
+            // 
+            // WishBlacklistAddInput
+            // 
+            resources.ApplyResources(this.WishBlacklistAddInput, "WishBlacklistAddInput");
+            this.WishBlacklistAddInput.Maximum = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            0});
+            this.WishBlacklistAddInput.Name = "WishBlacklistAddInput";
+            this.WishBlacklistAddInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.WishBlacklistAddInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WishBlacklistAddInput_KeyDown);
+            // 
+            // AddWishBlacklistLabel
+            // 
+            resources.ApplyResources(this.AddWishBlacklistLabel, "AddWishBlacklistLabel");
+            this.AddWishBlacklistLabel.Name = "AddWishBlacklistLabel";
+            // 
+            // AddWishBlacklistButton
+            // 
+            resources.ApplyResources(this.AddWishBlacklistButton, "AddWishBlacklistButton");
+            this.AddWishBlacklistButton.Name = "AddWishBlacklistButton";
+            this.AddWishBlacklistButton.UseVisualStyleBackColor = true;
+            this.AddWishBlacklistButton.Click += new System.EventHandler(this.AddWishBlacklistButton_Click);
+            // 
+            // WishBlacklist
+            // 
+            this.WishBlacklist.FormattingEnabled = true;
+            this.WishBlacklist.Items.AddRange(new object[] {
+            resources.GetString("WishBlacklist.Items"),
+            resources.GetString("WishBlacklist.Items1")});
+            resources.ApplyResources(this.WishBlacklist, "WishBlacklist");
+            this.WishBlacklist.Name = "WishBlacklist";
             // 
             // WishSortOrder
             // 
@@ -1543,7 +2002,7 @@
             0});
             this.WishAddInput.Name = "WishAddInput";
             this.WishAddInput.Value = new decimal(new int[] {
-            40,
+            1,
             0,
             0,
             0});
@@ -1613,6 +2072,7 @@
             0,
             0,
             0});
+            this.MoneyPitInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MoneyPitInput_KeyDown);
             // 
             // MoneyPitLabel
             // 
@@ -1646,7 +2106,7 @@
             // 
             resources.ApplyResources(this.MoneyPitThreshold, "MoneyPitThreshold");
             this.MoneyPitThreshold.Name = "MoneyPitThreshold";
-            this.MoneyPitThreshold.TextChanged += new System.EventHandler(this.MoneyPitThreshold_TextChanged_1);
+            this.MoneyPitThreshold.TextChanged += new System.EventHandler(this.MoneyPitThreshold_TextChanged);
             // 
             // label7
             // 
@@ -1669,6 +2129,17 @@
             // 
             // tabPage11
             // 
+            this.tabPage11.Controls.Add(this.TrashProtectedCards);
+            this.tabPage11.Controls.Add(this.CardSortOptions);
+            this.tabPage11.Controls.Add(this.label37);
+            this.tabPage11.Controls.Add(this.CardSortRemove);
+            this.tabPage11.Controls.Add(this.CardSortAdd);
+            this.tabPage11.Controls.Add(this.label41);
+            this.tabPage11.Controls.Add(this.CardSortList);
+            this.tabPage11.Controls.Add(this.CardSortDown);
+            this.tabPage11.Controls.Add(this.CardSortUp);
+            this.tabPage11.Controls.Add(this.label40);
+            this.tabPage11.Controls.Add(this.SortCards);
             this.tabPage11.Controls.Add(this.TrashChunkers);
             this.tabPage11.Controls.Add(this.DontCastRemove);
             this.tabPage11.Controls.Add(this.DontCastAdd);
@@ -1688,6 +2159,78 @@
             resources.ApplyResources(this.tabPage11, "tabPage11");
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // TrashProtectedCards
+            // 
+            resources.ApplyResources(this.TrashProtectedCards, "TrashProtectedCards");
+            this.TrashProtectedCards.Name = "TrashProtectedCards";
+            this.TrashProtectedCards.UseVisualStyleBackColor = true;
+            this.TrashProtectedCards.CheckedChanged += new System.EventHandler(this.TrashProtectedCards_CheckedChanged);
+            // 
+            // CardSortOptions
+            // 
+            this.CardSortOptions.FormattingEnabled = true;
+            resources.ApplyResources(this.CardSortOptions, "CardSortOptions");
+            this.CardSortOptions.Name = "CardSortOptions";
+            // 
+            // label37
+            // 
+            resources.ApplyResources(this.label37, "label37");
+            this.label37.Name = "label37";
+            // 
+            // CardSortRemove
+            // 
+            resources.ApplyResources(this.CardSortRemove, "CardSortRemove");
+            this.CardSortRemove.Name = "CardSortRemove";
+            this.CardSortRemove.UseVisualStyleBackColor = true;
+            this.CardSortRemove.Click += new System.EventHandler(this.CardSortRemove_Click);
+            // 
+            // CardSortAdd
+            // 
+            resources.ApplyResources(this.CardSortAdd, "CardSortAdd");
+            this.CardSortAdd.Name = "CardSortAdd";
+            this.CardSortAdd.UseVisualStyleBackColor = true;
+            this.CardSortAdd.Click += new System.EventHandler(this.CardSortAdd_Click);
+            // 
+            // label41
+            // 
+            resources.ApplyResources(this.label41, "label41");
+            this.label41.Name = "label41";
+            // 
+            // CardSortList
+            // 
+            this.CardSortList.FormattingEnabled = true;
+            this.CardSortList.Items.AddRange(new object[] {
+            resources.GetString("CardSortList.Items"),
+            resources.GetString("CardSortList.Items1")});
+            resources.ApplyResources(this.CardSortList, "CardSortList");
+            this.CardSortList.Name = "CardSortList";
+            // 
+            // CardSortDown
+            // 
+            resources.ApplyResources(this.CardSortDown, "CardSortDown");
+            this.CardSortDown.Name = "CardSortDown";
+            this.CardSortDown.UseVisualStyleBackColor = true;
+            this.CardSortDown.Click += new System.EventHandler(this.CardSortDown_Click);
+            // 
+            // CardSortUp
+            // 
+            resources.ApplyResources(this.CardSortUp, "CardSortUp");
+            this.CardSortUp.Name = "CardSortUp";
+            this.CardSortUp.UseVisualStyleBackColor = true;
+            this.CardSortUp.Click += new System.EventHandler(this.CardSortUp_Click);
+            // 
+            // label40
+            // 
+            resources.ApplyResources(this.label40, "label40");
+            this.label40.Name = "label40";
+            // 
+            // SortCards
+            // 
+            resources.ApplyResources(this.SortCards, "SortCards");
+            this.SortCards.Name = "SortCards";
+            this.SortCards.UseVisualStyleBackColor = true;
+            this.SortCards.CheckedChanged += new System.EventHandler(this.SortCards_CheckedChanged);
             // 
             // TrashChunkers
             // 
@@ -1789,6 +2332,83 @@
             this.balanceMayo.UseVisualStyleBackColor = true;
             this.balanceMayo.CheckedChanged += new System.EventHandler(this.manageMayo_CheckedChanged);
             // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.label42);
+            this.tabPage12.Controls.Add(this.cookingRemoveButton);
+            this.tabPage12.Controls.Add(this.CookingLoadoutItem);
+            this.tabPage12.Controls.Add(this.cookingItemLabel);
+            this.tabPage12.Controls.Add(this.cookingAddButton);
+            this.tabPage12.Controls.Add(this.cookingLoadoutBox);
+            this.tabPage12.Controls.Add(this.ManageCookingLoadout);
+            this.tabPage12.Controls.Add(this.ManageCooking);
+            resources.ApplyResources(this.tabPage12, "tabPage12");
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // label42
+            // 
+            resources.ApplyResources(this.label42, "label42");
+            this.label42.Name = "label42";
+            // 
+            // cookingRemoveButton
+            // 
+            resources.ApplyResources(this.cookingRemoveButton, "cookingRemoveButton");
+            this.cookingRemoveButton.Name = "cookingRemoveButton";
+            this.cookingRemoveButton.UseVisualStyleBackColor = true;
+            this.cookingRemoveButton.Click += new System.EventHandler(this.cookingRemoveButton_Click);
+            // 
+            // CookingLoadoutItem
+            // 
+            resources.ApplyResources(this.CookingLoadoutItem, "CookingLoadoutItem");
+            this.CookingLoadoutItem.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.CookingLoadoutItem.Name = "CookingLoadoutItem";
+            this.CookingLoadoutItem.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.CookingLoadoutItem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CookingLoadoutItem_KeyDown);
+            // 
+            // cookingItemLabel
+            // 
+            resources.ApplyResources(this.cookingItemLabel, "cookingItemLabel");
+            this.cookingItemLabel.Name = "cookingItemLabel";
+            // 
+            // cookingAddButton
+            // 
+            resources.ApplyResources(this.cookingAddButton, "cookingAddButton");
+            this.cookingAddButton.Name = "cookingAddButton";
+            this.cookingAddButton.UseVisualStyleBackColor = true;
+            this.cookingAddButton.Click += new System.EventHandler(this.cookingAddButton_Click);
+            // 
+            // cookingLoadoutBox
+            // 
+            this.cookingLoadoutBox.FormattingEnabled = true;
+            this.cookingLoadoutBox.Items.AddRange(new object[] {
+            resources.GetString("cookingLoadoutBox.Items"),
+            resources.GetString("cookingLoadoutBox.Items1")});
+            resources.ApplyResources(this.cookingLoadoutBox, "cookingLoadoutBox");
+            this.cookingLoadoutBox.Name = "cookingLoadoutBox";
+            // 
+            // ManageCookingLoadout
+            // 
+            resources.ApplyResources(this.ManageCookingLoadout, "ManageCookingLoadout");
+            this.ManageCookingLoadout.Name = "ManageCookingLoadout";
+            this.ManageCookingLoadout.UseVisualStyleBackColor = true;
+            this.ManageCookingLoadout.CheckedChanged += new System.EventHandler(this.ManageCookingLoadout_CheckedChanged);
+            // 
+            // ManageCooking
+            // 
+            resources.ApplyResources(this.ManageCooking, "ManageCooking");
+            this.ManageCooking.Name = "ManageCooking";
+            this.ManageCooking.UseVisualStyleBackColor = true;
+            this.ManageCooking.CheckedChanged += new System.EventHandler(this.ManageCooking_CheckedChanged);
+            // 
             // progressBar1
             // 
             resources.ApplyResources(this.progressBar1, "progressBar1");
@@ -1801,6 +2421,18 @@
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
+            // questErrorProvider
+            // 
+            this.questErrorProvider.ContainerControl = this;
+            // 
+            // wishBlacklistErrorProvider
+            // 
+            this.wishBlacklistErrorProvider.ContainerControl = this;
+            // 
+            // cookingErrorProvider
+            // 
+            this.cookingErrorProvider.ContainerControl = this;
+            // 
             // SettingsForm
             // 
             resources.ApplyResources(this, "$this");
@@ -1811,7 +2443,7 @@
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.moneyPitError)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.moneyPitThresholdError)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.yggErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invPrioErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invBlacklistErrProvider)).EndInit();
@@ -1819,6 +2451,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.goldErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberErrProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wishErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.moneyPitErrorProvider)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -1848,22 +2481,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.GoldItemBox)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.QuestLoadoutItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AbandonMinorThreshold)).EndInit();
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WishBlacklistAddInput)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WishAddInput)).EndInit();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyPitInput)).EndInit();
             this.tabPage11.ResumeLayout(false);
             this.tabPage11.PerformLayout();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CookingLoadoutItem)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.questErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wishBlacklistErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cookingErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.ErrorProvider moneyPitError;
+        private System.Windows.Forms.ErrorProvider moneyPitThresholdError;
         private System.Windows.Forms.ErrorProvider yggErrorProvider;
         private System.Windows.Forms.ErrorProvider invPrioErrorProvider;
         private System.Windows.Forms.ErrorProvider invBlacklistErrProvider;
@@ -1871,6 +2512,7 @@
         private System.Windows.Forms.ErrorProvider goldErrorProvider;
         private System.Windows.Forms.ErrorProvider numberErrProvider;
         private System.Windows.Forms.ErrorProvider wishErrorProvider;
+        private System.Windows.Forms.ErrorProvider moneyPitErrorProvider;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.TabControl tabControl1;
@@ -2057,5 +2699,73 @@
         private System.Windows.Forms.ListBox DontCastList;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.CheckBox TrashChunkers;
+        private System.Windows.Forms.CheckBox GuffAOnRebirth;
+        private System.Windows.Forms.CheckBox IronPillOnRebirth;
+        private System.Windows.Forms.CheckBox GuffBOnRebirth;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button questRemoveButton;
+        private System.Windows.Forms.NumericUpDown QuestLoadoutItem;
+        private System.Windows.Forms.Label questItemLabel;
+        private System.Windows.Forms.Button questAddButton;
+        private System.Windows.Forms.ListBox questLoadoutBox;
+        private System.Windows.Forms.ErrorProvider questErrorProvider;
+        private System.Windows.Forms.CheckBox ManageQuestLoadout;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Button OpenSettingsFolder;
+        private System.Windows.Forms.Button OpenProfileFolder;
+        private System.Windows.Forms.CheckBox TargetTitans;
+        private System.Windows.Forms.CheckBox SmartBeastMode;
+        private System.Windows.Forms.CheckBox ITOPODSmartBeastMode;
+        private System.Windows.Forms.CheckBox QuestSmartBeastMode;
+        private System.Windows.Forms.CheckBox QuestBeastMode;
+        private System.Windows.Forms.CheckBox TitanSmartBeastMode;
+        private System.Windows.Forms.CheckBox TitanMoreBlockParry;
+        private System.Windows.Forms.CheckBox TitanBeastMode;
+        private System.Windows.Forms.CheckBox TitanRecoverHealth;
+        private System.Windows.Forms.CheckBox TitanFastCombat;
+        private System.Windows.Forms.CheckBox TitanPrecastBuffs;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.ComboBox TitanCombatMode;
+        private System.Windows.Forms.CheckBox UseTitanCombat;
+        private System.Windows.Forms.CheckBox ConsumeIfRunning;
+        private System.Windows.Forms.CheckBox AutoBuyConsumables;
+        private System.Windows.Forms.CheckBox AutoBuyAdv;
+        private System.Windows.Forms.CheckBox ManageConsumables;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.ListBox boostPriorityList;
+        private System.Windows.Forms.Button boostPrioDownButton;
+        private System.Windows.Forms.Button boostPrioUpButton;
+        private System.Windows.Forms.Button RemoveWishBlacklistButton;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.NumericUpDown WishBlacklistAddInput;
+        private System.Windows.Forms.Label AddWishBlacklistLabel;
+        private System.Windows.Forms.Button AddWishBlacklistButton;
+        private System.Windows.Forms.ListBox WishBlacklist;
+        private System.Windows.Forms.ErrorProvider wishBlacklistErrorProvider;
+        private System.Windows.Forms.ListBox CardSortList;
+        private System.Windows.Forms.Button CardSortDown;
+        private System.Windows.Forms.Button CardSortUp;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.CheckBox SortCards;
+        private System.Windows.Forms.ComboBox CardSortOptions;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Button CardSortRemove;
+        private System.Windows.Forms.Button CardSortAdd;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Button LocateWalderp;
+        private System.Windows.Forms.CheckBox TrashProtectedCards;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Button cookingRemoveButton;
+        private System.Windows.Forms.NumericUpDown CookingLoadoutItem;
+        private System.Windows.Forms.Label cookingItemLabel;
+        private System.Windows.Forms.Button cookingAddButton;
+        private System.Windows.Forms.ListBox cookingLoadoutBox;
+        private System.Windows.Forms.CheckBox ManageCookingLoadout;
+        private System.Windows.Forms.CheckBox ManageCooking;
+        private System.Windows.Forms.ErrorProvider cookingErrorProvider;
+        private System.Windows.Forms.ComboBox TitanVersions;
+        private System.Windows.Forms.ComboBox TitansWithVersion;
+        private System.Windows.Forms.Label label43;
     }
 }

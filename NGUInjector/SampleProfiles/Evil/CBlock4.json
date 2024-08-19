@@ -1,0 +1,72 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit/Iron Pill/GuffA&B to 0, Number to 1E+20; Adventure Tab - Do combat in ITOPOD (combat in a lower zone for gold prior to boss 30); Gold Tab - Turn on CBlock Mode",
+	"AdvTraining" : "Put low targets on AT-0/1/2 and put high or infinite targets on AT-3/4. If we run long enough to unlock AT that means we need to focus on Wandoos for power (ie: NORB, NOTM, NOAUG, etc)",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPALLBT", "CAPALLAT", "CAPWAN:30", "CAPTM:25", "AUG-8", "AUG-9" ],
+        "PrioritiesDefault": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPALLBT", "CAPALLAT", "CAPWAN:30", "CAPTM:25", "AUG-8", "AUG-9" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPWAN:30", "CAPTM:25", "BR", "WAN" ],
+        "PrioritiesDefault": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPWAN:30", "CAPTM:25", "BR", "WAN" ],
+        "PrioritiesForNOTM": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPWAN:30", "RIT-7:20", "WAN" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWISH-0:25", "CAPWISH-1:25", "HACK-0" ],
+        "PrioritiesDefault": [ "CAPWISH-0:25", "CAPWISH-1:25", "HACK-0" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 305, 301, 302, 267, 304,   247, 273,   448, 272, 263,   306, 447, 449, 270, 248, 296, 271 ],
+        "Comment": "MeepleMolotovEBars3EMPC"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "All but DC and Beards"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 0
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 1000,
+	  "Type1": "Number",
+	  "Target1": 1000,
+	  "Type2": "Time",
+	  "Target2": { "m": 32 },
+	  "Challenges": [ 
+	    "24HR-2", "24HR-3", "24HR-4", 
+		"NONGU-2", "NONGU-3", "NONGU-4", "NONGU-5", "NONGU-6", "NONGU-7", 
+		"TC-3", "TC-4", "TC-5", 
+		"BLIND-2", "BLIND-3", "BLIND-4", "BLIND-5", "BLIND-6", "BLIND-7", 
+	    "NOTM-2", "NOTM-3", "NOTM-4", "NOTM-5", 
+	    "NOEC-1", "NOEC-2", "NOEC-3", "NOEC-4", "NOEC-5", 
+		"NORB-7", "NORB-8", "NORB-9", "NORB-10", 		
+		"24HR-5"
+	  ]
+	}
+  }
+}

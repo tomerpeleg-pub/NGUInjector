@@ -8,6 +8,7 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
     internal class BR : BaseBreakpoint
     {
         internal int RebirthTime { get; set; }
+
         protected override bool Unlocked()
         {
             return Character.buttons.bloodMagic.interactable;
@@ -20,16 +21,7 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
 
         internal override bool Allocate()
         {
-            if (Index == 0)
-            {
-                CastRituals();
-            }
-            else
-            {
-                CastRitualEndTime(Index);
-            }
-
-            return true;
+            return CastRituals(Index, NextBreakpointTime) > 0;
         }
 
         protected override bool CorrectResourceType()
@@ -37,9 +29,11 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
             return Type == ResourceType.Magic;
         }
 
-        private void CastRituals()
+        private long CastRituals(int secondsToRun, double? nextBreakpointTime)
         {
             var allocationLeft = (long)MaxAllocation;
+            long totalAllocated = 0;
+
             for (var i = Character.bloodMagic.ritual.Count - 1; i >= 0; i--)
             {
                 if (allocationLeft <= 0)
@@ -48,8 +42,53 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
                     break;
                 if (i >= Character.bloodMagicController.ritualsUnlocked())
                     continue;
+
                 var goldCost = Character.bloodMagicController.bloodMagics[i].baseCost * Character.totalDiscount();
+                bool shouldSkip = false;
+
+                //Ritual costs too much gold
                 if (goldCost > Character.realGold && Character.bloodMagic.ritual[i].progress <= 0.0)
+                {
+                    shouldSkip = true;
+                }
+                else
+                {
+                    var tLeft = RitualTimeLeft(i, allocationLeft);
+                    var completeTime = Character.rebirthTime.totalseconds + tLeft;
+
+                    //Ritual will not finish before rebirth
+                    if (RebirthTime > 0 && Main.Settings.AutoRebirth && completeTime > RebirthTime)
+                    {
+                        shouldSkip = true;
+                    }
+                    else
+                    {
+                        //If the runtime is explicitly set, ignore the breakpoint logic
+                        if (secondsToRun > 0)
+                        {
+                            //The time left is more than the configured number of seconds to run
+                            if (tLeft > secondsToRun)
+                            {
+                                shouldSkip = true;
+                            }
+                        }
+                        else
+                        {
+                            //The ritual wont finish before the next breakpoint
+                            if (nextBreakpointTime.HasValue && completeTime > nextBreakpointTime)
+                            {
+                                shouldSkip = true;
+                            }
+                            //The time left is more than an hour
+                            else if (tLeft > 3600)
+                            {
+                                shouldSkip = true;
+                            }
+                        }
+                    }
+                }
+
+                if (shouldSkip)
                 {
                     if (Character.bloodMagic.ritual[i].magic > 0)
                     {
@@ -59,62 +98,14 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
                     continue;
                 }
 
-                var tLeft = RitualTimeLeft(i, allocationLeft);
-
-                if (tLeft > 3600)
-                    continue;
-
-                if (RebirthTime > 0 && Main.Settings.AutoRebirth)
-                {
-                    if (Character.rebirthTime.totalseconds - tLeft < 0)
-                        continue;
-                }
-
                 var cap = CalculateMaxAllocation(i, allocationLeft);
                 SetInput(cap);
                 Character.bloodMagicController.bloodMagics[i].add();
+                totalAllocated += cap;
                 allocationLeft -= cap;
             }
-        }
 
-        private void CastRitualEndTime(int endTime)
-        {
-            var allocationLeft = (long)MaxAllocation;
-            for (var i = Character.bloodMagic.ritual.Count - 1; i >= 0; i--)
-            {
-                if (allocationLeft <= 0)
-                    break;
-                if (Character.magic.idleMagic == 0)
-                    break;
-                if (i >= Character.bloodMagicController.ritualsUnlocked())
-                    continue;
-                var goldCost = Character.bloodMagicController.bloodMagics[i].baseCost * Character.totalDiscount();
-                if (goldCost > Character.realGold && Character.bloodMagic.ritual[i].progress <= 0.0)
-                {
-                    if (Character.bloodMagic.ritual[i].magic > 0)
-                    {
-                        Character.bloodMagicController.bloodMagics[i].removeAllMagic();
-                    }
-
-                    continue;
-                }
-
-                var tLeft = RitualTimeLeft(i, allocationLeft);
-
-                if (RebirthTime > 0 && Main.Settings.AutoRebirth)
-                {
-                    if (Character.rebirthTime.totalseconds - tLeft < 0)
-                        continue;
-                }
-
-                if (Character.rebirthTime.totalseconds + tLeft > endTime)
-                    continue;
-
-                var cap = CalculateMaxAllocation(i, allocationLeft);
-                SetInput(cap);
-                Character.bloodMagicController.bloodMagics[i].add();
-                allocationLeft -= cap;
-            }
+            return totalAllocated;
         }
 
         private float RitualProgressPerTick(int id, long remaining)
@@ -153,7 +144,7 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
                 return num1;
             }
 
-            var num2 = (long) ((double) num1 / Math.Ceiling((double) num1 / (double) remaining)) + 1L;
+            var num2 = (long)((double)num1 / Math.Ceiling((double)num1 / (double)remaining)) + 1L;
             return num2;
         }
     }

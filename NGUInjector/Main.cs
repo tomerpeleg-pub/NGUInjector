@@ -15,22 +15,25 @@ using NGUInjector.AllocationProfiles;
 using NGUInjector.Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Resources.ResXFileRef;
 using Application = UnityEngine.Application;
 
 namespace NGUInjector
 {
     internal class Main : MonoBehaviour
     {
-        internal static InventoryController Controller;
         internal static Character Character;
+        internal static InventoryController InventoryController;
         internal static PlayerController PlayerController;
         internal static ArbitraryController ArbitraryController;
+        internal static Move69 Move69;
         internal static StreamWriter OutputWriter;
         internal static StreamWriter LootWriter;
         internal static StreamWriter CombatWriter;
         internal static StreamWriter AllocationWriter;
         internal static StreamWriter PitSpinWriter;
         internal static StreamWriter CardsWriter;
+        internal static StreamWriter DebugWriter;
         internal static Main reference;
         private YggdrasilManager _yggManager;
         private InventoryManager _invManager;
@@ -38,16 +41,14 @@ namespace NGUInjector
         private QuestManager _questManager;
         private CardManager _cardManager;
         private CookingManager _cookingManager;
-        private ConsumablesManager _consumablesManager;
+        //private ConsumablesManager _consumablesManager;
+        //private BloodMagicManager _bloodManager;
         private static CustomAllocation _profile;
         private float _timeLeft = 10.0f;
         internal static SettingsForm settingsForm;
         internal static WishManager WishManager;
-        internal const string Version = "3.6.14";
+        internal const string Version = "4.0.0";
         private static int _furthestZone;
-
-
-        internal static bool Test { get; set; }
 
         private static string _dir;
         private static string _profilesDir;
@@ -64,34 +65,45 @@ namespace NGUInjector
 
         internal static void Log(string msg)
         {
-            OutputWriter.WriteLine($"{ DateTime.Now.ToShortDateString()}-{ DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
+            OutputWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
         }
 
         internal static void LogLoot(string msg)
         {
-            LootWriter.WriteLine($"{ DateTime.Now.ToShortDateString()}-{ DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
+            LootWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
         }
 
         internal static void LogCombat(string msg)
         {
-            CombatWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{ DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
+            CombatWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
         }
 
         internal static void LogPitSpin(string msg)
         {
-            PitSpinWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{ DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
+            PitSpinWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
         }
 
         internal static void LogAllocation(string msg)
         {
             if (!Settings.DebugAllocation) return;
-            AllocationWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{ DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
+            AllocationWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
         }
 
         internal static void LogCard(string msg)
         {
-            CardsWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{ DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
+            CardsWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
         }
+
+        internal static void LogDebug(string msg)
+        {
+            DebugWriter.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} ({Math.Floor(Character.rebirthTime.totalseconds)}s): {msg}");
+        }
+
+        internal static string GetSettingsDir()
+        {
+            return _dir;
+        }
+
         internal static string GetProfilesDir()
         {
             return _profilesDir;
@@ -114,6 +126,7 @@ namespace NGUInjector
                 AllocationWriter.Close();
                 PitSpinWriter.Close();
                 CardsWriter.Close();
+                DebugWriter.Close();
                 settingsForm.Close();
                 settingsForm.Dispose();
 
@@ -132,7 +145,7 @@ namespace NGUInjector
         {
             try
             {
-                _dir = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%/Desktop"), "NGUInjector");
+                _dir = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%/AppData/LocalLow"), "NGUInjector");
                 if (!Directory.Exists(_dir))
                 {
                     Directory.CreateDirectory(_dir);
@@ -150,6 +163,7 @@ namespace NGUInjector
                 AllocationWriter = new StreamWriter(Path.Combine(logDir, "allocation.log")) { AutoFlush = true };
                 PitSpinWriter = new StreamWriter(Path.Combine(logDir, "pitspin.log"), true) { AutoFlush = true };
                 CardsWriter = new StreamWriter(Path.Combine(logDir, "cards.log")) { AutoFlush = true };
+                DebugWriter = new StreamWriter(Path.Combine(logDir, "debug.log")) { AutoFlush = true };
 
                 _profilesDir = Path.Combine(_dir, "profiles");
                 if (!Directory.Exists(_profilesDir))
@@ -182,16 +196,18 @@ namespace NGUInjector
                 LogLoot("Starting Loot Writer");
                 LogCombat("Starting Combat Writer");
                 LogCard("Starting Card Writer");
-                Controller = Character.inventoryController;
+                InventoryController = Character.inventoryController;
                 PlayerController = FindObjectOfType<PlayerController>();
                 ArbitraryController = FindObjectOfType<ArbitraryController>();
+                Move69 = FindObjectOfType<Move69>();
                 _invManager = new InventoryManager();
                 _yggManager = new YggdrasilManager();
                 _questManager = new QuestManager();
                 _combManager = new CombatManager();
                 _cardManager = new CardManager();
                 _cookingManager = new CookingManager();
-                _consumablesManager = new ConsumablesManager();
+                //_consumablesManager = new ConsumablesManager();
+                //_bloodManager = new BloodMagicManager();
                 LoadoutManager.ReleaseLock();
                 DiggerManager.ReleaseLock();
 
@@ -218,6 +234,8 @@ namespace NGUInjector
                         PrecastBuffs = true,
                         AutoFight = false,
                         AutoQuest = false,
+                        ManageQuestLoadouts = false,
+                        QuestLoadout = new int[] { },
                         AutoQuestITOPOD = false,
                         AllowMajorQuests = false,
                         GoldDropLoadout = new int[] { },
@@ -234,6 +252,8 @@ namespace NGUInjector
                         SnipeBossOnly = true,
                         AllowZoneFallback = false,
                         QuestFastCombat = true,
+                        QuestBeastMode = false,
+                        QuestSmartBeastMode = true,
                         AbandonMinors = false,
                         MinorAbandonThreshold = 30,
                         QuestCombatMode = 0,
@@ -247,6 +267,9 @@ namespace NGUInjector
                         IronPillThreshold = 10000,
                         BloodMacGuffinAThreshold = 6,
                         BloodMacGuffinBThreshold = 6,
+                        IronPillOnRebirth = false,
+                        BloodMacGuffinAOnRebirth = false,
+                        BloodMacGuffinBOnRebirth = false,
                         CubePriority = 0,
                         CombatEnabled = false,
                         GlobalEnabled = false,
@@ -259,7 +282,8 @@ namespace NGUInjector
                         ManageR3 = true,
                         WishPriorities = new int[] { },
                         WishBlacklist = new int[] { },
-                        BeastMode = true,
+                        BeastMode = false,
+                        SmartBeastMode = true,
                         ManageNGUDiff = true,
                         AllocationFile = "default",
                         TitanGoldTargets = new bool[ZoneHelpers.TitanZones.Length],
@@ -270,9 +294,19 @@ namespace NGUInjector
                         GoldCBlockMode = false,
                         DebugAllocation = false,
                         AdventureTargetITOPOD = false,
+                        AdventureTargetTitans = false,
+                        UseTitanCombat = false,
+                        TitanCombatMode = 0,
+                        TitanPrecastBuffs = true,
+                        TitanRecoverHealth = true,
+                        TitanFastCombat = false,
+                        TitanBeastMode = false,
+                        TitanSmartBeastMode = true,
+                        TitanMoreBlockParry = true,
                         ITOPODRecoverHP = false,
                         ITOPODCombatMode = 0,
-                        ITOPODBeastMode = true,
+                        ITOPODBeastMode = false,
+                        ITOPODSmartBeastMode = true,
                         ITOPODFastCombat = true,
                         ITOPODPrecastBuffs = false,
                         DisableOverlay = false,
@@ -287,6 +321,7 @@ namespace NGUInjector
                         ManageMayo = false,
                         TrashCards = false,
                         TrashAdventureCards = false,
+                        TrashProtectedCards = false,
                         AutoCastCards = false,
                         CardsTrashQuality = 0,
                         CardSortOrder = new string[0],
@@ -296,7 +331,13 @@ namespace NGUInjector
                         DontCastCardType = new string[0],
                         TrashChunkers = false,
                         HackAdvance = false,
-                        MergeBlacklist = new int[] { }
+                        MergeBlacklist = new int[] { },
+                        ManageConsumables = false,
+                        AutoBuyConsumables = false,
+                        ConsumeIfAlreadyRunning = false,
+                        ManageCooking = false,
+                        ManageCookingLoadouts = false,
+                        CookingLoadout = new int[] { }
                     };
 
                     Settings.MassUpdate(temp);
@@ -411,7 +452,7 @@ namespace NGUInjector
                 settingsForm.Show();
 
                 InvokeRepeating("AutomationRoutine", 0.0f, 10.0f);
-                InvokeRepeating("SnipeZone", 0.0f, .1f);
+                InvokeRepeating("SnipeZone", 0.0f, .05f);
                 InvokeRepeating("MonitorLog", 0.0f, 1f);
                 InvokeRepeating("QuickStuff", 0.0f, .5f);
                 InvokeRepeating("ShowBoostProgress", 0.0f, 60.0f);
@@ -804,10 +845,36 @@ namespace NGUInjector
                         needsAllocation = true;
 
                     if (bc.character.attack / 5.0 > bc.character.bossDefense && bc.character.defense / 5.0 > bc.character.bossAttack)
+                    {
                         bc.startNuke();
+                    }
                     else
                     {
-                        if (bc.character.attack > (bc.character.bossDefense * 1.4) && bc.character.defense > bc.character.bossAttack * 1.4)
+                        double characterDamage = (bc.character.attack * 0.02) - (bc.character.bossDefense * 0.02);
+                        double bossDamage = (bc.character.bossAttack * 0.02) - (bc.character.defense * 0.02);
+
+                        bool doFight;
+
+                        if (characterDamage <= 0)
+                        {
+                            //Character does no damage - don't fight
+                            doFight = false;
+                        }
+                        else if (bossDamage <= 0)
+                        {
+                            //Boss does no damage - fight
+                            doFight = true;
+                        }
+                        else
+                        {
+                            double characterAttacksToKill = Math.Ceiling(bc.character.bossCurHP / characterDamage);
+                            double bossAttacksToKill = Math.Ceiling(bc.character.curHP / bossDamage);
+
+                            //Boss attack logic executes first, so fight only if the character will kill the boss in fewer attacks than the boss will kill the character
+                            doFight = characterAttacksToKill < bossAttacksToKill;
+                        }
+
+                        if (doFight)
                         {
                             bc.beginFight();
                             bc.stopButton.gameObject.SetActive(true);
@@ -838,8 +905,8 @@ namespace NGUInjector
 
             if (Settings.AutoSpellSwap)
             {
-                var spaghetti = (Character.bloodMagicController.lootBonus() - 1) * 100;
-                var counterfeit = ((Character.bloodMagicController.goldBonus() - 1)) * 100;
+                var spaghetti = (int)Math.Round((Character.bloodMagicController.lootBonus() - 1) * 100, 0);
+                var counterfeit = (int)Math.Round((Character.bloodMagicController.goldBonus() - 1) * 100, 0);
                 var number = Character.bloodMagic.rebirthPower;
                 Character.bloodMagic.rebirthAutoSpell = Settings.BloodNumberThreshold > 0 && number < Settings.BloodNumberThreshold;
                 Character.bloodMagic.goldAutoSpell = Settings.CounterfeitThreshold > 0 && counterfeit < Settings.CounterfeitThreshold;
@@ -848,6 +915,8 @@ namespace NGUInjector
                 Character.bloodSpells.updateLootToggleState();
                 Character.bloodSpells.updateRebirthToggleState();
             }
+
+            WishManager.UpdateWishMenu();
         }
 
         // Runs every 10 seconds, our main loop
@@ -863,10 +932,10 @@ namespace NGUInjector
 
                 ZoneHelpers.OptimizeITOPOD();
 
-                if (Settings.ManageInventory && !Controller.midDrag)
+                if (Settings.ManageInventory && !InventoryController.midDrag)
                 {
                     var converted = Character.inventory.GetConvertedInventory().ToArray();
-                    var boostSlots = _invManager.GetBoostSlots(converted);
+                    var boostSlots = InventoryManager.GetBoostSlots(converted);
                     _invManager.EnsureFiltered(converted);
                     _invManager.ManageConvertibles(converted);
                     _invManager.MergeEquipped(converted);
@@ -916,7 +985,7 @@ namespace NGUInjector
                 //    watch.Stop();
                 //}
 
-                if (Settings.SwapTitanLoadouts || Settings.ManageGoldLoadouts && Settings.NeedsGoldSwap())
+                if (Settings.SwapTitanLoadouts || Settings.ManageGoldLoadouts && Settings.NeedsGoldSwap() || LoadoutManager.CurrentLock == LockType.Titan || DiggerManager.CurrentLock == LockType.Titan)
                 {
                     LoadoutManager.TryTitanSwap();
                     DiggerManager.TryTitanSwap();
@@ -985,12 +1054,15 @@ namespace NGUInjector
 
                     if (Settings.AutoBuyAdventure)
                     {
-                        total += power + toughness + health + regen;
-
                         buyPower = power > 0;
-                        buyToughness = toughness > 0;
-                        buyHP = health > 0;
-                        buyRegen = health > 0;
+                        buyToughness = toughness > 0;                        
+                        buyHP = health > 3; // UI does NOT allow you to set HP purchase to less than 10 (for 3xp)
+                        buyRegen = regen > 0;
+
+                        total += (buyPower ? power : 0)
+                            + (buyToughness ? toughness : 0)
+                            + (buyHP ? health : 0)
+                            + (buyRegen ? regen : 0);
                     }
 
                     if (total > 0)
@@ -1163,6 +1235,10 @@ namespace NGUInjector
 
         private void SnipeZone()
         {
+            CombatHelpers.IsCurrentlyGoldSniping = false;
+            CombatHelpers.IsCurrentlyQuesting = false;
+            CombatHelpers.IsCurrentlyAdventuring = false;
+
             if (!Settings.GlobalEnabled)
                 return;
 
@@ -1174,12 +1250,15 @@ namespace NGUInjector
                 Settings.TitanMoneyDone = new bool[ZoneHelpers.TitanZones.Length];
             }
 
+            ZoneHelpers.RefreshTitanSnapshots();
+
             //This logic should trigger only if Time Machine is ready
-            if (Character.buttons.brokenTimeMachine.interactable)
+            if (Character.buttons.brokenTimeMachine.interactable && !Character.challenges.timeMachineChallenge.inChallenge)
             {
                 if (Character.machine.realBaseGold == 0.0)
                 {
-                    _combManager.ManualZone(0, false, false, false, true, false);
+                    _combManager.ManualZone(0, false, false, false, true, false, false);
+                    CombatHelpers.IsCurrentlyGoldSniping = true;
                     return;
                 }
                 //Go to our gold loadout zone next to get a high gold drop
@@ -1190,37 +1269,35 @@ namespace NGUInjector
                         var bestZone = ZoneStatHelper.GetBestZone();
                         _furthestZone = ZoneHelpers.GetMaxReachableZone(false);
 
-                        _combManager.ManualZone(bestZone.Zone, true, bestZone.FightType == 1, false, bestZone.FightType == 2, false);
+                        _combManager.ManualZone(bestZone.Zone, true, bestZone.FightType == 1, false, bestZone.FightType == 2, false, false);
+                        CombatHelpers.IsCurrentlyGoldSniping = true;
                         return;
                     }
                 }
             }
 
             var questZone = _questManager.IsQuesting();
-            if (!Settings.CombatEnabled || Settings.AdventureTargetITOPOD || !ZoneHelpers.ZoneIsTitan(Settings.SnipeZone) ||
-                !CombatManager.IsZoneUnlocked(Settings.SnipeZone) ||
-                ZoneHelpers.ZoneIsTitan(Settings.SnipeZone) &&
-                !ZoneHelpers.TitanSpawningSoon(Array.IndexOf(ZoneHelpers.TitanZones, Settings.SnipeZone)))
-            {
-                if (questZone > 0)
-                {
-                    if (Settings.QuestCombatMode == 0)
-                    {
-                        _combManager.ManualZone(questZone, false, false, false, Settings.QuestFastCombat, Settings.BeastMode);
-                    }
-                    else
-                    {
-                        _combManager.IdleZone(questZone, false, false);
-                    }
 
-                    return;
+            if (questZone > 0)
+            {
+                if (Settings.QuestCombatMode == 0)
+                {
+                    _combManager.ManualZone(questZone, false, false, false, Settings.QuestFastCombat, Settings.QuestBeastMode, Settings.QuestSmartBeastMode);
                 }
+                else
+                {
+                    _combManager.IdleZone(questZone, false, false, Settings.QuestBeastMode);
+                }
+
+                CombatHelpers.IsCurrentlyQuesting = true;
+                return;
             }
 
             if (!Settings.CombatEnabled)
                 return;
 
             var tempZone = Settings.AdventureTargetITOPOD ? 1000 : Settings.SnipeZone;
+
             if (tempZone < 1000)
             {
                 if (!CombatManager.IsZoneUnlocked(Settings.SnipeZone))
@@ -1236,28 +1313,51 @@ namespace NGUInjector
                 }
             }
 
+            int? titanZone = ZoneHelpers.GetHighestSpawningTitanZone();
+            if (Settings.AdventureTargetTitans && titanZone.HasValue)
+            {
+                tempZone = titanZone.Value;
+            }
+
             if (tempZone >= 1000)
             {
                 if (Settings.ITOPODCombatMode == 0)
                 {
-                    _combManager.ManualZone(tempZone, false, Settings.ITOPODRecoverHP, Settings.ITOPODPrecastBuffs, Settings.ITOPODFastCombat, Settings.ITOPODBeastMode);
+                    _combManager.ManualZone(tempZone, false, Settings.ITOPODRecoverHP, Settings.ITOPODPrecastBuffs, Settings.ITOPODFastCombat, Settings.ITOPODBeastMode, Settings.ITOPODSmartBeastMode);
                 }
                 else
                 {
-                    _combManager.IdleZone(tempZone, false, Settings.ITOPODRecoverHP);
+                    _combManager.IdleZone(tempZone, false, Settings.ITOPODRecoverHP, Settings.ITOPODBeastMode);
                 }
 
+                CombatHelpers.IsCurrentlyAdventuring = true;
                 return;
             }
 
-            if (Settings.CombatMode == 0)
+            if (Settings.UseTitanCombat && ZoneHelpers.ZoneIsTitan(tempZone))
             {
-                _combManager.ManualZone(tempZone, Settings.SnipeBossOnly, Settings.RecoverHealth, Settings.PrecastBuffs, Settings.FastCombat, Settings.BeastMode);
+                if (Settings.TitanCombatMode == 0 || ZoneHelpers.ZoneIsWalderp(tempZone) || ZoneHelpers.ZoneIsGodmother(tempZone) || ZoneHelpers.ZoneIsExile(tempZone))
+                {
+                    _combManager.ManualZone(tempZone, false, Settings.TitanRecoverHealth, Settings.TitanPrecastBuffs, Settings.TitanFastCombat, Settings.TitanBeastMode, Settings.TitanSmartBeastMode);
+                }
+                else
+                {
+                    _combManager.IdleZone(tempZone, false, Settings.TitanRecoverHealth, Settings.TitanBeastMode);
+                }
+
+                CombatHelpers.IsCurrentlyAdventuring = true;
+                return;
+            }
+
+            if (Settings.CombatMode == 0 || ZoneHelpers.ZoneIsWalderp(tempZone) || ZoneHelpers.ZoneIsGodmother(tempZone) || ZoneHelpers.ZoneIsExile(tempZone))
+            {
+                _combManager.ManualZone(tempZone, Settings.SnipeBossOnly, Settings.RecoverHealth, Settings.PrecastBuffs, Settings.FastCombat, Settings.BeastMode, Settings.SmartBeastMode);
             }
             else
             {
-                _combManager.IdleZone(tempZone, Settings.SnipeBossOnly, Settings.RecoverHealth);
+                _combManager.IdleZone(tempZone, Settings.SnipeBossOnly, Settings.RecoverHealth, Settings.BeastMode);
             }
+            CombatHelpers.IsCurrentlyAdventuring = true;
         }
 
         private void MoveToITOPOD()
@@ -1377,7 +1477,7 @@ namespace NGUInjector
 
         public void ShowBoostProgress()
         {
-            var boostSlots = _invManager.GetBoostSlots(Character.inventory.GetConvertedInventory().ToArray());
+            var boostSlots = InventoryManager.GetBoostSlots(Character.inventory.GetConvertedInventory().ToArray());
             try
             {
                 _invManager.ShowBoostProgress(boostSlots);
@@ -1397,7 +1497,8 @@ namespace NGUInjector
 
         public void ResetBoostProgress()
         {
-
+            Log($"Resetting Boost Average");
+            _invManager.Reset();
         }
     }
 }

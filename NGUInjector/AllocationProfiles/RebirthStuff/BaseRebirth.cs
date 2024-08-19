@@ -48,7 +48,26 @@ namespace NGUInjector.AllocationProfiles.RebirthStuff
                     RebirthTime = target
                 };
             }
-            
+
+            if (type.Contains("MUFFIN"))
+            {
+                bool balanceTime = type.StartsWith("TIMEBALANCED");
+
+                double minimum = 1;
+                double maximum = balanceTime ? 15 : 60;
+
+                double minuteBuffer = Math.Min(Math.Max(target, minimum), maximum);
+
+                return new MuffinRebirth()
+                {
+                    CharObj = Main.Character,
+                    ChallengeTargets = ParseChallenges(challenges),
+                    RebirthController = Main.Character.rebirth,
+                    BalanceTime = balanceTime,
+                    MuffinMinuteBuffer = minuteBuffer
+                };
+            }
+
             if (type == "NUMBER")
             {
                 return new NumberRebirth
@@ -301,7 +320,7 @@ namespace NGUInjector.AllocationProfiles.RebirthStuff
             return true;
         }
 
-        protected bool PreRebirth()
+        protected virtual bool PreRebirth()
         {
             if (Main.Settings.ManageYggdrasil && YggdrasilManager.AnyHarvestable())
             {
@@ -325,115 +344,34 @@ namespace NGUInjector.AllocationProfiles.RebirthStuff
 
             DiggerManager.UpgradeCheapestDigger();
 
-            CastBloodSpells(true);
+            CastBloodSpellsForRebirth();
             return false;
         }
 
-        protected void CastBloodSpells(bool rebirth)
+        protected void CastBloodSpellsForRebirth()
         {
             if (!Main.Settings.CastBloodSpells)
                 return;
 
-            float iron = 0;
-            long mcguffA = 0;
-            long mcguffB = 0;
-            if (Main.Settings.BloodMacGuffinBThreshold > 0)
+            if (Main.Character.bloodMagic.bloodPoints > 0)
             {
-                if (CharObj.adventure.itopod.perkLevel[73] >= 1L &&
-                    CharObj.settings.rebirthDifficulty >= difficulty.evil)
-                {
-                    if (CharObj.bloodMagic.macguffin2Time.totalseconds > CharObj.bloodSpells.macguffin2Cooldown)
-                    {
-                        if (CharObj.bloodMagic.bloodPoints >= CharObj.bloodSpells.minMacguffin2Blood())
-                        {
-                            var a = CharObj.bloodMagic.bloodPoints / CharObj.bloodSpells.minMacguffin2Blood();
-                            mcguffB = (int)(Math.Log(a, 20.0) + 1.0);
-                        }
-
-                        if (Main.Settings.BloodMacGuffinBThreshold <= mcguffB)
-                        {
-                            CharObj.bloodSpells.castMacguffin2Spell();
-                            Main.LogPitSpin("Casting Blood MacGuffin B Spell power @ " + mcguffB);
-                            return;
-                        }
-                        else
-                        {
-                            if (rebirth)
-                            {
-                                Main.Log("Casting Failed Blood MacGuffin B Spell - Insufficient Power " + mcguffB +
-                                         " of " + Main.Settings.BloodMacGuffinBThreshold);
-                            }
-                        }
-                    }
-                }
+                BloodMagicManager.CastGuffB(true);
             }
 
-            if (Main.Settings.BloodMacGuffinAThreshold > 0)
+            if (Main.Character.bloodMagic.bloodPoints > 0)
             {
-                if (CharObj.adventure.itopod.perkLevel[72] >= 1L)
-                {
-                    if (CharObj.bloodMagic.macguffin1Time.totalseconds > CharObj.bloodSpells.macguffin1Cooldown)
-                    {
-                        if (CharObj.bloodMagic.bloodPoints > CharObj.bloodSpells.minMacguffin1Blood())
-                        {
-                            var a = CharObj.bloodMagic.bloodPoints / CharObj.bloodSpells.minMacguffin1Blood();
-                            mcguffA = (int)((Math.Log(a, 10.0) + 1.0) *
-                                             CharObj.wishesController.totalBloodGuffbonus());
-                        }
-
-                        if (Main.Settings.BloodMacGuffinAThreshold <= mcguffA)
-                        {
-                            CharObj.bloodSpells.castMacguffin1Spell();
-                            Main.LogPitSpin("Casting Blood MacGuffin A Spell power @ " + mcguffA);
-                            return;
-                        }
-                        else
-                        {
-                            if (rebirth)
-                            {
-                                Main.Log("Casting Failed Blood MacGuffin A Spell - Insufficient Power " + mcguffA +
-                                         " of " + Main.Settings.BloodMacGuffinAThreshold);
-                            }
-                        }
-                    }
-                }
+                BloodMagicManager.CastGuffA(true);
             }
 
-            if (Main.Settings.IronPillThreshold > 100)
+            if (Main.Character.bloodMagic.bloodPoints > 0)
             {
-                if (CharObj.bloodMagic.adventureSpellTime.totalseconds >
-                    CharObj.bloodSpells.adventureSpellCooldown)
-                {
-                    if (CharObj.bloodMagic.bloodPoints > CharObj.bloodSpells.minAdventureBlood())
-                    {
-                        iron = (float)Math.Floor(Math.Pow(CharObj.bloodMagic.bloodPoints, 0.25));
-                        if (CharObj.settings.rebirthDifficulty >= difficulty.evil)
-                        {
-                            iron *= CharObj.adventureController.itopod.ironPillBonus();
-                        }
-                    }
-
-                    if (Main.Settings.IronPillThreshold <= iron)
-                    {
-                        CharObj.bloodSpells.castAdventurePowerupSpell();
-                        Main.LogPitSpin("Casting Iron Blood Spell power @ " + iron);
-                    }
-                    else
-                    {
-                        if (rebirth)
-                        {
-                            Main.Log("Casting Failed Iron Blood Spell - Insufficient Power " + iron + " of " +
-                                     Main.Settings.IronPillThreshold);
-                        }
-                    }
-                }
+                BloodMagicManager.CastIronPill(true);
             }
 
-
-            if (rebirth)
+            // Use whatever blood we have left on blood number before rebirthing
+            if (Main.Character.bloodMagic.bloodPoints > 0)
             {
-                // Use whatever blood we have left on blood number before rebirthing
-                Main.Log("Casting number blood spell before rebirth");
+                Main.Log($"Casting number blood spell with remaining {Main.Character.bloodMagic.bloodPoints} blood before rebirth");
                 CharObj.bloodSpells.castRebirthSpell();
             }
         }

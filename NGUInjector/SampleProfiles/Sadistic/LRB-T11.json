@@ -1,0 +1,104 @@
+{
+  "Breakpoints": {
+	"Comment": "LRB to T11",
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "CAPALLBT", "CAPTM" ],
+		"Note": "Do we need a setup phase? Should all Aug/TM go here? First TM for 30m then Aug for 30m?"
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:10", "AUG-8", "AUG-9" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN:10", "CAPNGU-4:50", "WISH-0:5", "WISH-1:5", "WISH-2:6", "WISH-3:6", "NGU-0", "NGU-1", "NGU-3", "NGU-4", "NGU-5", "NGU-6", "NGU-7", "NGU-8" ],
+        "Note": "Figure out SAD NGU gear/allocation needs to BB NGU up to Adv a"
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM" ],
+		"Note": "Do we need a setup phase? Should all TM/Blood go here? First TM for 30m then Blood for 30m?"
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN:10", "BR" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "CAPWAN:10", "BR:10", "CAPNGU-1:50", "WISH-0:5", "WISH-1:5", "WISH-2:6", "WISH-3:6", "ALLNGU" ],
+        "Note": "Figure out SAD NGU gear/allocation needs to BB NGU up to Exp"
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPHACK-1" ]
+      }
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+	"Gear Note 1": "Make sure to set hardcap input in Gear Optimizer!",
+	"Gear Note 2": "Make sure each gear set has at least one significant EM and R3 Bars multiplier",
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [  ],
+        "Comment": "Respawn6Daycare4TM + BreadLegs"
+        "Comment": "First 15 minutes needs an extra boost to bars"
+      },
+      {
+        "Time": { "m": 15 },
+        "ID": [  ],
+        "Comment": "Respawn6Daycare4TM"
+      },
+      {
+        "Time": { "m": 30 },
+        "ID": [  ],
+        "Comment": "Respawn6Daycare4Augmentation"
+      },
+      {
+        "Time": { "h": 1 },
+        "ID": [ 407, 399,   400, 401, 410, 376,   136, 118, 171, 121, 379, 446,   236,   505, 431, 413, 386, 414, 406,   397,   504 ],
+        "(NguEquip+WishAcc?) Respawn6Daycare1Ngu6EBars1Wishes + Disco Ball Helmet": [ 407, 399,   400, 401, 410, 376,   136, 118, 171, 121, 379, 446,   236,   505, 431, 413, 386, 414, 406,   397,   504 ],
+        "(Test-FullNGU) Respawn6Daycare1Ngu7EBars1 + Disco Ball Helmet": [ 407, 399,   400, 401, 410, 403,   136, 118, 171, 121, 379, 446,   236,   505, 431, 413, 386, 414, 406, 398,   397 ],
+        "(Combat) CDDrop4Respawn4Power3EBars": [ 415, 412,   408, 409, 410, 411,   137, 91, 256,   505, 431, 389, 364,   136, 118, 171, 121,   504, 430, 414,   397 ],
+        "(RockLobster) CDDrop4Power5EBars + 'Paper' Gear": [ 415, 412,   408, 393, 410, 411,   413, 406,   137, 91, 256,   505, 431, 389, 364,   504, 430, 414, 405, 385,   397 ],
+        "(Gold) CDGold7Power": [ 415, 412,   408, 322, 410, 411,   137, 91, 256,   505, 431, 329, 358, 350, 389, 313,   136, 118, 171, 121,   504 ],
+		"(Questing) QuestDropRespawn6Wishes + Disco Ball Helmet": [ 415, 407,   400, 401, 410, 376,   385, 257, 314, 170, 293, 329, 236,   136, 118, 171, 121, 379, 446,   505, 413 ],
+        "(Max Pow) Power": [  ],
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 0, 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "No beards",
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 2
+      }
+    ],
+    "Consumables": [
+      {
+        "Time": 0,
+        "Items": [ "EPOT-B", "MPOT-B", "R3POT-B" ]
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "Breakpoints": {
+	"Injector" : "Make sure to set the titan's gear to the HACK loadout (or disable gear swapping), we don't want the R3 cap to tank and recover every 60 minutes",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "CAPWAN", "CAPTM:10", "AUG-8:10", "AUG-9:10", "ALLNGU" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWAN", "CAPTM:10", "BR", "ALLNGU" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "HACK-13", "HACK-12", "HACK-10", "HACK-8", "HACK-5", "HACK-6", "HACK-9", "HACK-7", "HACK-0", "HACK-2", "HACK-4", "HACK-11", "HACK-3", "HACK-14", "HACK-1" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 319, 326,   322, 342, 324, 311,   390, 320, 295, 307,   327, 450, 328, 276, 451, 297, 314, 296, 313 ],
+        "Comment": "R3Bars4Hacks"
+      },
+      {
+        "Time": { "h": 1, "m": 30 },
+        "ID": [ 326, 319,   322, 342, 317, 325,   295, 327, 450, 328, 451, 276, 320, 314, 297, 296, 307, 313, 321 ],
+        "Comment": "Hacks"
+      },
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "No drop or beards"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 1
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

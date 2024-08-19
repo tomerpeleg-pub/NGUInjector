@@ -1,0 +1,83 @@
+{
+  "Breakpoints": {
+	"Injector" : "DISABLE gear switching on titans as swapping every hour will severely hamper hack speed due to recovering R3 Cap",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "CAPALLAT", "CAPWAN:20", "CAPTM:20", "AUG-8", "AUG-9" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPALLAT", "CAPWAN", "ALLNGU", "CAPTM" ]
+      },
+      {
+        "Time": { "h": 25 },
+        "Priorities": [ "CAPWISH-0:20", "CAPWISH-1:20", "CAPALLAT", "CAPWAN", "ALLNGU", "CAPTM" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPTM", "BR", "WAN" ]
+      },
+      {
+        "Time": { "m": 30 },
+        "Priorities": [ "CAPWAN", "BR", "ALLNGU", "CAPTM" ]
+      },
+      {
+        "Time": { "h": 25 },
+        "Priorities": [ "CAPWISH-0:20", "CAPWISH-1:20", "CAPWAN", "BR", "ALLNGU", "CAPTM" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "HACK-13", "HACK-12", "HACK-10", "HACK-5", "HACK-6", "HACK-8", "HACK-9", "HACK-7", "HACK-0", "HACK-2", "HACK-4", "HACK-11", "HACK-3", "HACK-14", "HACK-1" ]
+      },
+      {
+        "Time": { "h": 25 },
+        "Priorities": [ "CAPWISH-0:25", "CAPWISH-1:25", "HACK-13", "HACK-12", "HACK-10", "HACK-5", "HACK-6", "HACK-8", "HACK-9", "HACK-7", "HACK-0", "HACK-2", "HACK-4", "HACK-11", "HACK-3", "HACK-14", "HACK-1" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 319, 315, 316, 317, 318,   295, 451, 450, 297, 320, 314, 313, 296, 307, 321, 274, 272 ],
+        "Comment": "Hacks"
+      },
+      {
+        "Time": { "h": 25 },
+        "ID": [ 312, 315, 309, 310, 318,   190,   136, 118, 171,   446, 344, 236,   450, 275, 449, 249, 321 ],
+        "(Default-NGU+Wishes) VoodooRespawn3Daycare3NguAndWishes": [ 312, 315, 309, 310, 318,   190,   136, 118, 171,   446, 344, 236,   450, 275, 449, 249, 321 ],
+        "(NoDropCombat) CD3Power": [ 319, 315, 316, 317, 318,   137, 91, 256,   451, 321, 450, 275, 320, 314, 313, 296, 449 ],
+        "(T9Puzzle1) CD3Power+SealOfExile": [ 335, 315, 316, 317, 318,   137, 91, 256,   451, 321, 450, 275, 320, 314, 313, 296, 449 ],
+        "(T9Puzzle2) CD3Power": [ 319, 315, 316, 317, 318,   137, 91, 256,   451, 321, 450, 275, 320, 314, 313, 296, 449 ]
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "No drop or beards"
+      },
+      {
+        "Time": { "m": 30 },
+        "List": [ 3, 4, 5, 6, 7, 8, 9, 10, 11 ],
+        "Comment": "No drop, wan or stats"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 1
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

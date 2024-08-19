@@ -1,0 +1,58 @@
+{
+  "Breakpoints": {
+	"Comment": "Use this profile to farm a zone after AT is high enough",
+    "Energy": [
+      {
+        "Time": { "h": 0 },
+        "Priorities": [ "NGU-0", "NGU-1", "NGU-3", "NGU-5" ],
+        "Comment": "PAWG NGUs"
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "NGU-0" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": []
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 150, 151, 166, 153, 159, 116, 149, 138, 139, 136 ],
+		"MaxEnergyGear": [ 150, 151, 166, 153, 159 ],
+		"MaxCombatGear": [ 164, 165, 166, 167, 168 ],
+        "RespawnAcc": [ 118, 136 ],
+        "NGUAcc": [ 116, 149, 138, 139 ],
+		"DropAcc": [ 94, 128, 136, 442, 438 ],
+        "CDCombatAcc": [ 91, 137, 148, 149 ],
+        "Comment": "Set gear as needed. Try and fit in as much respawn, drop chance, and NGU-E speed if the combat stats allow",
+        "Comment2": "If in the LRB to target farm a titan, use the settings file to specify the titan kill gear, this gear should then be entirely Respawn/NGU focused"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 3, 4, 5, 8 ],
+        "Comment": "Adv + NGU-E/M + PP",
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 0
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

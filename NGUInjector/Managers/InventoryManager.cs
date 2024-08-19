@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using static NGUInjector.Main;
+using static System.Resources.ResXFileRef;
 
 namespace NGUInjector.Managers
 {
-
     public class FixedSizedQueue
     {
-        private Queue<decimal> queue = new Queue<decimal>();
+        private Queue<float> queue = new Queue<float>();
 
         public int Size { get; private set; }
 
@@ -18,7 +18,7 @@ namespace NGUInjector.Managers
             Size = size;
         }
 
-        public void Enqueue(decimal obj)
+        public void Enqueue(float obj)
         {
             queue.Enqueue(obj);
 
@@ -33,7 +33,7 @@ namespace NGUInjector.Managers
             queue.Clear();
         }
 
-        public decimal Avg()
+        public float Avg()
         {
             try
             {
@@ -50,7 +50,22 @@ namespace NGUInjector.Managers
     public class Cube
     {
         internal float Power { get; set; }
+        internal float PowerSoftcap { get; set; }
         internal float Toughness { get; set; }
+        internal float ToughnessSoftcap { get; set; }
+
+        internal float PowerSoftcapRatio { get { return Power / PowerSoftcap; } }
+
+        internal float ToughnessSoftcapRatio { get { return Toughness / ToughnessSoftcap; } }
+
+        public Cube(float power, float powerSoftcap, float toughness, float toughnessSoftcap) 
+        { 
+            Power = power;
+            PowerSoftcap = powerSoftcap;
+            Toughness = toughness;
+            ToughnessSoftcap = toughnessSoftcap;
+        }
+
         protected bool Equals(Cube other)
         {
             return Power.Equals(other.Power) && Toughness.Equals(other.Toughness);
@@ -61,7 +76,7 @@ namespace NGUInjector.Managers
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Cube) obj);
+            return Equals((Cube)obj);
         }
 
         public override int GetHashCode()
@@ -81,8 +96,8 @@ namespace NGUInjector.Managers
         private readonly int[] _pendants = { 53, 76, 94, 142, 170, 229, 295, 388, 430, 504 };
         private readonly int[] _lootys = { 67, 128, 169, 230, 296, 389, 431, 505 };
         private readonly int[] _convertibles;
-        private readonly int[] _wandoos = {66, 169};
-        private readonly int[] _guffs = {198, 200, 199, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 228, 211, 250, 291, 289, 290, 298, 299, 300};
+        private readonly int[] _wandoos = { 66, 169 };
+        private readonly int[] _guffs = { 198, 200, 199, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 228, 211, 250, 291, 289, 290, 298, 299, 300 };
         private readonly int[] _mergeBlacklist = { 367, 368, 369, 370, 371, 372 };
         private BoostsNeeded _previousBoostsNeeded = null;
         private Cube _lastCube = null;
@@ -91,11 +106,11 @@ namespace NGUInjector.Managers
 
 
         //Wandoos 98, Giant Seed, Wandoos XL, Lonely Flubber, Wanderer's Cane, Guffs, Lemmi
-        private readonly int[] _filterExcludes = { 66, 92, 163, 120, 154, 195, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287  };
+        private readonly int[] _filterExcludes = { 66, 92, 163, 120, 154, 195, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287 };
         public InventoryManager()
         {
             _character = Main.Character;
-            _controller = Controller;
+            _controller = Main.InventoryController;
             var temp = _pendants.Concat(_lootys).ToList();
             //Wanderer's Cane
             temp.Add(154);
@@ -112,7 +127,7 @@ namespace NGUInjector.Managers
             _cubeBoostAvg.Reset();
         }
 
-        internal ih[] GetBoostSlots(ih[] ci)
+        internal static ih[] GetBoostSlots(ih[] ci)
         {
             var result = new List<ih>();
             //First, find items in our priority list
@@ -120,7 +135,7 @@ namespace NGUInjector.Managers
             {
                 if (Settings.BoostBlacklist.Contains(id))
                     continue;
-                
+
                 var f = FindItemSlot(ci, id);
                 if (f != null)
                     result.Add(f);
@@ -177,7 +192,7 @@ namespace NGUInjector.Managers
                 return inv.weapon.GetInventoryHelper(-5);
             }
 
-            if (Controller.weapon2Unlocked())
+            if (Main.InventoryController.weapon2Unlocked())
             {
                 if (inv.weapon2.id == id)
                 {
@@ -368,14 +383,22 @@ namespace NGUInjector.Managers
         internal void ShowBoostProgress(ih[] boostSlots)
         {
             var needed = new BoostsNeeded();
-            var cube = new Cube
-            {
-                Power = _character.inventory.cubePower,
-                Toughness = _character.inventory.cubeToughness
-            };
+            var cube = new Cube(
+                _character.inventory.cubePower,
+                _character.inventoryController.cubePowerSoftcap(),
+                _character.inventory.cubeToughness,
+                _character.inventoryController.cubeToughnessSoftcap()
+            );
 
             foreach (var item in boostSlots)
             {
+                //var eq = item.equipment;
+
+                //LogDebug($"{eq.id}:{item.name} (Lv {eq.level})");
+                //LogDebug($"\tAtk {eq.curAttack}/{Extensions.CalcCap(eq.capAttack, eq.level)}");
+                //LogDebug($"\tDef {eq.curDefense}/{Extensions.CalcCap(eq.capDefense, eq.level)}");
+                //LogDebug($"\tSpec1 {eq.spec1Cur}/{Extensions.CalcCap(eq.spec1Cap, eq.level)} | Spec2 {eq.spec2Cur}/{Extensions.CalcCap(eq.spec2Cap, eq.level)} | Spec3 {eq.spec3Cur}/{Extensions.CalcCap(eq.spec3Cap, eq.level)}");
+
                 needed.Add(item.equipment.GetNeededBoosts());
             }
 
@@ -434,7 +457,7 @@ namespace NGUInjector.Managers
                     output = toughnessDiff > 0 ? $"{output} {toughnessDiff} Toughness." : output;
                     output = powerDiff > 0 ? $"{output} {powerDiff} Power." : output;
 
-                    _cubeBoostAvg.Enqueue((decimal)(toughnessDiff + powerDiff));
+                    _cubeBoostAvg.Enqueue(toughnessDiff + powerDiff);
                     output = $"{output} Average Per Minute: {_cubeBoostAvg.Avg():0}";
                     Log(output);
                     Log($"Cube Power: {cube.Power} ({_character.inventoryController.cubePowerSoftcap()} softcap). Cube Toughness: {cube.Toughness} ({_character.inventoryController.cubeToughnessSoftcap()} softcap)");
@@ -458,28 +481,27 @@ namespace NGUInjector.Managers
             var lockedBoosts = converted.Where(x => x.id < 40 && x.locked).ToArray();
             if (lockedBoosts.Any())
             {
-                foreach (var locked in lockedBoosts)
-                {
-                    //Unlock level 100 boosts
-                    if (locked.level == 100)
-                    {
-                        _character.inventory.inventory[locked.slot].removable = true;
-                        continue;
-                    }
+                //Unlock level 100 boosts
+                lockedBoosts.Where(x => x.level == 100).ToList().ForEach(maxLockedBoost => _character.inventory.inventory[maxLockedBoost.slot].removable = true);
 
-                    if (locked.id <= 13)
+                int? minId = lockedBoosts.Where(x => x.level != 100).DefaultIfEmpty().Min(x => x.id);
+                if (minId.HasValue)
+                {
+                    if (minId <= 13)
                     {
                         _controller.selectAutoPowerTransform();
-                    }else if (locked.id <= 26)
+                    }
+                    else if (minId <= 26)
                     {
                         _controller.selectAutoToughTransform();
-                    }else if (locked.id <= 39)
+                    }
+                    else if (minId <= 39)
                     {
                         _controller.selectAutoSpecialTransform();
                     }
-                }
 
-                return;
+                    return;
+                }
             }
 
             var needed = new BoostsNeeded();
@@ -519,11 +541,12 @@ namespace NGUInjector.Managers
                 }
             }
 
-            var cube = new Cube
-            {
-                Power = _character.inventory.cubePower,
-                Toughness = _character.inventory.cubeToughness
-            };
+            var cube = new Cube(
+                _character.inventory.cubePower,
+                _character.inventoryController.cubePowerSoftcap(),
+                _character.inventory.cubeToughness,
+                _character.inventoryController.cubeToughnessSoftcap()
+            );
 
             if (Settings.CubePriority > 0)
             {
@@ -533,15 +556,23 @@ namespace NGUInjector.Managers
                     {
                         _controller.selectAutoToughTransform();
                     }
-                    else if (cube.Toughness > cube.Power)
+                    else
                     {
                         _controller.selectAutoPowerTransform();
+                    }
+                }
+                else if (Settings.CubePriority == 2)
+                {
+                    if (cube.PowerSoftcapRatio > cube.ToughnessSoftcapRatio)
+                    {
+                        _controller.selectAutoToughTransform();
                     }
                     else
                     {
                         _controller.selectAutoPowerTransform();
                     }
-                }else if (Settings.CubePriority == 2)
+                }
+                else if (Settings.CubePriority == 3)
                 {
                     _controller.selectAutoPowerTransform();
                 }
@@ -549,7 +580,7 @@ namespace NGUInjector.Managers
                 {
                     _controller.selectAutoToughTransform();
                 }
-                
+
                 return;
             }
 
@@ -618,9 +649,9 @@ namespace NGUInjector.Managers
 
     public class BoostsNeeded
     {
-        internal decimal Power { get; set; }
-        internal decimal Toughness { get; set; }
-        internal decimal Special { get; set; }
+        internal float Power { get; set; }
+        internal float Toughness { get; set; }
+        internal float Special { get; set; }
 
         public BoostsNeeded()
         {
@@ -636,7 +667,7 @@ namespace NGUInjector.Managers
             Special += other.Special;
         }
 
-        public decimal Total()
+        public float Total()
         {
             return Power + Toughness + Special;
         }

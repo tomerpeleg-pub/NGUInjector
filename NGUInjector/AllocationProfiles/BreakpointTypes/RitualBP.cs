@@ -27,7 +27,7 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
                     Character.bloodMagicController.bloodMagics[Index].removeAllMagic();
                 }
 
-                return true;
+                return false;
             }
 
             var cap = GetRitualCap(Index);

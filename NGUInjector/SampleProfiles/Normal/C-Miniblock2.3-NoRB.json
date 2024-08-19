@@ -1,0 +1,51 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit % to 0; Adventure Tab - Turn on Combat (Target: Cave of Many Things, Idle Mode, Allow Fallthrough -> Select ITOPOD after unlocking boss 30); Gold Tab - Turn on CBlock Mode",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "CAPWAN" ]
+      },
+      {
+        "Time": { "m": 25 },
+        "Priorities": [ "CAPALLBT", "AT-3", "AT-4" ]
+      },
+      {
+        "Time": { "h": 1 },
+        "Priorities": [ "WAN", "AT-3", "AT-4" ]
+      },
+      {
+        "Time": { "h": 4 },
+        "Priorities": [ "TM", "WAN", "BESTAUG" ],
+        "Comment": "FoP is eaten at hour 2 and 4, the boost from these fruit should unlock TM"
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "TM", "WAN" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 130, 131, 132, 133, 134, 101, 138, 440 ],
+        "Comment": "Max P/T Gear - AT/Wandoos Accessories"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2 ],
+        "Comment": "Wandoos and Stats"
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

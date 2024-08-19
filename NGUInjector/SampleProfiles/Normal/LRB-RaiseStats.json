@@ -1,0 +1,51 @@
+{  
+  "Breakpoints": {
+	"Comment": "Use this profile to raise Adv stats",
+    "Energy": [
+      {
+        "Time": { "h": 0 },
+        "Priorities": [ "AT-0", "AT-1" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "BR" ],
+        "Comment": "Pump blood levels into Iron Pill"
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": []
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 150, 151, 166, 146, 159, 138, 101, 440, 139, 136 ],
+        "Comment": "AT"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 2, 3, 8, 9 ],
+        "Comment": "Stats + Adv + PP + DayCare"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 0
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

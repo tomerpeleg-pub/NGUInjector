@@ -1,0 +1,86 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit/Iron Pill/GuffA&B to 0, Number to 1E+20; Adventure Tab - Do combat in ITOPOD (combat in a lower zone for gold prior to boss 30); Gold Tab - Turn on CBlock Mode",
+	"AdvTraining" : "Have two gear sets, one for maximizing Bars to ramp up E/M, and another at 5 minutes for pure EMPC",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPWISH-2:10", "CAPALLBT", "CAPWAN:50", "CAPAUG-8", "CAPAUG-9", "CAPTM", "WISH-0", "WISH-1", "WISH-2" ],
+        "PrioritiesLSC": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPALLBT", "CAPWAN:50", "CAPTM", "CAPAUG-12", "CAPAUG-13", "AUG-8", "AUG-9" ],
+        "PrioritiesDefault": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPALLBT", "CAPWAN:50", "CAPTM", "CAPAUG-8", "CAPAUG-9", "WAN" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPWISH-2:10", "CAPWAN:50", "BR", "CAPTM", "CAPWAN", "WISH-0", "WISH-1", "WISH-2" ],
+        "PrioritiesDefault": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPWAN:50", "CAPTM", "BR", "WAN" ],
+        "PrioritiesForNoTM": [ "CAPWISH-0:10", "CAPWISH-1:10", "CAPWAN:50", "RIT-7:20", "WAN" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWISH-0:20", "CAPWISH-1:20", "CAPWISH-2:20", "HACK-0" ],
+        "PrioritiesDefault": [ "CAPWISH-0:25", "CAPWISH-1:25", "HACK-0" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 326, 319,   301, 323, 317, 311,   247, 273,   277,   328, 450, 275, 321, 320, 306, 276, 449, 448, 447 ],
+        "Default (MeepleMolotovEBars1EMPC)": "[ 326, 319,   301, 323, 317, 311,   247, 273,   277,   328, 450, 275, 321, 320, 306, 276, 449, 448, 447 ]",
+        "LSC (MeepleMolotovAugmentation0EBars1EMPC)": "[ 168, 312,   315, 323, 324, 325,   247, 273,   277,   328, 450, 275, 321, 320, 306, 276, 449, 448, 447 ]",
+        "NoTM (MeepleMolotovEBars1Gold3EMPC+HatOfGreed)": "[ 326, 319,   322, 323, 317, 311,   247, 273,   277,   313, 274, 271,   328, 450, 275, 321, 320, 306, 276 ]"
+      },
+      {
+        "Time": { "m": 5 },
+        "ID": [ 312, 269,   315, 323, 324, 325,   247, 273,   328, 277, 450, 275, 321, 320, 306, 276, 449, 448, 447 ],
+        "Default (MeepleMolotovEMPC)": "[ 312, 269,   315, 323, 324, 325,   247, 273,   328, 277, 450, 275, 321, 320, 306, 276, 449, 448, 447 ]",
+        "NoTM (MeepleMolotovGold3EMPC)": "[ 312, 269,   322, 323, 324, 325,   247, 273,   313, 274, 271,   328, 277, 450, 275, 321, 320, 306, 276 ]"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0,
+        "Default": 1,
+        "NoNGU": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "All but DC and Beards"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 1
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 1000,
+	  "Type1": "Number",
+	  "Target1": 1000,
+	  "Note1": "Use this for challenges that climb quickly like basic, 24h, blind, 100level, troll, etc",
+	  "Type2": "Time",
+	  "Target2": { "m": 32 },
+	  "Note2": "Use this for challenges that take a long time to ramp up like nongu, notm, noeq, etc",
+	  "Challenges": [ 
+	    "LSC-3", "LSC-4", "LSC-5", "LSC-6", "LSC-7", "LSC-8", "LSC-9", "LSC-10",
+	    "LSC-11", "LSC-12", "LSC-13", "LSC-14", "LSC-15", "LSC-16", "LSC-17", "LSC-18", "LSC-19", "LSC-20",
+				
+		"BLIND-8", "BLIND-9", "BLIND-10",		
+	    "NONGU-8", "NONGU-9", "NONGU-10",		
+		"TC-6", "TC-7",
+		
+	    "NOTM-6", "NOTM-7", "NOTM-8", "NOTM-9", "NOTM-10",
+		"24HR-6", "24HR-7"
+	  ]
+	}
+  }
+}

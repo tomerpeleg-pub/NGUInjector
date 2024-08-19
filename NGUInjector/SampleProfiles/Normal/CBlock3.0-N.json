@@ -1,0 +1,58 @@
+{
+  "Breakpoints": {
+	"Injector" : "Allocation Tab - Spaghetti/Counterfeit/Iron Pill to 0, Number to 1E+20; Adventure Tab - Do combat in ITOPOD (combat in a lower zone for gold prior to boss 30); Gold Tab - Turn on CBlock Mode",
+	"AdvTraining" : "Put low targets on AT-0/1/2 and put high or infinite targets on AT-3/4. If we run long enough to unlock AT that means we need to focus on Wandoos for power (ie: NORB, NOTM, NOAUG, etc)",
+	"Beards" : "Swap BEARd to LadyBeard",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLNGU:1", "CAPALLBT", "CAPALLAT", "CAPWAN:50", "CAPTM:25", "CAPBESTAUG", "WAN", "CAPALLNGU" ],
+        "PrioritiesDefault": [ "CAPALLNGU:1", "CAPALLBT", "CAPALLAT", "CAPWAN:50", "CAPTM:25", "CAPBESTAUG", "WAN", "CAPALLNGU" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLNGU:1", "CAPWAN:50", "CAPTM:25", "BR", "WAN", "CAPALLNGU" ],
+        "PrioritiesDefault": [ "CAPALLNGU:1", "CAPWAN:50", "CAPTM:25", "BR", "WAN" ],
+        "PrioritiesForNOTM": [ "CAPALLNGU:1", "CAPWAN:50", "RIT-0:20", "WAN" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "HACK-0" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 241, 237, 238, 239, 240,   445, 243, 242, 444,   195, 218, 446,   189, 161 ],
+        "Default-NGU4TM3Wan": [ 241, 237, 238, 239, 240,   445, 243, 242, 444,   195, 218, 446,   189, 161 ],
+        "NOTM-Gold3Wan3AT": [ 241, 164, 232, 233, 240,   192, 142, 136,   189, 161, 218,   138, 446 ]
+        "Comment": "Maximize TM & Wandoos, maximize gold drop accessories for NOTM"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 2
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 4, 5, 8, 10, 11 ],
+        "Comment": "Wandoos + Stats + E/MNGU + PP + Blood + Exp"
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Number",
+	  "Target": 1000,
+	  "Challenges": [ 
+		"NOTM-6", "NOTM-7", "NOTM-8", "NOTM-9", "NOTM-10",
+		"24HR-7", "24HR-8", "24HR-9", "24HR-10"
+	  ]
+	}
+  }
+}

@@ -10,6 +10,7 @@ using NGUInjector.AllocationProfiles.RebirthStuff;
 using NGUInjector.Managers;
 using SimpleJSON;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace NGUInjector.AllocationProfiles
 {
@@ -50,7 +51,7 @@ namespace NGUInjector.AllocationProfiles
                     var text = File.ReadAllText(_allocationPath);
                     var parsed = JSON.Parse(text);
                     var breakpoints = parsed["Breakpoints"];
-                    _wrapper = new BreakpointWrapper {Breakpoints = new Breakpoints()};
+                    _wrapper = new BreakpointWrapper { Breakpoints = new Breakpoints() };
                     var rb = breakpoints["Rebirth"];
                     var rbtime = breakpoints["RebirthTime"];
                     if (rb == null)
@@ -67,10 +68,11 @@ namespace NGUInjector.AllocationProfiles
                         _wrapper.Breakpoints.Rebirth = BaseRebirth.CreateRebirth(target, type, rb["Challenges"].AsArray.Children.Select(x => x.Value.ToUpper()).ToArray());
                     }
 
-                    _wrapper.Breakpoints.ConsumablesBreakpoints = breakpoints["Consumables"].Children.Select(bp => new ConsumablesBreakpoint {
-                            Time = ParseTime(bp["Time"]),
-                            Consumables = ParseConsumableItemNames(bp["Items"].AsArray.Children.Select(x => x.Value.ToUpper()).ToArray()),
-                            Quantity = GetConsumablesQuantities(bp["Items"].AsArray.Children.Select(x => x.Value.ToUpper()).ToArray())
+                    _wrapper.Breakpoints.ConsumablesBreakpoints = breakpoints["Consumables"].Children.Select(bp => new ConsumablesBreakpoint
+                    {
+                        Time = ParseTime(bp["Time"]),
+                        Consumables = ParseConsumableItemNames(bp["Items"].AsArray.Children.Select(x => x.Value.ToUpper()).ToArray()),
+                        Quantity = GetConsumablesQuantities(bp["Items"].AsArray.Children.Select(x => x.Value.ToUpper()).ToArray())
                     }).OrderByDescending(x => x.Time).ToArray();
 
 
@@ -111,11 +113,11 @@ namespace NGUInjector.AllocationProfiles
                         }).OrderByDescending(x => x.Time).ToArray();
 
                     _wrapper.Breakpoints.Wandoos = breakpoints["Wandoos"].Children
-                        .Select(bp => new WandoosBreakpoint {Time = ParseTime(bp["Time"]), OS = bp["OS"].AsInt})
+                        .Select(bp => new WandoosBreakpoint { Time = ParseTime(bp["Time"]), OS = bp["OS"].AsInt })
                         .OrderByDescending(x => x.Time).ToArray();
 
                     _wrapper.Breakpoints.NGUBreakpoints = breakpoints["NGUDiff"].Children
-                        .Select(bp => new NGUDiffBreakpoint {Time = ParseTime(bp["Time"]), Diff = bp["Diff"].AsInt})
+                        .Select(bp => new NGUDiffBreakpoint { Time = ParseTime(bp["Time"]), Diff = bp["Diff"].AsInt })
                         .Where(x => x.Diff <= 2).OrderByDescending(x => x.Time).ToArray();
 
                     Main.Log(BuildAllocationString());
@@ -288,13 +290,16 @@ namespace NGUInjector.AllocationProfiles
             if (rb is NoRebirth)
             {
                 builder.AppendLine($"Rebirth Disabled.");
-            }else if (rb is NumberRebirth nrb)
+            }
+            else if (rb is NumberRebirth nrb)
             {
                 builder.AppendLine($"Rebirthing when number bonus is {nrb.MultTarget}x previous number");
-            }else if (rb is TimeRebirth trb)
+            }
+            else if (rb is TimeRebirth trb)
             {
                 builder.AppendLine($"Rebirthing at {trb.RebirthTime} seconds");
-            }else if (rb is BossNumRebirth brb)
+            }
+            else if (rb is BossNumRebirth brb)
             {
                 builder.AppendLine($"Rebirthing when number allows you +{brb.NumBosses} bosses");
             }
@@ -441,115 +446,20 @@ namespace NGUInjector.AllocationProfiles
 
         public void CastBloodSpells()
         {
-            CastBloodSpells(false);
-        }
-
-        public void CastBloodSpells(bool rebirth)
-        {
             if (!Main.Settings.CastBloodSpells)
                 return;
 
-            if (_wrapper.Breakpoints.Rebirth is TimeRebirth trb && Main.Settings.AutoRebirth)
+            if (_wrapper.Breakpoints.Rebirth is TimeRebirth trb && trb.RebirthTime > 0 && Main.Settings.AutoRebirth)
             {
-                if (trb.RebirthTime - _character.rebirthTime.totalseconds < 30 * 60 && !rebirth)
+                if (trb.RebirthTime - _character.rebirthTime.totalseconds < 30 * 60)// && !rebirth)
                 {
                     return;
                 }
             }
 
-            float iron = 0;
-            long mcguffA = 0;
-            long mcguffB = 0;
-            if (Main.Settings.BloodMacGuffinBThreshold > 0)
-            {
-                if (_character.adventure.itopod.perkLevel[73] >= 1L &&
-                    _character.settings.rebirthDifficulty >= difficulty.evil)
-                {
-                    if (_character.bloodMagic.macguffin2Time.totalseconds > _character.bloodMagicController.spells.macguffin2Cooldown)
-                    {
-                        if (_character.bloodMagic.bloodPoints >= _character.bloodSpells.minMacguffin2Blood())
-                        {
-                            var a = _character.bloodMagic.bloodPoints / _character.bloodSpells.minMacguffin2Blood();
-                            mcguffB = (int) (Math.Log(a, 20.0) + 1.0);
-                        }
-
-                        if (Main.Settings.BloodMacGuffinBThreshold <= mcguffB)
-                        {
-                            _character.bloodSpells.castMacguffin2Spell();
-                            Main.LogPitSpin("Casting Blood MacGuffin B Spell power @ " + mcguffB);
-                            return;
-                        }
-                        else
-                        {
-                            if (rebirth)
-                            {
-                                Main.Log("Casting Failed Blood MacGuffin B Spell - Insufficient Power " + mcguffB +
-                                         " of " + Main.Settings.BloodMacGuffinBThreshold);
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (Main.Settings.BloodMacGuffinAThreshold > 0)
-            {
-                if (_character.adventure.itopod.perkLevel[72] >= 1L)
-                {
-                    if (_character.bloodMagic.macguffin1Time.totalseconds >= _character.bloodMagicController.spells.macguffin1Cooldown)
-                    {
-                        if (_character.bloodMagic.bloodPoints > _character.bloodSpells.minMacguffin1Blood())
-                        {
-                            var a = _character.bloodMagic.bloodPoints / _character.bloodSpells.minMacguffin1Blood();
-                            mcguffA = (int) ((Math.Log(a, 10.0) + 1.0) *
-                                             _character.wishesController.totalBloodGuffbonus());
-                        }
-                        if (Main.Settings.BloodMacGuffinAThreshold <= mcguffA)
-                        {
-                            _character.bloodSpells.castMacguffin1Spell();
-                            Main.LogPitSpin("Casting Blood MacGuffin A Spell power @ " + mcguffA);
-                            return;
-                        }
-                        else
-                        {
-                            if (rebirth)
-                            {
-                                Main.Log("Casting Failed Blood MacGuffin A Spell - Insufficient Power " + mcguffA +
-                                         " of " + Main.Settings.BloodMacGuffinAThreshold);
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (Main.Settings.IronPillThreshold > 100)
-            {
-                if (_character.bloodMagic.adventureSpellTime.totalseconds >
-                    _character.bloodSpells.adventureSpellCooldown)
-                {
-                    if (_character.bloodMagic.bloodPoints > _character.bloodSpells.minAdventureBlood())
-                    {
-                        iron = (float) Math.Floor(Math.Pow(_character.bloodMagic.bloodPoints, 0.25));
-                        if (_character.settings.rebirthDifficulty >= difficulty.evil)
-                        {
-                            iron *= _character.adventureController.itopod.ironPillBonus();
-                        }
-                    }
-
-                    if (Main.Settings.IronPillThreshold <= iron)
-                    {
-                        _character.bloodSpells.castAdventurePowerupSpell();
-                        Main.LogPitSpin("Casting Iron Blood Spell power @ " + iron);
-                    }
-                    else
-                    {
-                        if (rebirth)
-                        {
-                            Main.Log("Casting Failed Iron Blood Spell - Insufficient Power " + iron + " of " +
-                                     Main.Settings.IronPillThreshold);
-                        }
-                    }
-                }
-            }
+            BloodMagicManager.CastGuffB(false);
+            BloodMagicManager.CastGuffA(false);
+            BloodMagicManager.CastIronPill(false);
         }
 
         public override void AllocateEnergy()
@@ -569,29 +479,42 @@ namespace NGUInjector.AllocationProfiles
             var temp = bp.Priorities.Where(x => x.IsValid()).ToList();
             if (temp.Count == 0)
                 return;
-            var prioCount = temp.Count(x => !x.IsCapPrio());
-            
 
-            if (temp.Any(x => x is BasicTrainingBP))
-                _character.removeAllEnergy();
-            else
-                _character.removeMostEnergy();
-
-            var toAdd = (long)Math.Ceiling((double)_character.idleEnergy / prioCount);
-            SetInput(toAdd);
-
-            foreach (var prio in temp)
+            bool shouldRetry = true;
+            while (shouldRetry)
             {
-                if (!prio.IsCapPrio())
-                {
-                    prioCount--;
-                }
+                var successList = new List<BaseBreakpoint>();
+                shouldRetry = false;
+                var prioCount = temp.Count(x => !x.IsCapPrio());
 
-                if (prio.Allocate())
+                if (temp.Any(x => x is BasicTrainingBP))
+                    _character.removeAllEnergy();
+                else
+                    _character.removeMostEnergy();
+
+                var toAdd = (long)Math.Ceiling((double)_character.idleEnergy / prioCount);
+                SetInput(toAdd);
+
+                foreach (var prio in temp)
                 {
-                    toAdd = (long)Math.Ceiling((double)_character.idleEnergy / prioCount);
-                    SetInput(toAdd);
+                    if (!prio.IsCapPrio())
+                    {
+                        prioCount--;
+                    }
+
+                    if (prio.Allocate())
+                    {
+                        successList.Add(prio);
+                        toAdd = (long)Math.Ceiling((double)_character.idleEnergy / prioCount);
+                        SetInput(toAdd);
+                    }
+                    else
+                    {
+                        shouldRetry = true;
+                    }
                 }
+                temp = successList;
+                shouldRetry &= temp.Any();
             }
 
             _character.NGUController.refreshMenu();
@@ -600,7 +523,7 @@ namespace NGUInjector.AllocationProfiles
             _character.timeMachineController.updateMenu();
             _character.allOffenseController.refresh();
             _character.allDefenseController.refresh();
-            _character.wishesController.updateMenu();
+            Main.WishManager.UpdateWishMenu();
             _character.augmentsController.updateMenu();
         }
 
@@ -621,31 +544,48 @@ namespace NGUInjector.AllocationProfiles
             var temp = bp.Priorities.Where(x => x.IsValid()).ToList();
             if (temp.Count == 0)
                 return;
-            var prioCount = temp.Count(x => !x.IsCapPrio());
 
-            _character.removeMostMagic();
-            var toAdd = (long)Math.Ceiling((double)_character.magic.idleMagic / prioCount);
-            SetInput(toAdd);
-
-            foreach (var prio in temp)
+            bool shouldRetry = true;
+            while (shouldRetry)
             {
-                if (!prio.IsCapPrio())
-                {
-                    prioCount--;
-                }
+                var successList = new List<BaseBreakpoint>();
+                shouldRetry = false;
 
-                if (prio.Allocate())
+                var prioCount = temp.Count(x => !x.IsCapPrio());
+
+                _character.removeMostMagic();
+                var toAdd = (long)Math.Ceiling((double)_character.magic.idleMagic / prioCount);
+                SetInput(toAdd);
+
+                var nextBP = GetNextBreakpoint(false, bp.Time);
+                foreach (var prio in temp)
                 {
-                    toAdd = (long)Math.Ceiling((double)_character.magic.idleMagic / prioCount);
-                    SetInput(toAdd);
+                    if (!prio.IsCapPrio())
+                    {
+                        prioCount--;
+                    }
+
+                    prio.NextBreakpointTime = nextBP?.Time;
+                    if (prio.Allocate())
+                    {
+                        successList.Add(prio);
+                        toAdd = (long)Math.Ceiling((double)_character.magic.idleMagic / prioCount);
+                        SetInput(toAdd);
+                    }
+                    else
+                    {
+                        shouldRetry = true;
+                    }
                 }
+                temp = successList;
+                shouldRetry &= temp.Any();
             }
 
             _character.timeMachineController.updateMenu();
             _character.bloodMagicController.updateMenu();
             _character.NGUController.refreshMenu();
             _character.wandoos98Controller.refreshMenu();
-            _character.wishesController.updateMenu();
+            Main.WishManager.UpdateWishMenu();
         }
 
         public override void AllocateR3()
@@ -665,10 +605,10 @@ namespace NGUInjector.AllocationProfiles
             var temp = bp.Priorities.Where(x => x.IsValid()).ToList();
             if (temp.Count == 0)
                 return;
-            
+
             var prioCount = temp.Count(x => !x.IsCapPrio() && !(x is HackBP)) + (temp.Any(x => x is HackBP && !x.IsCapPrio()) ? 1 : 0);
             _character.removeAllRes3();
-            var toAdd = (long) Math.Ceiling((double) _character.res3.idleRes3 / prioCount);
+            var toAdd = (long)Math.Ceiling((double)_character.res3.idleRes3 / prioCount);
             SetInput(toAdd);
 
             var hackAllocated = false;
@@ -697,7 +637,7 @@ namespace NGUInjector.AllocationProfiles
             }
 
             _character.hacksController.refreshMenu();
-            _character.wishesController.updateMenu();
+            Main.WishManager.UpdateWishMenu();
         }
 
         public override void EquipGear()
@@ -719,7 +659,7 @@ namespace NGUInjector.AllocationProfiles
             _hasGearSwapped = true;
             _currentGearBreakpoint = bp;
             LoadoutManager.ChangeGear(bp.Gear);
-            Main.Controller.assignCurrentEquipToLoadout(0);
+            Main.InventoryController.assignCurrentEquipToLoadout(0);
         }
 
         public override void EquipDiggers()
@@ -738,10 +678,23 @@ namespace NGUInjector.AllocationProfiles
             if (_hasDiggerSwapped) return;
 
             if (!DiggerManager.CanSwap()) return;
-            _hasDiggerSwapped = true;
-            _currentDiggerBreakpoint = bp;
 
-            DiggerManager.EquipDiggers(bp.Diggers);
+            //Main.LogDebug($"Setting diggers from bp {bp.Time}: {string.Join(",", bp.Diggers.Select(x => x.ToString()))}");
+            
+            _hasDiggerSwapped = DiggerManager.TryEquipDiggers(bp.Diggers);
+            
+            //Main.LogDebug($"Result: {_hasDiggerSwapped}");
+
+            if (_hasDiggerSwapped)
+            {
+                Main.Log($"Equipping Diggers: {string.Join(",", bp.Diggers.Select(x => x.ToString()))}");
+                _currentDiggerBreakpoint = bp;
+            }
+            else
+            {
+                //Main.LogDebug($"Not all configured diggers enabled, retry at next loop...");
+            }
+
             _character.allDiggers.refreshMenu();
         }
 
@@ -756,7 +709,7 @@ namespace NGUInjector.AllocationProfiles
             {
                 _didConsumeConsumables = false;
             }
-            
+
             if (_didConsumeConsumables) return;
             _didConsumeConsumables = true;
             _currentConsumablesBreakpoint = bp;
@@ -769,35 +722,37 @@ namespace NGUInjector.AllocationProfiles
             if (bps == null)
                 return null;
 
-            foreach (var b in bps)
+            AllocationBreakPoint bp = GetBreakpoint(energy, _character.rebirthTime.totalseconds);
+
+            if (energy && _currentEnergyBreakpoint == null)
             {
-                var rbTime = _character.rebirthTime.totalseconds;
-                if (rbTime > b.Time)
-                {
-                    if (energy && _currentEnergyBreakpoint == null)
-                    {
-                        _currentEnergyBreakpoint = b;
-                    }
-
-                    if (!energy && _currentMagicBreakpoint == null)
-                    {
-                        _currentMagicBreakpoint = b;
-                    }
-
-                    return b;
-                }
+                _currentEnergyBreakpoint = bp;
             }
 
-            if (energy)
+            if (!energy && _currentMagicBreakpoint == null)
             {
-                _currentEnergyBreakpoint = null;
-            }
-            else
-            {
-                _currentMagicBreakpoint = null;
+                _currentMagicBreakpoint = bp;
             }
 
-            return null;
+            return bp;
+        }
+
+        private AllocationBreakPoint GetBreakpoint(bool energy, double time)
+        {
+            var bps = energy ? _wrapper?.Breakpoints?.Energy : _wrapper?.Breakpoints?.Magic;
+            if (bps == null)
+                return null;
+
+            return bps.OrderByDescending(x => x.Time).FirstOrDefault(x => x.Time <= time);
+        }
+
+        private AllocationBreakPoint GetNextBreakpoint(bool energy, double time)
+        {
+            var bps = energy ? _wrapper?.Breakpoints?.Energy : _wrapper?.Breakpoints?.Magic;
+            if (bps == null)
+                return null;
+
+            return bps.OrderByDescending(x => x.Time).LastOrDefault(x => x.Time > time);
         }
 
         private AllocationBreakPoint GetCurrentR3Breakpoint()
@@ -960,19 +915,18 @@ namespace NGUInjector.AllocationProfiles
 
             foreach (string consumable in consumableTypes)
             {
-                int index = 1;
+                int count = 1;
 
                 if (consumable.Contains(":")) // "EPOT-A:5" = 5 energy A potions
                 {
                     string[] split = consumable.Split(':');
-                    if (!int.TryParse(split[1], out index))
+                    if (!int.TryParse(split[1], out count))
                     {
-                        index = 1;
+                        count = 1;
                     }
                 }
 
-                //quantities[i++] = index;
-                quantities[i++] = 1; // default to 1 until things are working better, for now, no quantity support
+                quantities[i++] = count;
             }
 
             return quantities;

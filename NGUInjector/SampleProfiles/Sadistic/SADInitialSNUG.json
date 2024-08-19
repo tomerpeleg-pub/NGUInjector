@@ -1,0 +1,86 @@
+{
+  "Breakpoints": {
+	"Injector" : "Make sure to set the titan's gear to the HACK loadout (or disable gear swapping), we don't want the R3 cap to tank and recover every 60 minutes",
+    "Energy": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPALLBT", "CAPWAN:10", "CAPAUG-4:10", "CAPAUG-5:10", "CAPTM" ]
+      },
+      {
+        "Time": { "m": 15 },
+        "Priorities": [ "ALLNGU" ]
+      },
+      {
+        "Time": { "h": 6, "m": 15 },
+        "Priorities": [ "CAPWAN:10", "CAPAUG-4:10", "CAPAUG-5:10", "CAPTM:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "CAPWAN:10", "BR:10", "CAPTM" ]
+      },
+      {
+        "Time": { "m": 15 },
+        "Priorities": [ "ALLNGU" ]
+      },
+      {
+        "Time": { "h": 6, "m": 15 },
+        "Priorities": [ "CAPWAN:10", "CAPTM:10", "BR:10", "CAPALLNGU", "WISH-0", "WISH-1", "WISH-2", "WISH-3" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": [ "HACK-1" ]
+      }
+    ],
+    "Gear": [
+      {
+        "Time": { 0 },
+        "ID": [ 349, 319,   345, 323, 347, 311,   329, 277,   431, 333, 452, 449, 332, 331, 249, 242, 334, 328, 445, 350 ],
+        "Comment": "NGUs0EBars2NGUs + JRPGWeapon/SlinkyBoots"
+      },
+      {
+        "Time": { "m": 15 },
+        "ID": [ 349, 312,   345, 346, 347, 325,   431, 333, 452, 449, 332, 331, 249, 334, 242, 328, 445, 350, 264, 444 ],
+        "Comment": "NGUs"
+      },
+      {
+        "Time": { "h": 6, "m": 15 },
+        "ID": [ 349, 326,   345, 342, 317, 348,   136, 118, 171, 121,   446, 344, 270, 248,   430, 333, 431, 388,   452, 449 ],
+        "(Default-NGU+Wishes) Respawn4Daycare4Wishes4NguAndWishes": [ 349, 326,   345, 342, 317, 348,   136, 118, 171, 121,   446, 344, 270, 248,   430, 333, 431, 388,   452, 449 ]
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 1, 2, 3, 4, 5, 8, 9, 10, 11 ],
+        "Comment": "No drop or beards"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 2
+      },
+      {
+        "Time": { "h": 6, "m": 15 },
+        "Diff": 1
+      }
+    ],
+    "Consumables": [
+      {
+        "Time": { "m": 15 },
+        "Items": [ "EPOT-A:6", "MPOT-A:6" ]
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "Breakpoints": {
+	"Comment": "Use this profile to farm a zone after AT is high enough",
+    "Energy": [
+      {
+        "Time": { "h": 0 },
+        "Priorities": [ "NGU-4", "NGU-6" ],
+		"PrioritiesAT": [ "AT-0", "AT-1", "AT-2" ],
+        "PrioritiesAdv": [ "NGU-4", "NGU-6" ],
+        "PrioritiesPAWG": [ "NGU-0", "NGU-1", "NGU-3", "NGU-5" ]
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "BR:10", "NGU-0", "NGU-1" ],
+        "PrioritiesDefault": [ "BR:25", "NGU-0" ],
+        "Comment": "Since this is a long running mode, get some levels in Blood Magic and turn up the spell thresholds"
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": []
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 184, 222, 223, 224, 225, 443, 149, 444, 190, 161, 118, 136 ],
+        "IDRespawnNGU": [ 184, 222, 223, 224, 225, 443, 149, 444, 190, 161, 118, 136 ],
+        "IDBalancedDropsNGU": [ 221, 222, 223, 224, 225, 190, 189, 170, 142, 136, 169, 94 ],
+        "IDTitanDropsCD": [ 221, 222, 223, 224, 225, 190, 170, 169, 142, 189, 137, 91 ],
+		"MaxATGear": [ 164, 222, 223, 224, 177 ],
+		"MaxNGUGear": [ 184, 222, 223, 224, 225 ],
+		"MaxCombatGear": [ 221, 222, 223, 224, 225 ],
+        "RespawnAcc": [ 136, 118, 121 ],
+		"ATAcc": [ 138, 101, 189, 192, 442 ],
+        "NGUAcc": [ 443, 149, 444, 190, 161 ],
+		"DropAcc": [ 170, 142, 136, 169, 442 ],
+        "CDCombatAcc": [ 91, 137, 190, 170, 169, 142, 189 ],
+        "Comment": "Set gear as needed. Try and fit in as much respawn, drop chance, and NGU speed if the combat stats allow",
+        "Comment2": "If in the LRB to target farm a titan, use the settings file to specify the titan kill gear, this gear would then be entirely Respawn/NGU focused"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 1
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 3, 4, 5, 8 ],
+        "Comment": "Adv + NGU-E/M + PP",
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 0
+      }
+    ],
+    "RebirthTime": -1
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "Breakpoints": {
+    "Energy": [
+      {
+        "Time": 0,
+	    "Priorities": [ "BESTAUG" }
+      }
+    ],
+    "Magic": [
+      {
+        "Time": 0,
+        "Priorities": [ "BR" ]
+      }
+    ],
+    "R3": [
+      {
+        "Time": 0,
+        "Priorities": []
+      }
+    ],
+    "Gear": [
+      {
+        "Time": 0,
+        "ID": [ 164, 165, 166, 167, 168, 148, 149, 440, 137, 117 ],
+        "Comment": "Time Machine"
+      }
+    ],
+    "Wandoos": [
+      {
+        "Time": 0,
+        "OS": 0
+      }
+    ],
+    "Diggers": [
+      {
+        "Time": 0,
+        "List": [ 2, 3, 4, 8 ],
+        "Comment": "Stats + Adv + PP + DayCare"
+      }
+    ],
+    "NGUDiff": [
+      {
+        "Time": 0,
+        "Diff": 0
+      }
+    ],
+    "Rebirth": {
+	  "Type": "Time",
+	  "Target": { "m": 43, "s":15 },
+	  "Challenges": []
+	}
+  }
+}

@@ -22,6 +22,7 @@ namespace NGUInjector.AllocationProfiles.BreakpointTypes
         protected bool IsCap { get; set; }
         protected Character Character { get; set; }
         protected float MaxAllocation => CalculateMaxAllocation();
+        internal double? NextBreakpointTime { get; set; }
 
         protected BaseBreakpoint()
         {
